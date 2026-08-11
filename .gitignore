@@ -1,0 +1,97 @@
+# JetBrains IDE
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# Environment variables
+.env
+
+# Testing
+.pytest_cache/
+
+# Editor directories
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Dependencies & Package Managers
+# ==========================================
+node_modules/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+
+# ==========================================
+# Production & Build Outputs
+# ==========================================
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+# NEVER commit API keys, database URLs, or deployment tokens
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# ==========================================
+# IDE & Editor Files
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==========================================
+# OS Generated Files & Cache
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# Framework & Testing Caches
+# ==========================================
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+coverage/
+.vitest/

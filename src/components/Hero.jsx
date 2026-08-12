@@ -49,6 +49,24 @@ export default function Hero() {
         return () => ctx.revert();
     }, []);
 
+    // Scroll to a section without adding #section to the URL
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+
+        if (!element) return;
+
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
+        window.history.replaceState(
+            null,
+            '',
+            window.location.pathname + window.location.search
+        );
+    };
+
     return (
         <section
             id="home"
@@ -155,15 +173,7 @@ export default function Hero() {
                             "
                         />
 
-                        {/* =====================================
-                            SVG LIGHTNING
-
-                            Important optimization:
-                            - No feGaussianBlur
-                            - No expensive SVG filter
-                            - Only two lightweight paths
-                        ====================================== */}
-
+                        {/* SVG LIGHTNING */}
                         <svg
                             className="
                                 absolute
@@ -176,7 +186,6 @@ export default function Hero() {
                             aria-hidden="true"
                         >
                             <defs>
-                                {/* Electric Cyan → Purple Gradient */}
                                 <linearGradient
                                     id="lightningGrad"
                                     x1="0%"
@@ -201,10 +210,7 @@ export default function Hero() {
                                 </linearGradient>
                             </defs>
 
-                            {/* =================================
-                                MAIN ELECTRIC BEAM
-                            ================================== */}
-
+                            {/* MAIN ELECTRIC BEAM */}
                             <path
                                 className="hero-lightning-main"
                                 d="M 500,10 A 490,190 0 1,1 499.9,10"
@@ -216,13 +222,7 @@ export default function Hero() {
                                 strokeDasharray="220 780"
                             />
 
-                            {/* =================================
-                                WHITE ENERGY SPARK
-
-                                Kept lightweight by removing
-                                the SVG Gaussian blur.
-                            ================================== */}
-
+                            {/* WHITE ENERGY SPARK */}
                             <path
                                 className="hero-lightning-spark"
                                 d="M 500,10 A 490,190 0 1,1 499.9,10"
@@ -236,10 +236,7 @@ export default function Hero() {
                         </svg>
                     </div>
 
-                    {/* =========================================
-                        HEADLINE
-                    ========================================== */}
-
+                    {/* HEADLINE */}
                     <h1
                         className="
                             hero-title
@@ -273,10 +270,7 @@ export default function Hero() {
                     </h1>
                 </div>
 
-                {/* =========================================
-                    SUBTITLE
-                ========================================== */}
-
+                {/* SUBTITLE */}
                 <p
                     className="
                         hero-sub
@@ -296,10 +290,7 @@ export default function Hero() {
                     journeys tailored for forward-thinking brands.
                 </p>
 
-                {/* =========================================
-                    CTA BUTTONS
-                ========================================== */}
-
+                {/* CTA BUTTONS */}
                 <div
                     className="
                         hero-actions
@@ -312,8 +303,10 @@ export default function Hero() {
                         pt-2
                     "
                 >
-                    <a
-                        href="#contact"
+                    {/* Start Your Project */}
+                    <button
+                        type="button"
+                        onClick={() => scrollToSection('contact')}
                         className="
                             w-full
                             sm:w-auto
@@ -339,10 +332,12 @@ export default function Hero() {
                         Start Your Project
 
                         <Sparkles className="w-5 h-5" />
-                    </a>
+                    </button>
 
-                    <a
-                        href="#services"
+                    {/* Explore Work */}
+                    <button
+                        type="button"
+                        onClick={() => scrollToSection('services')}
                         className="
                             w-full
                             sm:w-auto
@@ -362,13 +357,10 @@ export default function Hero() {
                         "
                     >
                         Explore Work
-                    </a>
+                    </button>
                 </div>
 
-                {/* =========================================
-                    STATS
-                ========================================== */}
-
+                {/* STATS */}
                 <div
                     className="
                         hero-stats

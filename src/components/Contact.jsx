@@ -200,7 +200,7 @@ export default function Contact() {
                                     type="text"
                                     name="name"
                                     required
-                                    placeholder="Jane Doe"
+                                    placeholder="James Bond"
                                     className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-brand-500 transition-colors"
                                 />
                             </div>
@@ -215,7 +215,22 @@ export default function Contact() {
                                     type="email"
                                     name="email"
                                     required
-                                    placeholder="jane@company.com"
+                                    placeholder="James@company.com"
+                                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-brand-500 transition-colors"
+                                />
+                            </div>
+
+                            {/* Contact No */}
+                            <div>
+                                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+                                    Contact Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    name="contactNo"
+                                    required
+                                    placeholder="9899-999-999"
                                     className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-brand-500 transition-colors"
                                 />
                             </div>

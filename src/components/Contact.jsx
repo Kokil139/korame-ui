@@ -230,9 +230,24 @@ export default function Contact() {
                                     type="tel"
                                     name="contactNo"
                                     required
-                                    placeholder="9899-999-999"
+                                    inputMode="numeric"
+                                    autoComplete="tel"
+                                    placeholder="9899999999"
+                                    maxLength={10}
+                                    pattern="[0-9]{10}"
+                                    onInput={(e) => {
+                                        // Allow numbers only and limit to 10 digits
+                                        e.currentTarget.value = e.currentTarget.value
+                                            .replace(/\D/g, '')
+                                            .slice(0, 10);
+                                    }}
+                                    title="Please enter a valid 10-digit contact number"
                                     className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-brand-500 transition-colors"
                                 />
+
+                                <p className="text-xs text-gray-500 mt-2">
+                                    Enter a 10-digit contact number.
+                                </p>
                             </div>
 
                             {/* Message */}

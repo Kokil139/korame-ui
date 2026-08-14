@@ -77,7 +77,7 @@ export default function Navbar() {
                         onClick={(e) => handleNavigation(e, '#contact')}
                         className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-gray-200 transition-all hover:shadow-lg hover:shadow-white/10"
                     >
-                        <span>Get Free Website Audit</span>
+                        <span>Free Website Audit</span>
                         <ArrowUpRight className="w-4 h-4" />
                     </a>
 

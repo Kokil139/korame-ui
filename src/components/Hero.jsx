@@ -285,9 +285,7 @@ export default function Hero() {
                         sm:pt-14
                     "
                 >
-                    Korame engineers high-performance static sites,
-                    interactive web applications, and immersive visual
-                    journeys tailored for forward-thinking brands.
+                    We build high-performance websites and AI-powered web applications that help businesses grow.
                 </p>
 
                 {/* CTA BUTTONS */}

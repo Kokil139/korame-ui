@@ -51,8 +51,12 @@ src/
                          CodeTypewriter, ScreenBoot, useScrollVelocityFactor
   components/*.jsx       the page sections
 scripts/
-  generate-assets.mjs      og-image.png + apple-touch-icon.png
-  generate-artwork.mjs     public/art/*.webp tile artwork
+  generate-assets.mjs        og-image.png + apple-touch-icon.png
+  generate-artwork.mjs       the artwork itself: stage() + motifs, and the
+                             public/art/*.webp stills. Exports stage()/PIECES.
+  generate-artwork-motion.mjs public/art/*.webm looping clips, from the same
+                             stage() — so a clip and its poster cannot drift
+  lib/webm.mjs               WebM muxer (see "Encoding video with no ffmpeg")
   generate-faq-schema.mjs  FAQPage JSON-LD, from the FAQS array
 ```
 
@@ -257,9 +261,25 @@ manifest exists because a `<video>` whose `<source>` 404s still fires the
 request, so letting the component try-and-fail would log a network error for
 every still tile on every page load.
 
-The `.webp` files currently there are **generated placeholders** from
-`npm run artwork` (`scripts/generate-artwork.mjs`) — edit that script, never
-the WebP files. Replace them with real work when you have it.
+The `.webp` stills **and** the `.webm` clips are **generated placeholders**
+from `npm run artwork` — edit `scripts/generate-artwork.mjs`, never the output
+files. Replace them with real work when you have it.
+
+Clips are 960x600 (the tile's own 16:10, so `object-cover` crops nothing),
+5s at 12fps, silent, ~2.4MB for all eight.
+
+**Motion is written as displacement, so the loop cannot show a seam.** Every
+animated term in `generate-artwork.mjs` is built from `dsin`/`dcos` — which
+return the offset *from* the resting position and so are exactly 0 at t=0 for
+any phase — or from `env(t)`, a `sin^2` envelope that is 0 at both ends and
+carries the travelling highlights. Two properties fall out and are worth
+keeping: rendering at t=0 reproduces the still byte for byte (so the poster and
+frame 0 can never drift), and the wrap is just another frame — measured at
+0.5-1.3 grey levels against 2.2-9.4 for an ordinary mid-loop step.
+
+Adding a `rand()` call inside a motif reshuffles every later draw and silently
+relays out the whole piece. Derive per-element phase from geometry with
+`phaseOf(x, y)` instead — that is why it exists.
 
 `TileImage` handles playback: muted + `playsInline` (iOS refuses inline
 autoplay otherwise), play/pause driven by an IntersectionObserver so
@@ -270,6 +290,27 @@ touch, where hover tilt and hover zoom do nothing.
 **Animated WebP/GIF also works** if dropped in as `<name>.webp`, since an
 `<img>` plays it — but it cannot be paused, so it ignores
 `prefers-reduced-motion`. Prefer video.
+
+## Encoding video with no ffmpeg
+
+This machine has no ffmpeg, no ImageMagick and no encoder library, and adding
+one for a build-time asset step was not justified. `scripts/lib/webm.mjs`
+closes the gap: a lossy WebP file *is* a single VP8 keyframe in a RIFF
+wrapper, so `sharp` is used as the video encoder — each frame is encoded to
+WebP, the `VP8 ` chunk is unwrapped, and the frames are muxed straight into a
+WebM container. `npm run artwork` therefore regenerates the clips with no new
+dependency and no external tool.
+
+The trade-off is that every frame is a keyframe: no inter-frame prediction, so
+size scales with resolution x fps x duration far more steeply than a real
+encode. It is affordable only because the artwork is dark, flat and
+gradient-based (~4-6KB a frame). **Re-measure before raising `SIZE`, `FPS` or
+`QUALITY`** in `generate-artwork-motion.mjs`. One upside: every frame is
+independently decodable, so looping and seeking never stall.
+
+Encode opaque and non-animated. An alpha channel or animation makes libwebp
+emit `VP8X` rather than a bare `VP8 ` chunk, and `vp8FromWebP` rejects it
+rather than write a file that will not decode.
 
 ## Live audit tool
 

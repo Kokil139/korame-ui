@@ -1,0 +1,5 @@
+# https://korame.in
+User-agent: *
+Allow: /
+
+Sitemap: https://korame.in/sitemap.xml

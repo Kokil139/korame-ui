@@ -1,452 +1,256 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import { Sparkles } from 'lucide-react';
-import gsap from 'gsap';
+import { useRef } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import {
+    motion,
+    useScroll,
+    useTransform,
+    useReducedMotion,
+} from 'motion/react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import Aurora from '@/components/motion/Aurora';
+import Magnetic from '@/components/motion/Magnetic';
+import CountUp from '@/components/motion/CountUp';
+import { springSnap, springSoft } from '@/lib/motion';
+
+const STATS = [
+    { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime & speed' },
+    { value: 50, suffix: '+', decimals: 0, label: 'Projects delivered' },
+    { value: 100, prefix: '<', suffix: 'ms', decimals: 0, label: 'Interaction latency' },
+    { value: 100, suffix: '%', decimals: 0, label: 'Client satisfaction' },
+];
+
+/* Headline words, revealed as a staggered 3D card flip. */
+const LINE_ONE = ['We', 'build', 'web', 'solutions', 'that'];
+
+const wordVariants = {
+    hidden: { opacity: 0, y: 34, rotateX: -55 },
+    visible: { opacity: 1, y: 0, rotateX: 0, transition: springSnap },
+};
 
 export default function Hero() {
-    const comp = useRef(null);
+    const ref = useRef(null);
+    const reduced = useReducedMotion();
 
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-            const tl = gsap.timeline();
+    /* Scroll-linked depth: the headline layer drifts up and dims slightly
+       faster than the page, which reads as parallax without a scroll handler.
+       Both offsets sit inside [0,1], so no clamping is needed here. */
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start start', 'end start'],
+    });
 
-            tl.from('.hero-title-container', {
-                scale: 0.9,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            })
-                .from(
-                    '.hero-sub',
-                    {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    },
-                    '-=0.6'
-                )
-                .from(
-                    '.hero-actions',
-                    {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    },
-                    '-=0.6'
-                )
-                .from(
-                    '.hero-stats',
-                    {
-                        opacity: 0,
-                        duration: 1,
-                        ease: 'power3.out'
-                    },
-                    '-=0.4'
-                );
-        }, comp);
+    const contentY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+    const ringScale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
 
-        return () => ctx.revert();
-    }, []);
-
-    // Scroll to a section without adding #section to the URL
-    const scrollToSection = (id) => {
-        const element = document.getElementById(id);
-
-        if (!element) return;
-
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-
-        window.history.replaceState(
-            null,
-            '',
-            window.location.pathname + window.location.search
-        );
-    };
+    const depthStyle = reduced ? undefined : { y: contentY, opacity: contentOpacity };
 
     return (
         <section
             id="home"
-            ref={comp}
-            className="
-                min-h-[90vh]
-                flex
-                items-center
-                justify-center
-                relative
-                px-6
-                py-20
-                glow-bg-1
-                overflow-hidden
-            "
+            ref={ref}
+            className="relative flex min-h-[92vh] items-center justify-center overflow-hidden px-6 pb-24 pt-32 sm:pt-36"
         >
-            {/* Lightning animation */}
-            <style>{`
-                @keyframes lightningFlow {
-                    0% {
-                        stroke-dashoffset: 0;
-                    }
+            <Aurora grid intensity="medium" />
 
-                    100% {
-                        stroke-dashoffset: -1000;
-                    }
-                }
+            <motion.div
+                style={depthStyle}
+                className="relative mx-auto max-w-5xl text-center"
+            >
+                {/* ---------------------------------------------------------
+                    Eyebrow
+                   --------------------------------------------------------- */}
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ ...springSnap, delay: 0.05 }}
+                >
+                    <Badge variant="glass" className="mb-14 sm:mb-20">
+                        <span className="relative flex size-1.5">
+                            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-400 opacity-75" />
+                            <span className="relative inline-flex size-1.5 rounded-full bg-brand-400" />
+                        </span>
+                        Available for new projects
+                    </Badge>
+                </motion.div>
 
-                .hero-lightning-main {
-                    animation: lightningFlow 3.2s linear infinite;
-                }
-
-                .hero-lightning-spark {
-                    animation: lightningFlow 3.2s linear infinite;
-                }
-
-                /*
-                 * Mobile optimization:
-                 * Slower animation = less visual work over time.
-                 */
-                @media (max-width: 640px) {
-                    .hero-lightning-main {
-                        animation-duration: 4s;
-                    }
-
-                    .hero-lightning-spark {
-                        animation-duration: 4s;
-                    }
-
-                    .hero-ambient-ring {
-                        box-shadow: 0 0 45px rgba(99, 102, 241, 0.22);
-                    }
-                }
-
-                /*
-                 * Accessibility:
-                 * Disable continuous animation when the user
-                 * has requested reduced motion.
-                 */
-                @media (prefers-reduced-motion: reduce) {
-                    .hero-lightning-main,
-                    .hero-lightning-spark {
-                        animation: none !important;
-                    }
-                }
-            `}</style>
-
-            <div className="max-w-5xl mx-auto text-center space-y-8 relative">
-
-                {/* =========================================
-                    HERO TITLE + GLOWING OVAL
-                ========================================== */}
-
-                <div className="hero-title-container relative inline-block w-full">
-
-                    {/* Glowing Oval */}
-                    <div
-                        className="
-                            absolute
-                            -inset-y-8
-                            sm:-inset-y-12
-                            lg:-inset-y-14
-                            -inset-x-8
-                            sm:-inset-x-16
-                            lg:-inset-x-24
-                            pointer-events-none
-                            flex
-                            items-center
-                            justify-center
-                        "
+                {/* ---------------------------------------------------------
+                    Headline + the signature glowing lightning ring
+                   --------------------------------------------------------- */}
+                <div className="relative">
+                    {/* Ring layer — kept from the original build, rebuilt to
+                        scale with scroll and sit on its own composited layer. */}
+                    <motion.div
+                        aria-hidden="true"
+                        style={reduced ? undefined : { scale: ringScale }}
+                        /* -z-10 keeps the travelling arc behind the eyebrow
+                           and headline; without it the arc paints over the
+                           badge each time it comes round. It stays inside
+                           this section's stacking context, which Motion's
+                           transform on the parent already establishes. */
+                        className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10 flex items-center justify-center sm:-inset-x-16 sm:-inset-y-14 lg:-inset-x-28"
                     >
+                        <div className="absolute inset-0 rounded-[100%] border border-brand-500/30 shadow-[0_0_60px_-10px_color-mix(in_oklch,var(--brand-500)_55%,transparent),inset_0_0_80px_-30px_color-mix(in_oklch,var(--brand-400)_60%,transparent)]" />
 
-                        {/* Ambient Glow Ring */}
-                        <div
-                            className="
-                                hero-ambient-ring
-                                absolute
-                                inset-0
-                                rounded-[100%]
-                                border
-                                border-brand-500/35
-                                shadow-[0_0_55px_rgba(99,102,241,0.25)]
-                                sm:shadow-[0_0_80px_rgba(99,102,241,0.3)]
-                            "
-                        />
-
-                        {/* SVG LIGHTNING */}
                         <svg
-                            className="
-                                absolute
-                                w-full
-                                h-full
-                                overflow-visible
-                            "
+                            className="absolute size-full overflow-visible"
                             viewBox="0 0 1000 400"
                             preserveAspectRatio="none"
                             aria-hidden="true"
                         >
                             <defs>
-                                <linearGradient
-                                    id="lightningGrad"
-                                    x1="0%"
-                                    y1="0%"
-                                    x2="100%"
-                                    y2="100%"
-                                >
-                                    <stop
-                                        offset="0%"
-                                        stopColor="#38bdf8"
-                                    />
-
-                                    <stop
-                                        offset="50%"
-                                        stopColor="#818cf8"
-                                    />
-
-                                    <stop
-                                        offset="100%"
-                                        stopColor="#c084fc"
-                                    />
+                                <linearGradient id="korame-arc" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="var(--cyan-glow)" />
+                                    <stop offset="50%" stopColor="var(--brand-400)" />
+                                    <stop offset="100%" stopColor="var(--violet-glow)" />
                                 </linearGradient>
+                                <filter id="korame-arc-glow" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feGaussianBlur stdDeviation="6" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
                             </defs>
 
-                            {/* MAIN ELECTRIC BEAM */}
+                            {/* Travelling energy arc */}
                             <path
-                                className="hero-lightning-main"
+                                className="animate-orbit"
                                 d="M 500,10 A 490,190 0 1,1 499.9,10"
                                 fill="none"
-                                stroke="url(#lightningGrad)"
+                                stroke="url(#korame-arc)"
                                 strokeWidth="4"
                                 strokeLinecap="round"
                                 pathLength="1000"
                                 strokeDasharray="220 780"
+                                filter="url(#korame-arc-glow)"
                             />
 
-                            {/* WHITE ENERGY SPARK */}
+                            {/* Bright leading spark */}
                             <path
-                                className="hero-lightning-spark"
+                                className="animate-orbit"
                                 d="M 500,10 A 490,190 0 1,1 499.9,10"
                                 fill="none"
-                                stroke="#ffffff"
+                                stroke="oklch(1 0 0)"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 pathLength="1000"
                                 strokeDasharray="45 955"
                             />
                         </svg>
-                    </div>
+                    </motion.div>
 
-                    {/* HEADLINE */}
-                    <h1
-                        className="
-                            hero-title
-                            relative
-                            z-10
-                            text-5xl
-                            md:text-7xl
-                            lg:text-8xl
-                            font-heading
-                            font-extrabold
-                            tracking-tight
-                            leading-[1.08]
-                            py-4
-                        "
-                    >
-                        We Build Web Solutions That{' '}
-                        <br className="hidden sm:inline" />
-
-                        <span
-                            className="
-                                text-transparent
-                                bg-clip-text
-                                bg-gradient-to-r
-                                from-brand-500
-                                via-indigo-300
-                                to-brand-accent
-                            "
+                    <h1 className="relative z-10 text-balance font-heading text-[2.5rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-[4.5rem]">
+                        {/* Word-level 3D flip-in. The perspective lives on the
+                            container so all words share one camera. */}
+                        <motion.span
+                            className="block perspective-far"
+                            initial={reduced ? undefined : 'hidden'}
+                            animate={reduced ? undefined : 'visible'}
+                            transition={{ delayChildren: 0.12, staggerChildren: 0.055 }}
                         >
-                            Captivate & Convert.
-                        </span>
+                            {LINE_ONE.map((word, i) => (
+                                <motion.span
+                                    key={i}
+                                    variants={reduced ? undefined : wordVariants}
+                                    className="mr-[0.25em] inline-block origin-bottom will-change-transform"
+                                >
+                                    {word}
+                                </motion.span>
+                            ))}
+                        </motion.span>
+
+                        <motion.span
+                            initial={reduced ? undefined : { opacity: 0, y: 24, filter: 'blur(12px)' }}
+                            animate={reduced ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+                            transition={{ ...springSoft, delay: 0.42 }}
+                            className="mt-1 block text-gradient-brand"
+                        >
+                            Captivate &amp; Convert.
+                        </motion.span>
                     </h1>
                 </div>
 
-                {/* SUBTITLE */}
-                <p
-                    className="
-                        hero-sub
-                        text-lg
-                        md:text-2xl
-                        text-gray-400
-                        max-w-3xl
-                        mx-auto
-                        font-light
-                        leading-relaxed
-                        pt-8
-                        sm:pt-14
-                    "
+                {/* ---------------------------------------------------------
+                    Subtitle
+                   --------------------------------------------------------- */}
+                <motion.p
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ ...springSnap, delay: 0.55 }}
+                    className="mx-auto mt-12 max-w-2xl text-pretty text-lg font-light leading-relaxed text-muted-foreground sm:mt-16 md:text-xl"
                 >
-                    We build high-performance websites and AI-powered web applications that help businesses grow.
-                </p>
+                    We build high-performance websites and AI-powered web applications
+                    that help businesses grow.
+                </motion.p>
 
-                {/* CTA BUTTONS */}
-                <div
-                    className="
-                        hero-actions
-                        flex
-                        flex-col
-                        sm:flex-row
-                        items-center
-                        justify-center
-                        gap-4
-                        pt-2
-                    "
+                {/* ---------------------------------------------------------
+                    Actions
+                   --------------------------------------------------------- */}
+                <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ ...springSnap, delay: 0.62 }}
+                    className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4"
                 >
-                    {/* Start Your Project */}
-                    <button
-                        type="button"
-                        onClick={() => scrollToSection('contact')}
-                        className="
-                            w-full
-                            sm:w-auto
-                            px-8
-                            py-4
-                            rounded-full
-                            bg-gradient-to-r
-                            from-brand-600
-                            to-brand-500
-                            text-white
-                            font-bold
-                            text-lg
-                            hover:opacity-90
-                            transition-all
-                            shadow-xl
-                            shadow-brand-500/25
-                            flex
-                            items-center
-                            justify-center
-                            gap-2
-                        "
-                    >
-                        Start Your Project
+                    <Magnetic className="w-full sm:w-auto">
+                        <Button
+                            asChild
+                            variant="primary"
+                            size="lg"
+                            className="group w-full sm:w-auto"
+                        >
+                            <a href="#contact">
+                                Start your project
+                                <Sparkles className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+                            </a>
+                        </Button>
+                    </Magnetic>
 
-                        <Sparkles className="w-5 h-5" />
-                    </button>
+                    <Magnetic className="w-full sm:w-auto" strength={0.18}>
+                        <Button
+                            asChild
+                            variant="glass"
+                            size="lg"
+                            className="group w-full sm:w-auto"
+                        >
+                            <a href="#services">
+                                Explore work
+                                <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                            </a>
+                        </Button>
+                    </Magnetic>
+                </motion.div>
 
-                    {/* Explore Work */}
-                    <button
-                        type="button"
-                        onClick={() => scrollToSection('services')}
-                        className="
-                            w-full
-                            sm:w-auto
-                            px-8
-                            py-4
-                            rounded-full
-                            glass-card
-                            text-white
-                            font-semibold
-                            text-lg
-                            hover:bg-white/10
-                            transition-all
-                            flex
-                            items-center
-                            justify-center
-                            gap-2
-                        "
-                    >
-                        Explore Work
-                    </button>
-                </div>
-
-                {/* STATS */}
-                <div
-                    className="
-                        hero-stats
-                        pt-16
-                        grid
-                        grid-cols-2
-                        md:grid-cols-4
-                        gap-6
-                        max-w-4xl
-                        mx-auto
-                        border-t
-                        border-white/10
-                    "
+                {/* ---------------------------------------------------------
+                    Stats
+                   --------------------------------------------------------- */}
+                <motion.dl
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.75 }}
+                    className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-8 border-t border-border pt-10 sm:mt-20 md:grid-cols-4"
                 >
-                    <div>
-                        <div
-                            className="
-                                text-3xl
-                                md:text-4xl
-                                font-heading
-                                font-bold
-                                text-white
-                            "
-                        >
-                            99.9%
+                    {STATS.map((stat) => (
+                        <div key={stat.label} className="group">
+                            <dt className="sr-only">{stat.label}</dt>
+                            <dd>
+                                <CountUp
+                                    value={stat.value}
+                                    prefix={stat.prefix}
+                                    suffix={stat.suffix}
+                                    decimals={stat.decimals}
+                                    className="block font-heading text-3xl font-bold tabular-nums text-foreground transition-colors duration-300 group-hover:text-brand-300 md:text-4xl"
+                                />
+                                <span className="mt-1.5 block text-sm text-muted-foreground">
+                                    {stat.label}
+                                </span>
+                            </dd>
                         </div>
-
-                        <div className="text-sm text-gray-400 mt-1">
-                            Uptime & Speed
-                        </div>
-                    </div>
-
-                    <div>
-                        <div
-                            className="
-                                text-3xl
-                                md:text-4xl
-                                font-heading
-                                font-bold
-                                text-white
-                            "
-                        >
-                            50+
-                        </div>
-
-                        <div className="text-sm text-gray-400 mt-1">
-                            Projects Delivered
-                        </div>
-                    </div>
-
-                    <div>
-                        <div
-                            className="
-                                text-3xl
-                                md:text-4xl
-                                font-heading
-                                font-bold
-                                text-white
-                            "
-                        >
-                            &lt;100ms
-                        </div>
-
-                        <div className="text-sm text-gray-400 mt-1">
-                            Interaction Latency
-                        </div>
-                    </div>
-
-                    <div>
-                        <div
-                            className="
-                                text-3xl
-                                md:text-4xl
-                                font-heading
-                                font-bold
-                                text-white
-                            "
-                        >
-                            100%
-                        </div>
-
-                        <div className="text-sm text-gray-400 mt-1">
-                            Client Satisfaction
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                    ))}
+                </motion.dl>
+            </motion.div>
         </section>
     );
 }

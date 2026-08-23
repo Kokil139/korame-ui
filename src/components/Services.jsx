@@ -1,124 +1,126 @@
-import React from 'react';
-import { ShoppingCart, Sparkles, Globe } from 'lucide-react';
+import { ShoppingCart, Sparkles, Globe, ArrowUpRight } from 'lucide-react';
+import Reveal from '@/components/motion/Reveal';
+import TiltCard from '@/components/motion/TiltCard';
+import Aurora from '@/components/motion/Aurora';
+import TileImage from '@/components/motion/TileImage';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 
+const SERVICES = [
+    {
+        icon: ShoppingCart,
+        tone: 'text-brand-300 bg-brand-500/15 border-brand-500/25',
+        art: 'service-commerce',
+        artAlt: 'Layered storefront interfaces receding in isometric space',
+        title: 'Full-stack & e-commerce',
+        desc: 'End-to-end builds, from high-converting storefronts to scalable web applications with secure payment gateways and frictionless checkout.',
+        tags: ['E-commerce', 'Full-stack apps', 'Payment integration'],
+    },
+    {
+        icon: Sparkles,
+        tone: 'text-cyan-glow bg-cyan-glow/15 border-cyan-glow/25',
+        art: 'service-design',
+        artAlt: 'Overlapping translucent colour discs beside a type scale',
+        title: 'Bespoke UI/UX & motion',
+        desc: 'Custom design systems and high-frame-rate scroll choreography tuned to your brand — built to hold attention and convert it.',
+        tags: ['Design systems', 'Motion design', 'Conversion optimisation'],
+    },
+    {
+        icon: Globe,
+        tone: 'text-violet-glow bg-violet-glow/15 border-violet-glow/25',
+        art: 'service-seo',
+        artAlt: 'A glowing node graph representing search and distribution',
+        title: 'Hosting, domains & SEO',
+        desc: 'The whole technical footing: domain configuration, cloud hosting, SSL, structured data and Core Web Vitals tuned for search visibility.',
+        tags: ['Domain setup', 'Cloud hosting', 'Technical SEO'],
+    },
+];
+
+/**
+ * Capability cards.
+ *
+ * The old version pulled three Unsplash photos plus a 2000px background image
+ * — roughly 1.5MB of decorative network requests on a page whose pitch is
+ * sub-second loads. They are replaced with generated CSS/SVG artwork: no
+ * requests, no layout shift, and it themes with the design tokens.
+ */
 export default function Services() {
-    const servicesData = [
-        {
-            icon: <ShoppingCart className="w-5 h-5 text-brand-500" />,
-            bg: 'bg-brand-500/20',
-            image: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=800&auto=format&fit=crop',
-            title: 'Full-Stack & E-Commerce',
-            desc: 'End-to-end digital solutions from high-converting e-commerce storefronts to scalable web applications with secure payment gateways and smooth checkout flows.',
-            tags: ['E-Commerce', 'Full-Stack Apps', 'Payment Integration']
-        },
-        {
-            icon: <Sparkles className="w-5 h-5 text-cyan-400" />,
-            bg: 'bg-cyan-500/20',
-            image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop',
-            title: 'Bespoke UI/UX & Motion',
-            desc: 'Custom design systems and high-frame-rate GSAP scroll animations tailored to your brand identity, built to captivate visitors and drive conversions.',
-            tags: ['Figma Design', 'GSAP Motion', 'Conversion Optimization']
-        },
-        {
-            icon: <Globe className="w-5 h-5 text-purple-400" />,
-            bg: 'bg-purple-500/20',
-            image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop',
-            title: 'Hosting, Domains & SEO',
-            desc: 'Complete technical setup including domain configuration, high-speed cloud hosting, SSL certificates, and built-in SEO optimization for maximum search visibility.',
-            tags: ['Domain Setup', 'Cloud Hosting', 'SEO Enabled']
-        }
-    ];
-
     return (
-        <section id="services" className="py-28 px-6 relative overflow-hidden bg-[#08090d]">
+        <section id="services" className="relative overflow-hidden px-6 py-28 sm:py-36">
+            <Aurora intensity="soft" grid />
 
-            {/* Embedded Keyframes for Continuous Background Zoom */}
-            <style>{`
-                @keyframes bgSlowZoom {
-                    0% {
-                        transform: scale(1);
-                    }
-                    100% {
-                        transform: scale(1.15);
-                    }
-                }
-            `}</style>
+            <div className="relative mx-auto max-w-7xl">
+                <div className="text-center">
+                    <Reveal>
+                        <Badge>Capabilities</Badge>
+                    </Reveal>
 
-            {/* =========================================================
-               1. THEMED DARK BACKGROUND IMAGE (DARK & MATCHING)
-               ========================================================= */}
-            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                {/* Dark Abstract Network Nodes Image */}
-                <img
-                    src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2000&auto=format&fit=crop"
-                    alt="Dark Tech Background"
-                    className="w-full h-full object-cover opacity-20 filter brightness-75 contrast-125 saturate-50 mix-blend-screen"
-                    style={{
-                        animation: 'bgSlowZoom 18s ease-in-out infinite alternate'
-                    }}
-                />
+                    <Reveal delay={0.06}>
+                        <h2 className="mt-6 text-balance font-heading text-4xl font-bold tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
+                            What we <span className="text-gradient-brand">build for you</span>
+                        </h2>
+                    </Reveal>
 
-                {/* Ambient Brand Glow Spotlights */}
-                <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[140px]"></div>
-                <div className="absolute bottom-10 right-1/4 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
-
-                {/* Dark Gradient Vignette Overlay to blend seamlessly with surrounding sections */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#08090d] via-[#08090d]/80 to-[#08090d]"></div>
-            </div>
-
-            {/* =========================================================
-               2. MAIN CONTENT & CAPABILITY CARDS
-               ========================================================= */}
-            <div className="max-w-7xl mx-auto space-y-16 relative z-10">
-                <div className="text-center space-y-4 gsap-reveal">
-                    <span className="text-brand-500 font-semibold tracking-wider uppercase text-sm">Capabilities</span>
-                    <h2 className="text-4xl md:text-6xl font-heading font-bold text-white">What we build for you</h2>
+                    <Reveal delay={0.12}>
+                        <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted-foreground">
+                            Three services, one standard. Everything ships fast, accessible
+                            and search-ready.
+                        </p>
+                    </Reveal>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {servicesData.map((item, idx) => (
-                        /* Outer GSAP Wrapper */
-                        <div key={idx} className="gsap-reveal">
-                            <div className="glass-card rounded-3xl overflow-hidden group transform hover:-translate-y-2 hover:scale-[1.03] hover:border-brand-500/50 hover:shadow-2xl hover:shadow-brand-500/25 transition-all duration-300 ease-out cursor-pointer h-full backdrop-blur-xl bg-[#0c0e17]/80 border border-white/10 flex flex-col">
+                <div className="mt-16 grid gap-7 md:grid-cols-3">
+                    {SERVICES.map((item, i) => (
+                        <Reveal key={item.title} className="h-full" delay={i * 0.1} y={36}>
+                            <TiltCard
+                                className="h-full"
+                                wrapperClassName="h-full"
+                                intensity={8}
+                                lift={12}
+                            >
+                                <Card className="group flex h-full flex-col overflow-hidden p-0">
+                                    <TileImage
+                                        name={item.art}
+                                        alt={item.artAlt}
+                                        className="h-48 border-b border-border"
+                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                    >
+                                        {/* Icon badge, lifted on hover */}
+                                        <span
+                                            className={`absolute bottom-5 left-6 grid size-12 place-items-center rounded-2xl border border-border bg-card/90 backdrop-blur-xl ${item.tone.split(" ")[0]} shadow-lg transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 group-hover:scale-105`}
+                                        >
+                                            <item.icon className="size-5" aria-hidden="true" />
+                                        </span>
 
-                                {/* Card Header Image with Zoom on Hover */}
-                                <div className="relative h-48 w-full overflow-hidden bg-white/5">
-                                    <img
-                                        src={item.image}
-                                        alt={item.title}
-                                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100 filter brightness-90 saturate-90"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e17] via-[#0c0e17]/40 to-transparent"></div>
+                                        <ArrowUpRight className="absolute right-6 top-6 size-5 text-white/70 opacity-0 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                                    </TileImage>
 
-                                    {/* Floating Icon Badge */}
-                                    <div className={`absolute bottom-4 left-6 w-10 h-10 rounded-xl ${item.bg} backdrop-blur-md flex items-center justify-center border border-white/10 shadow-lg`}>
-                                        {item.icon}
+                                    {/* -------------------------------------
+                                        Body
+                                       ------------------------------------- */}
+                                    <div className="flex flex-1 flex-col justify-between gap-6 p-7">
+                                        <div>
+                                            <h3 className="font-heading text-2xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-brand-200">
+                                                {item.title}
+                                            </h3>
+                                            <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground">
+                                                {item.desc}
+                                            </p>
+                                        </div>
+
+                                        <ul className="flex flex-wrap gap-2">
+                                            {item.tags.map((tag) => (
+                                                <li key={tag}>
+                                                    <Badge variant="outline" size="sm">
+                                                        {tag}
+                                                    </Badge>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
-                                </div>
-
-                                {/* Card Body */}
-                                <div className="p-8 pt-4 space-y-4 flex-1 flex flex-col justify-between">
-                                    <div className="space-y-3">
-                                        <h3 className="text-2xl font-heading font-bold text-white group-hover:text-brand-400 transition-colors duration-300">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-gray-400 leading-relaxed text-sm">{item.desc}</p>
-                                    </div>
-
-                                    <div className="flex flex-wrap gap-2 pt-2">
-                                        {item.tags.map((tag, tIdx) => (
-                                            <span
-                                                key={tIdx}
-                                                className="text-xs px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/5 group-hover:border-white/10 transition-colors"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                                </Card>
+                            </TiltCard>
+                        </Reveal>
                     ))}
                 </div>
             </div>

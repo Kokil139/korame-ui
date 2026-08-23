@@ -1,16 +1,239 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Korame | Next-Gen Web Development & Digital Experiences</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <!--
+      Theme, applied before first paint.
+
+      This is deliberately a blocking inline script. Deciding the theme in
+      React instead would let the browser paint the default palette first,
+      producing a white flash for dark-mode users on every navigation. It
+      also stamps the matching theme-color so the mobile browser chrome
+      agrees with the page.
+    -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('korame-theme');
+                var dark =
+                    stored === 'dark' ||
+                    ((stored === 'system' || !stored) &&
+                        window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (dark) document.documentElement.classList.add('dark');
+                var meta = document.createElement('meta');
+                meta.name = 'theme-color';
+                meta.content = dark ? '#08090d' : '#f7f8fa';
+                document.head.appendChild(meta);
+            } catch (e) {
+                /* Blocked storage — fall through to the light default. */
+            }
+        })();
+    </script>
+
+    <!-- Primary -->
+    <title>Korame — Web Design &amp; Development Agency | Fast, Animated Websites</title>
+    <meta name="description" content="Korame is a web studio building high-performance websites, e-commerce storefronts and AI-powered web apps. Bespoke UI/UX, sub-second load times and SEO built in from day one." />
+    <link rel="canonical" href="https://korame.in/" />
+    <meta name="author" content="Korame" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Korame" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:url" content="https://korame.in/" />
+    <meta property="og:title" content="Korame — Web Design &amp; Development Agency" />
+    <meta property="og:description" content="High-performance websites, e-commerce storefronts and AI-powered web apps. Bespoke UI/UX, sub-second load times and SEO built in from day one." />
+    <meta property="og:image" content="https://korame.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Korame — we build web solutions that captivate and convert." />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Korame — Web Design &amp; Development Agency" />
+    <meta name="twitter:description" content="High-performance websites, e-commerce storefronts and AI-powered web apps. Bespoke UI/UX, sub-second load times and SEO built in from day one." />
+    <meta name="twitter:image" content="https://korame.in/og-image.png" />
+
+    <!--
+      Organisation + site identity. Kept in the document head rather than
+      injected at runtime so it is present for crawlers that do not execute
+      JavaScript.
+
+      NOTE: the priceRange values below mirror src/components/Pricing.jsx.
+      Both are placeholders. Quoting a price to search engines that you do
+      not honour is worse than quoting none — set real figures in both
+      places, or remove the Offer entries.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://korame.in/#organization",
+          "name": "Korame",
+          "alternateName": "Korame Web Agency",
+          "url": "https://korame.in/",
+          "logo": "https://korame.in/favicon.svg",
+          "image": "https://korame.in/og-image.png",
+          "description": "Web design and development studio building high-performance websites, e-commerce storefronts and AI-powered web applications.",
+          "email": "letsbuild@korame.in",
+          "telephone": "+91-88260-30869",
+          "priceRange": "₹₹",
+          "areaServed": { "@type": "Place", "name": "Worldwide" },
+          "address": { "@type": "PostalAddress", "addressCountry": "IN" },
+          "sameAs": ["https://www.instagram.com/korame.in/"],
+          "knowsAbout": [
+            "Web development",
+            "E-commerce development",
+            "UI/UX design",
+            "Motion design",
+            "Technical SEO",
+            "Cloud hosting"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Web engagements",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Launch",
+                "priceCurrency": "INR",
+                "price": "45000",
+                "description": "A fast, credible presence for a new business or a product launch. Up to 5 pages, bespoke design, on-page SEO and hosting setup.",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Website design and development",
+                  "serviceType": "Web design"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "Scale",
+                "priceCurrency": "INR",
+                "price": "120000",
+                "description": "Custom design system, motion choreography, CMS, technical SEO and performance budgets enforced in CI.",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Design system and web application build",
+                  "serviceType": "Web development"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "Partner",
+                "priceCurrency": "INR",
+                "description": "An embedded frontend team on a monthly retainer for ongoing product and growth work.",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Ongoing frontend engineering retainer",
+                  "serviceType": "Web development"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://korame.in/#website",
+          "url": "https://korame.in/",
+          "name": "Korame",
+          "publisher": { "@id": "https://korame.in/#organization" },
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      FAQPage schema. GENERATED — do not edit by hand.
+      Source of truth is the FAQS array in src/components/Faq.jsx.
+      Regenerate with `npm run faq-schema` (also runs in `npm run assets`).
+    -->
+    <!-- FAQ_SCHEMA:START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://korame.in/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does a website take to build?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A focused marketing site is typically 3–4 weeks from kickoff to launch. Larger builds with a custom design system, CMS or e-commerce run 6–10 weeks. We agree the timeline in the discovery stage and you see working software at the end of every stage, so progress is never a surprise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the free website audit actually include?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We run your current site through Core Web Vitals and Lighthouse, check the technical SEO basics — indexability, structured data, metadata, heading structure, broken links — and review the conversion path. You get a written summary of what is costing you traffic or sales, whether or not you hire us."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work with clients outside India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We are remote-first and work with founders across time zones. Most collaboration happens asynchronously over shared documents and previews, with a weekly call scheduled in a window that suits you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will I be able to edit the content myself?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On Scale and Partner engagements, yes — we integrate a headless CMS so you can edit copy, images and pages without touching code. On Launch projects content edits come back to us, which keeps that tier cheaper; you can add a CMS later without a rebuild."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after the site launches?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every engagement includes a support window — 30 days on Launch, 90 on Scale — covering bug fixes and small adjustments. After that you can move to a retainer, or simply own the code outright. There is no lock-in: the repository is yours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why not just use a website builder or a template?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a simple brochure site, a builder is often the right call and we will tell you so. What builders cannot give you is a distinctive design, a fast bespoke frontend, or fine control over technical SEO and accessibility. If those things affect your revenue, a handcrafted build pays for itself."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you handle hosting and domains?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — domain registration or transfer, DNS, SSL certificates and cloud hosting are configured as part of every project. We prefer static or edge-rendered deployments, which are fast and inexpensive to run. You own every account; we are never a middleman on your infrastructure."
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- FAQ_SCHEMA:END -->
 </head>
-<body class="bg-[#08090d] text-gray-100 overflow-x-hidden antialiased">
+<body>
 <div id="root"></div>
+<noscript>
+    <div style="max-width:40rem;margin:4rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;">
+        <h1>Korame — web design &amp; development agency</h1>
+        <p>We build high-performance websites and AI-powered web applications that help businesses grow. This site needs JavaScript enabled; you can also reach us directly at <a href="mailto:letsbuild@korame.in">letsbuild@korame.in</a>.</p>
+    </div>
+</noscript>
 <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

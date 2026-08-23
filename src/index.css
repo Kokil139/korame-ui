@@ -1,47 +1,506 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #08090d;
-    color: #f3f4f6;
+@import "@fontsource-variable/syne";
+@import "@fontsource-variable/plus-jakarta-sans";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   KORAME DESIGN SYSTEM
+
+   Light-first "lab white": cool near-white canvas, crisp hairlines, one
+   saturated brand spectrum. `.dark` is the deep-space inverse.
+
+   RULE: every colour a component uses must come from a token below. A
+   hardcoded `bg-white/5` or `oklch(0 0 0 / .4)` looks correct in exactly one
+   theme and quietly breaks the other.
+   ========================================================================== */
+
+@theme inline {
+    --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Syne Variable', 'Plus Jakarta Sans Variable', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
+
+    /* shadcn surface contract */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* Korame brand spectrum */
+    --color-brand-50: var(--brand-50);
+    --color-brand-100: var(--brand-100);
+    --color-brand-200: var(--brand-200);
+    --color-brand-300: var(--brand-300);
+    --color-brand-400: var(--brand-400);
+    --color-brand-500: var(--brand-500);
+    --color-brand-600: var(--brand-600);
+    --color-brand-700: var(--brand-700);
+    --color-brand-900: var(--brand-900);
+    --color-cyan-glow: var(--cyan-glow);
+    --color-violet-glow: var(--violet-glow);
+
+    /* Elevation surfaces */
+    --color-surface-0: var(--surface-0);
+    --color-surface-1: var(--surface-1);
+    --color-surface-2: var(--surface-2);
+    --color-surface-3: var(--surface-3);
+
+    /* Theme-aware neutrals that replace hardcoded white/black alphas */
+    --color-elevate: var(--elevate-1);
+    --color-elevate-strong: var(--elevate-2);
+    --color-field: var(--field-bg);
+    --color-hairline: var(--glass-border);
+    --color-ghost: var(--ghost-ink);
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+
+    /* Motion: one shared easing vocabulary so CSS matches Motion springs */
+    --ease-out-expo: linear(
+        0, 0.2794 3.06%, 0.5107 6.31%, 0.6893 9.75%, 0.8259 13.48%,
+        0.9245 17.5%, 0.9613 20.06%, 0.9852 22.81%, 1.0006 25.94%,
+        1.0083 29.45%, 1.0093 33.15%, 1.0058 40.17%, 1.0004 55.05%, 1
+    );
+    --ease-spring-soft: linear(
+        0, 0.0088 2.13%, 0.0345 4.44%, 0.1223 8.88%, 0.4173 20.79%,
+        0.5389 26.11%, 0.6425 31.44%, 0.7278 36.86%, 0.7997 42.55%,
+        0.8578 48.42%, 0.9038 54.64%, 0.9382 61.13%, 0.9629 68.07%,
+        0.9795 75.46%, 0.9898 83.3%, 0.9954 91.86%, 1
+    );
 }
 
-.font-heading {
-    font-family: 'Syne', sans-serif;
+/* ---------------------------------------------------------------- LIGHT -- */
+:root {
+    --radius: 0.75rem;
+
+    /* Cool lab white. The canvas is a touch grey so white cards read as
+       elevated rather than dissolving into the page. */
+    --background: oklch(0.977 0.003 255);
+    --foreground: oklch(0.19 0.021 265);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.19 0.021 265);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.19 0.021 265);
+    --primary: oklch(0.53 0.235 277);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.955 0.006 265);
+    --secondary-foreground: oklch(0.26 0.02 265);
+    --muted: oklch(0.955 0.006 265);
+    --muted-foreground: oklch(0.505 0.021 265);
+    --accent: oklch(0.945 0.024 277);
+    --accent-foreground: oklch(0.26 0.02 265);
+    --destructive: oklch(0.55 0.225 27);
+    --success: oklch(0.55 0.15 155);
+    --warning: oklch(0.65 0.16 70);
+    --border: oklch(0.905 0.008 265);
+    --input: oklch(0.885 0.01 265);
+    --ring: oklch(0.53 0.235 277);
+
+    /* Brand runs darker in light mode so it holds contrast on white. */
+    --brand-50: oklch(0.97 0.016 277);
+    --brand-100: oklch(0.935 0.04 277);
+    --brand-200: oklch(0.875 0.075 277);
+    --brand-300: oklch(0.75 0.145 277);
+    --brand-400: oklch(0.635 0.2 277);
+    --brand-500: oklch(0.545 0.235 277);
+    --brand-600: oklch(0.475 0.225 277);
+    --brand-700: oklch(0.4 0.19 277);
+    --brand-900: oklch(0.27 0.12 277);
+    --cyan-glow: oklch(0.6 0.135 210);
+    --violet-glow: oklch(0.575 0.2 305);
+
+    --surface-0: oklch(0.992 0.002 255);
+    --surface-1: oklch(1 0 0);
+    --surface-2: oklch(0.965 0.005 265);
+    --surface-3: oklch(0.925 0.008 265);
+
+    /* Glass reads as frosted white over a light canvas. */
+    --glass-bg: oklch(1 0 0 / 0.72);
+    --glass-border: oklch(0.19 0.021 265 / 0.1);
+    --glass-highlight: oklch(1 0 0 / 0.95);
+
+    /* Neutral alphas — ink-based in light, light-based in dark. */
+    --elevate-1: oklch(0.19 0.021 265 / 0.04);
+    --elevate-2: oklch(0.19 0.021 265 / 0.075);
+    --field-bg: oklch(1 0 0 / 0.85);
+    --ghost-ink: oklch(0.19 0.021 265 / 0.045);
+    --grid-line: oklch(0.19 0.021 265 / 0.055);
+
+    /* Shadows are cool grey, not black — black on white looks like dirt. */
+    --shadow-tint: oklch(0.35 0.05 265 / 0.09);
+    --shadow-tint-strong: oklch(0.3 0.06 265 / 0.14);
+
+    /* Ambient blooms must stay faint on white or they turn to mud. */
+    --aurora-alpha: 0.28;
+    --grain-alpha: 0.02;
+    --grain-blend: multiply;
+    --glare-ink: oklch(1 0 0 / 0.85);
 }
 
-/* Ambient Glow Effects */
-.glow-bg-1 {
-    background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.15) 0%, rgba(8, 9, 13, 0) 70%);
-}
-.glow-bg-2 {
-    background: radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.12) 0%, rgba(8, 9, 13, 0) 60%);
+/* ----------------------------------------------------------------- DARK -- */
+.dark {
+    --background: oklch(0.145 0.008 265);
+    --foreground: oklch(0.97 0.003 265);
+    --card: oklch(0.185 0.011 265);
+    --card-foreground: oklch(0.97 0.003 265);
+    --popover: oklch(0.185 0.011 265);
+    --popover-foreground: oklch(0.97 0.003 265);
+    --primary: oklch(0.65 0.19 277);
+    --primary-foreground: oklch(0.99 0 0);
+    --secondary: oklch(0.24 0.014 265);
+    --secondary-foreground: oklch(0.97 0.003 265);
+    --muted: oklch(0.24 0.014 265);
+    --muted-foreground: oklch(0.68 0.014 265);
+    --accent: oklch(0.28 0.03 277);
+    --accent-foreground: oklch(0.97 0.003 265);
+    --destructive: oklch(0.68 0.2 22);
+    --success: oklch(0.75 0.16 158);
+    --warning: oklch(0.8 0.15 75);
+    --border: oklch(1 0 0 / 0.1);
+    --input: oklch(1 0 0 / 0.14);
+    --ring: oklch(0.65 0.19 277);
+
+    --brand-50: oklch(0.96 0.02 277);
+    --brand-100: oklch(0.92 0.045 277);
+    --brand-200: oklch(0.86 0.075 277);
+    --brand-300: oklch(0.8 0.11 277);
+    --brand-400: oklch(0.72 0.155 277);
+    --brand-500: oklch(0.645 0.19 277);
+    --brand-600: oklch(0.56 0.225 277);
+    --brand-700: oklch(0.47 0.21 277);
+    --brand-900: oklch(0.3 0.13 277);
+    --cyan-glow: oklch(0.78 0.135 205);
+    --violet-glow: oklch(0.75 0.16 305);
+
+    --surface-0: oklch(0.128 0.008 265);
+    --surface-1: oklch(0.168 0.011 265);
+    --surface-2: oklch(0.205 0.013 265);
+    --surface-3: oklch(0.25 0.015 265);
+
+    --glass-bg: oklch(1 0 0 / 0.04);
+    --glass-border: oklch(1 0 0 / 0.1);
+    --glass-highlight: oklch(1 0 0 / 0.16);
+
+    --elevate-1: oklch(1 0 0 / 0.05);
+    --elevate-2: oklch(1 0 0 / 0.09);
+    --field-bg: oklch(0 0 0 / 0.32);
+    --ghost-ink: oklch(1 0 0 / 0.03);
+    --grid-line: oklch(1 0 0 / 0.07);
+
+    --shadow-tint: oklch(0 0 0 / 0.4);
+    --shadow-tint-strong: oklch(0 0 0 / 0.6);
+
+    --aurora-alpha: 0.62;
+    --grain-alpha: 0.035;
+    --grain-blend: overlay;
+    --glare-ink: oklch(1 0 0 / 0.5);
 }
 
-/* Glassmorphism */
-.glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.glass-card:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 0 30px -5px rgba(99, 102, 241, 0.15);
-}
-
-.gsap-reveal {
-    opacity: 0;
-    transform: translateY(40px);
-}
-/* Floating device keyframe animation */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px) rotate(0deg);
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
     }
-    50% {
-        transform: translateY(-12px) rotate(1deg);
+
+    html {
+        @apply font-sans;
+        scroll-behavior: smooth;
+        /* Anchor targets clear the fixed 80px header */
+        scroll-padding-top: 6rem;
+        -webkit-text-size-adjust: 100%;
+        color-scheme: light;
     }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+        overflow-x: clip;
+        text-rendering: optimizeLegibility;
+    }
+
+    /* Theme swap.
+
+       Preferred path is the View Transitions API — the browser cross-fades a
+       snapshot of the whole page, so gradients, shadows and images fade too,
+       not just the properties a CSS transition can interpolate. */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.45s;
+        animation-timing-function: var(--ease-out-expo);
+    }
+
+    /* Fallback for browsers without view transitions. Scoped to the swap,
+       and only the properties worth interpolating — a permanent transition
+       on every element would lag scrolling. */
+    html.theme-switching,
+    html.theme-switching body,
+    html.theme-switching *:not(svg):not(svg *) {
+        transition:
+            background-color 0.4s var(--ease-out-expo),
+            border-color 0.4s var(--ease-out-expo),
+            box-shadow 0.4s var(--ease-out-expo),
+            fill 0.4s var(--ease-out-expo),
+            color 0.3s var(--ease-out-expo) !important;
+    }
+
+    /* A page mid-transition is two stacked snapshots; skip it entirely when
+       the reader has asked for less motion. */
+    @media (prefers-reduced-motion: reduce) {
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation: none !important;
+        }
+    }
+
+    h1, h2, h3, h4 {
+        @apply font-heading;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--brand-500);
+        outline-offset: 3px;
+        border-radius: 4px;
+    }
+
+    ::selection {
+        background: var(--brand-500);
+        color: white;
+    }
+
+    @supports (scrollbar-color: auto) {
+        html {
+            scrollbar-color: var(--surface-3) transparent;
+            scrollbar-width: thin;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   UTILITIES  (Tailwind v4 uses @utility, not @layer utilities)
+   ========================================================================== */
+
+@utility glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+        inset 0 1px 0 0 var(--glass-highlight),
+        0 1px 2px var(--shadow-tint),
+        0 8px 24px -8px var(--shadow-tint);
+}
+
+@utility glass-lit {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+        inset 0 1px 0 0 var(--glass-highlight),
+        0 1px 2px var(--shadow-tint),
+        0 8px 24px -8px var(--shadow-tint);
+    transition:
+        border-color 0.4s var(--ease-out-expo),
+        box-shadow 0.4s var(--ease-out-expo);
+
+    &:hover {
+        border-color: color-mix(in oklch, var(--brand-400) 45%, transparent);
+        box-shadow:
+            inset 0 1px 0 0 var(--glass-highlight),
+            0 1px 2px var(--shadow-tint),
+            0 18px 50px -12px color-mix(in oklch, var(--brand-500) 32%, transparent);
+    }
+}
+
+@utility text-gradient-brand {
+    background-image: linear-gradient(
+        100deg,
+        var(--cyan-glow) 0%,
+        var(--brand-400) 45%,
+        var(--violet-glow) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    /* A clipped gradient can hairline-crop descenders; pad the box. */
+    padding-bottom: 0.08em;
+}
+
+@utility hairline {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--glass-border) 20%,
+        var(--glass-border) 80%,
+        transparent
+    );
+}
+
+@utility perspective-near {
+    perspective: 800px;
+    perspective-origin: center;
+}
+
+@utility perspective-far {
+    perspective: 1800px;
+    perspective-origin: center;
+}
+
+@utility preserve-3d {
+    transform-style: preserve-3d;
+}
+
+/* Fine film grain — kills banding on large gradients. Multiplies on light,
+   overlays on dark, so it darkens rather than blows out in both. */
+@utility grain {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: var(--grain-alpha);
+        mix-blend-mode: var(--grain-blend);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+}
+
+@utility grid-field {
+    background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+/* Dot matrix — a lighter-touch tech field than the full grid. */
+@utility dot-field {
+    background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 10%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 10%, transparent 72%);
+}
+
+/* Elevated neutral fill that flips ink/light with the theme. */
+@utility bg-elevate {
+    background-color: var(--elevate-1);
+}
+
+@utility bg-elevate-strong {
+    background-color: var(--elevate-2);
+}
+
+@utility bg-field {
+    background-color: var(--field-bg);
+}
+
+/* ==========================================================================
+   KEYFRAMES — continuous ambience only.
+   Entrance and scroll motion belong to Motion.
+   ========================================================================== */
+
+@keyframes korame-float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50%      { transform: translate3d(0, -14px, 0) rotate(0.9deg); }
+}
+
+@keyframes korame-drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33%      { transform: translate3d(3%, -4%, 0) scale(1.06); }
+    66%      { transform: translate3d(-3%, 3%, 0) scale(0.97); }
+}
+
+@keyframes korame-orbit {
+    to { stroke-dashoffset: -1000; }
+}
+
+@keyframes korame-scanline {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    45%  { opacity: 1; }
+    100% { transform: translateY(400%); opacity: 0; }
+}
+
+@keyframes korame-marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Pulse travelling along a circuit trace. */
+@keyframes korame-trace {
+    0%   { stroke-dashoffset: var(--trace-len); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { stroke-dashoffset: calc(var(--trace-len) * -1); opacity: 0; }
+}
+
+@utility animate-float {
+    animation: korame-float 6s ease-in-out infinite;
+}
+
+@utility animate-drift {
+    animation: korame-drift 22s ease-in-out infinite alternate;
+}
+
+@utility animate-orbit {
+    animation: korame-orbit 3.2s linear infinite;
+}
+
+@utility animate-scanline {
+    animation: korame-scanline 4.5s var(--ease-spring-soft) infinite;
+}
+
+@utility animate-marquee {
+    animation: korame-marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+@utility animate-trace {
+    animation: korame-trace var(--trace-duration, 3s) linear infinite;
 }

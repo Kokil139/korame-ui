@@ -1,0 +1,13 @@
+{
+  "name": "Korame — Web Design & Development Agency",
+  "short_name": "Korame",
+  "description": "High-performance websites, e-commerce storefronts and AI-powered web apps.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08090d",
+  "theme_color": "#08090d",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

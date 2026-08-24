@@ -566,6 +566,15 @@
         display: none;
     }
 
+    /* The hero's travelling arc animates `stroke-dashoffset`, which is not a
+       compositable property — every frame is a real repaint of the path, and
+       it runs `3.2s linear infinite` for as long as the home screen is open.
+       Behind an feGaussianBlur that repaint also re-runs the filter, which
+       Safari has no GPU path for. Keep the motion, drop the glow. */
+    .arc-glow {
+        filter: none;
+    }
+
     /* The blooms are radial gradients that already fade to transparent; the
        blur only softens an edge that is soft. Half the radius is the same
        picture for a quarter of the sampling area, and these layers are large

@@ -11,7 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import Aurora from '@/components/motion/Aurora';
 import Magnetic from '@/components/motion/Magnetic';
 import CountUp from '@/components/motion/CountUp';
-import { springSnap, springSoft } from '@/lib/motion';
+import { springSnap, springSoft, easeOptical } from '@/lib/motion';
+import { useMediaQuery, COARSE_POINTER } from '@/lib/use-media-query';
 
 const STATS = [
     { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime & speed' },
@@ -31,6 +32,22 @@ const wordVariants = {
 export default function Hero() {
     const ref = useRef(null);
     const reduced = useReducedMotion();
+    const coarse = useMediaQuery(COARSE_POINTER);
+
+    /* The headline's blur-in is a desktop-only flourish.
+
+       `filter: blur()` on a `background-clip: text` element gives Safari
+       nothing to composite: it re-rasterises the gradient text mask every
+       frame, and this is the largest type on the page. It is also the only
+       entrance that runs while the rest of the document is still mounting,
+       which is why the home screen was the one that dragged on refresh while
+       every scroll-triggered section below it looked fine. */
+    const headlineIn = coarse
+        ? { opacity: 0, y: 24 }
+        : { opacity: 0, y: 24, filter: 'blur(12px)' };
+    const headlineOut = coarse
+        ? { opacity: 1, y: 0 }
+        : { opacity: 1, y: 0, filter: 'blur(0px)' };
 
     /* Scroll-linked depth: the headline layer drifts up and dims slightly
        faster than the page, which reads as parallax without a scroll handler.
@@ -116,7 +133,7 @@ export default function Hero() {
 
                             {/* Travelling energy arc */}
                             <path
-                                className="animate-orbit"
+                                className="animate-orbit arc-glow"
                                 d="M 500,10 A 490,190 0 1,1 499.9,10"
                                 fill="none"
                                 stroke="url(#korame-arc)"
@@ -162,9 +179,17 @@ export default function Hero() {
                         </motion.span>
 
                         <motion.span
-                            initial={reduced ? undefined : { opacity: 0, y: 24, filter: 'blur(12px)' }}
-                            animate={reduced ? undefined : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-                            transition={{ ...springSoft, delay: 0.42 }}
+                            initial={reduced ? undefined : headlineIn}
+                            animate={reduced ? undefined : headlineOut}
+                            /* y springs; the blur gets a duration curve, per the
+                               vocabulary in lib/motion.js — a spring on an
+                               optical property overshoots into values Motion has
+                               to clamp, which just extends the repaint tail. */
+                            transition={{
+                                ...springSoft,
+                                delay: 0.42,
+                                filter: { ...easeOptical, delay: 0.42 },
+                            }}
                             className="mt-1 block text-gradient-brand"
                         >
                             Captivate &amp; Convert.

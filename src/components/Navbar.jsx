@@ -123,7 +123,7 @@ export default function Navbar() {
                 <a
                     href="#home"
                     onClick={(e) => handleNavigation(e, '#home')}
-                    className="group flex items-center gap-2.5"
+                    className="group flex min-w-0 items-center gap-2.5"
                     aria-label="Korame — home"
                 >
                     <span className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-xl font-bold text-white shadow-[0_6px_20px_-6px_color-mix(in_oklch,var(--brand-500)_80%,transparent)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-105">
@@ -132,7 +132,7 @@ export default function Navbar() {
                         <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,oklch(1_0_0/0.45),transparent)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:translate-x-full" />
                     </span>
 
-                    <span className="font-heading text-2xl font-extrabold tracking-wide text-foreground">
+                    <span className="font-heading text-xl font-extrabold tracking-wide text-foreground sm:text-2xl">
                         KORAME<span className="text-brand-400">.</span>
                     </span>
                 </a>
@@ -170,7 +170,7 @@ export default function Navbar() {
                     })}
                 </nav>
 
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 items-center gap-2 sm:gap-3">
                     <ThemeToggle />
 
                     <Button

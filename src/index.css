@@ -140,6 +140,10 @@
 
     /* Glass reads as frosted white over a light canvas. */
     --glass-bg: oklch(1 0 0 / 0.72);
+    /* Used where backdrop-filter is switched off (see TOUCH-DEVICE
+       COMPOSITING BUDGET). More opaque, because without the blur behind it
+       the frost has nothing to separate the card from the page. */
+    --glass-bg-flat: oklch(1 0 0 / 0.93);
     --glass-border: oklch(0.19 0.021 265 / 0.1);
     --glass-highlight: oklch(1 0 0 / 0.95);
 
@@ -202,6 +206,9 @@
     --surface-3: oklch(0.25 0.015 265);
 
     --glass-bg: oklch(1 0 0 / 0.04);
+    /* 4% white over an unblurred dark page is invisible — the flat variant
+       has to carry its own surface tone rather than an alpha over nothing. */
+    --glass-bg-flat: oklch(0.196 0.013 265 / 0.94);
     --glass-border: oklch(1 0 0 / 0.1);
     --glass-highlight: oklch(1 0 0 / 0.16);
 
@@ -503,4 +510,67 @@
 
 @utility animate-trace {
     animation: korame-trace var(--trace-duration, 3s) linear infinite;
+}
+
+
+/* ==========================================================================
+   TOUCH-DEVICE COMPOSITING BUDGET
+
+   Counted on this page as built: 34 elements carrying
+   `backdrop-filter: blur(20px) saturate(160%)`, 15 carrying a
+   `mix-blend-mode`, 12 ambient blooms behind a 110-130px `filter: blur()`,
+   and 38 sitting on a permanent `will-change: transform`.
+
+   A desktop GPU absorbs that. iOS Safari does not: a backdrop-filter is
+   re-sampled against whatever is behind it on every scroll frame, and a
+   blend-mode layer cannot be composited on its own at all, so it is
+   re-rasterised instead. The page scrolls smoothly on a laptop and drags on
+   an iPhone for that reason alone.
+
+   Nothing switched off here is load-bearing. The frost is a look, and it is
+   swapped for an opaque token rather than dropped. These rules are
+   deliberately unlayered so they win over the `@utility` output above.
+   ========================================================================== */
+@media (hover: none) and (pointer: coarse) {
+    .glass,
+    .glass-lit {
+        background: var(--glass-bg-flat);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* The same switch for the places that use Tailwind's backdrop utilities
+       directly: the fixed header, the mobile drawer, the service tile icons.
+       The header's is the costliest on the page — it is on screen for every
+       frame of every scroll, so its backdrop is re-blurred continuously.
+       (Written here rather than as a `pointer-coarse:` variant because this
+       Tailwind build has no such variant; the classes compile to nothing.) */
+    .backdrop-blur-2xl,
+    .backdrop-blur-xl {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Those two carry a translucent background that only reads as a surface
+       because of the blur behind it. With the blur gone the page shows
+       straight through the header, so make it opaque. */
+    .backdrop-blur-2xl {
+        background-color: var(--background);
+    }
+
+    /* The film grain is a 140px noise tile at 2-3.5% opacity behind a blend
+       mode. It exists to break up banding on large gradients — which is a
+       desktop-monitor problem. At phone pixel density it is invisible, and it
+       is the reason every section it wraps needs a compositing pass. */
+    .grain::after {
+        display: none;
+    }
+
+    /* The blooms are radial gradients that already fade to transparent; the
+       blur only softens an edge that is soft. Half the radius is the same
+       picture for a quarter of the sampling area, and these layers are large
+       (up to 720x520 before device pixel ratio). */
+    .animate-drift {
+        filter: blur(55px);
+    }
 }

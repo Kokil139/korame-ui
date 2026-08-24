@@ -21,7 +21,7 @@ export default function Vision() {
 
                 <Reveal delay={0.08}>
                     <blockquote className="mt-8">
-                        <p className="text-balance font-heading text-4xl font-extrabold leading-[1.12] tracking-[-0.03em] text-foreground md:text-6xl">
+                        <p className="text-balance font-heading text-3xl font-extrabold leading-[1.12] tracking-[-0.03em] text-foreground sm:text-4xl md:text-6xl">
                             &ldquo;Websites should not just be visited.
                             <br className="hidden sm:block" /> They should be{' '}
                             <span className="text-gradient-brand">experienced</span>.&rdquo;

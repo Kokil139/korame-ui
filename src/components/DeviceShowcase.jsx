@@ -82,7 +82,7 @@ export default function DeviceShowcase() {
                    ===================================================== */}
                 <div
                     ref={ref}
-                    className="perspective-far relative mt-20 flex min-h-[440px] items-center justify-center sm:min-h-[540px]"
+                    className="perspective-far relative mt-20 flex min-h-[540px] items-center justify-center sm:min-h-[540px]"
                 >
                     {/* The rig spans the full stage width, not just the
                         laptop's — the phone and tablet anchor to its edges, so
@@ -96,7 +96,7 @@ export default function DeviceShowcase() {
                             Laptop — the base plane, z = 0
                            ------------------------------------------------- */}
                         <div className="relative z-10">
-                            <div className="relative flex h-[210px] w-[320px] flex-col overflow-hidden rounded-t-2xl border-[6px] border-surface-3 bg-surface-1 shadow-[0_40px_80px_-30px_var(--shadow-tint-strong)] sm:h-[360px] sm:w-[580px] sm:border-[10px] lg:h-[440px] lg:w-[720px]">
+                            <div className="relative flex h-[230px] w-[248px] flex-col overflow-hidden rounded-t-2xl border-[6px] border-surface-3 bg-surface-1 shadow-[0_40px_80px_-30px_var(--shadow-tint-strong)] sm:h-[360px] sm:w-[580px] sm:border-[10px] lg:h-[440px] lg:w-[720px]">
                                 {/* Browser chrome */}
                                 <div className="flex h-6 select-none items-center justify-between border-b border-border bg-surface-2 px-3 sm:h-8">
                                     <div className="flex items-center gap-1.5">
@@ -176,14 +176,14 @@ export default function DeviceShowcase() {
                             </div>
 
                             {/* Hinge / base */}
-                            <div className="relative -ml-[25px] flex h-3 w-[370px] items-center justify-center rounded-b-xl border-t border-border bg-[linear-gradient(90deg,var(--surface-3),var(--surface-1),var(--surface-3))] shadow-2xl sm:-ml-[45px] sm:h-[18px] sm:w-[670px] lg:-ml-[50px] lg:w-[820px]">
+                            <div className="relative -ml-[16px] flex h-3 w-[292px] items-center justify-center rounded-b-xl border-t border-border bg-[linear-gradient(90deg,var(--surface-3),var(--surface-1),var(--surface-3))] shadow-2xl sm:-ml-[45px] sm:h-[18px] sm:w-[670px] lg:-ml-[50px] lg:w-[820px]">
                                 <span className="h-1 w-12 rounded-full bg-elevate-strong sm:w-20" />
                             </div>
 
                             {/* Contact shadow on the "desk" */}
                             <div
                                 aria-hidden="true"
-                                className="mx-auto mt-1 h-5 w-[320px] rounded-full bg-brand-500/25 blur-xl sm:w-[600px]"
+                                className="mx-auto mt-1 h-5 w-[248px] rounded-full bg-brand-500/25 blur-xl sm:w-[600px]"
                             />
                         </div>
 
@@ -242,9 +242,9 @@ export default function DeviceShowcase() {
                                 animationDelay: '-1.4s',
                                 ...(reduced ? null : { translateZ: phoneZ }),
                             }}
-                            className="absolute bottom-2 -left-4 z-30 animate-float sm:left-0 lg:left-4"
+                            className="absolute -bottom-32 -left-1 z-30 animate-float sm:bottom-2 sm:left-0 lg:left-4"
                         >
-                            <div className="flex h-[210px] w-[110px] flex-col overflow-hidden rounded-[24px] border-[5px] border-surface-3 bg-surface-1 shadow-[0_30px_60px_-20px_var(--shadow-tint-strong)] sm:h-[250px] sm:w-[130px] lg:h-[280px] lg:w-[150px]">
+                            <div className="flex h-[168px] w-[104px] flex-col overflow-hidden rounded-[24px] border-[5px] border-surface-3 bg-surface-1 shadow-[0_30px_60px_-20px_var(--shadow-tint-strong)] sm:h-[250px] sm:w-[130px] lg:h-[280px] lg:w-[150px]">
                                 <div className="flex h-5 items-center justify-center bg-surface-2">
                                     <span className="h-2 w-8 rounded-full bg-black/80" />
                                 </div>

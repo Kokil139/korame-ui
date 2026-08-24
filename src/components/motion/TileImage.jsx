@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { ART_MOTION } from '@/lib/art-manifest';
+import { useMediaQuery, TOUCH_PHONE } from '@/lib/use-media-query';
 import { cn } from '@/lib/utils';
 
 /**
@@ -22,6 +23,15 @@ import { cn } from '@/lib/utils';
  * - Reduced motion never plays; the poster still is shown instead.
  * - The still is always the poster, so the tile is never blank while the
  *   clip buffers.
+ * - Phones get the still, not the clip. The clips are muxed by
+ *   scripts/lib/webm.mjs, which has no inter-frame prediction — every frame
+ *   is a VP8 keyframe. That is affordable on a desktop and it is not on a
+ *   phone: iOS has no hardware VP8 path at all, so each of these is a full
+ *   intra-frame decode, twelve times a second, for however many tiles are on
+ *   screen. There is also no MP4 alongside them, so iOS below 17.4 has been
+ *   falling back to the poster regardless. The scroll parallax — the reason
+ *   these tiles move on touch, where hover does nothing — is on the <img>
+ *   too, so nothing is lost but the loop.
  */
 export default function TileImage({
     name,
@@ -35,10 +45,11 @@ export default function TileImage({
     const ref = useRef(null);
     const videoRef = useRef(null);
     const reduced = useReducedMotion();
+    const phone = useMediaQuery(TOUCH_PHONE);
     const [failed, setFailed] = useState(false);
 
     const formats = ART_MOTION[name];
-    const useVideo = Boolean(formats) && !reduced && !failed;
+    const useVideo = Boolean(formats) && !reduced && !phone && !failed;
 
     const { scrollYProgress } = useScroll({
         target: ref,

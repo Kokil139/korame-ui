@@ -57,17 +57,17 @@ export default function About() {
     return (
         <section id="about" className="relative overflow-hidden px-6 py-28 sm:py-36">
             <div className="mx-auto max-w-7xl">
-                <div className="grid items-center gap-16 lg:grid-cols-2">
+                <div className="grid min-w-0 grid-cols-1 items-center gap-16 lg:grid-cols-2">
                     {/* ---------------------------------------------------------
                         Left: narrative
                        --------------------------------------------------------- */}
-                    <div>
+                    <div className="min-w-0">
                         <Reveal>
                             <Badge>About Korame</Badge>
                         </Reveal>
 
                         <Reveal delay={0.06}>
-                            <h2 className="mt-6 text-balance font-heading text-4xl font-bold leading-[1.1] tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
+                            <h2 className="mt-6 text-balance font-heading text-3xl font-bold leading-[1.1] tracking-[-0.025em] text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
                                 Where aesthetics meet{' '}
                                 <span className="text-gradient-brand">engineering precision</span>.
                             </h2>

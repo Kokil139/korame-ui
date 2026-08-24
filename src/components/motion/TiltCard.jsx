@@ -7,6 +7,7 @@ import {
     useReducedMotion,
 } from 'motion/react';
 import { springTrail } from '@/lib/motion';
+import { useMediaQuery, COARSE_POINTER } from '@/lib/use-media-query';
 import { cn } from '@/lib/utils';
 
 /**
@@ -41,6 +42,7 @@ export default function TiltCard({
     const ref = useRef(null);
     const rect = useRef(null);
     const reduced = useReducedMotion();
+    const coarse = useMediaQuery(COARSE_POINTER);
 
     // Normalised pointer offset from card centre, -0.5 .. 0.5
     const px = useMotionValue(0);
@@ -90,8 +92,16 @@ export default function TiltCard({
         active.set(0);
     }, [px, py, active]);
 
-    // Reduced motion: render a plain card, no perspective wrapper at all.
-    if (reduced) {
+    /* Reduced motion, or a touch screen: render a plain card, no perspective
+       wrapper at all.
+
+       On touch there is no cursor to track, so every part of this component is
+       inert — but the markup it returns is not free. Each card would still
+       carry a permanent `will-change: transform` layer, a `preserve-3d`
+       context and a `mix-blend-mode` glare overlay, and there are 15 of them
+       on the page. Blend modes in particular stop Safari compositing the
+       layer on its own, so it re-rasterises them while the page scrolls. */
+    if (reduced || coarse) {
         return (
             <div className={cn(wrapperClassName, className)} {...rest}>
                 {children}

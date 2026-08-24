@@ -152,7 +152,7 @@ export default function Pricing() {
                     </Reveal>
                 </div>
 
-                <ul ref={listRef} className="mt-16 grid items-start gap-7 lg:grid-cols-3">
+                <ul ref={listRef} className="mt-16 grid grid-cols-1 items-start gap-7 lg:grid-cols-3">
                     {TIERS.map((tier, i) => {
                         const isActive = active === i;
                         const isPinned = pinned === i;
@@ -168,7 +168,13 @@ export default function Pricing() {
                             <li
                                 key={tier.name}
                                 data-tier={i}
-                                className="h-full"
+                                /* min-w-0: a grid item defaults to
+                                   min-width:auto, so the track was sized by the
+                                   widest card's min-content (355px) and every
+                                   card overflowed a 360px phone by ~19px. The
+                                   section clips, so that width was silently
+                                   cut off rather than scrollable. */
+                                className="h-full min-w-0"
                                 onPointerEnter={() => setHovered(i)}
                                 onPointerLeave={() =>
                                     setHovered((prev) => (prev === i ? null : prev))
@@ -239,7 +245,7 @@ export default function Pricing() {
                                                 )}
                                             </div>
 
-                                            <p className="mt-7 flex items-baseline gap-2">
+                                            <p className="mt-7 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                                                 <span className="font-heading text-4xl font-extrabold tracking-tight text-foreground">
                                                     {tier.price}
                                                 </span>

@@ -15,6 +15,17 @@
       "statusCode": 301
     },
     {
+      "_comment": "/cloud-development and /azure-development merged into /cloud-solutions. Both were indexed; a 301 passes the ranking on. Keep in step with REDIRECTS in src/lib/routes.js.",
+      "route": "/cloud-development",
+      "redirect": "/cloud-solutions",
+      "statusCode": 301
+    },
+    {
+      "route": "/azure-development",
+      "redirect": "/cloud-solutions",
+      "statusCode": 301
+    },
+    {
       "route": "/assets/*",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"

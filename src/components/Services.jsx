@@ -12,14 +12,15 @@ import { SERVICE_LIST, serviceBySlug, servicePath } from '@/content/service-list
 /**
  * Capability cards.
  *
- * Three featured services carry the artwork; the remaining six are a compact
+ * Three featured services carry the artwork; the remaining five are a compact
  * link list underneath. Every service page is therefore linked from the
  * homepage — which is what makes the site's link graph shallow — without
- * putting nine full-bleed cards on one screen.
+ * putting eight full-bleed cards on one screen.
  *
- * The artwork is generated CSS/SVG, not photography. The previous build
- * pulled three Unsplash photos plus a 2000px background — roughly 1.5MB of
- * decorative network requests on a page whose pitch is sub-second loads.
+ * The tiles are one image per service, generated from the source renders in
+ * scripts/tile-art/ — see scripts/generate-tile-art.mjs. They are
+ * lazy-loaded below the fold and served through a srcSet, so nothing here
+ * blocks the first paint.
  */
 const FEATURED = [
     {
@@ -33,7 +34,7 @@ const FEATURED = [
         tone: 'text-cyan-glow',
     },
     {
-        slug: 'cloud-development',
+        slug: 'cloud-solutions',
         icon: Cloud,
         tone: 'text-violet-glow',
     },
@@ -89,7 +90,7 @@ export default function Services() {
                                         <Card className="flex h-full flex-col overflow-hidden p-0">
                                             <TileImage
                                                 name={item.art}
-                                                alt={`${item.nav} — generated abstract artwork`}
+                                                alt={`${item.nav} at Korame`}
                                                 className="h-48 border-b border-border"
                                                 sizes="(max-width: 768px) 100vw, 33vw"
                                             >
@@ -139,7 +140,7 @@ export default function Services() {
                             <li key={item.slug}>
                                 <Link
                                     to={servicePath(item.slug)}
-                                    className="group flex items-center justify-between gap-3 rounded-2xl border border-border px-5 py-4 transition-colors duration-300 hover:border-brand-400/50 hover:bg-elevate"
+                                    className="group flex items-center justify-between gap-3 rounded-2xl border border-border px-5 py-4 glow-interactive hover:border-brand-400/50 hover:bg-elevate"
                                 >
                                     <span className="font-heading text-base font-bold tracking-tight text-foreground">
                                         {item.nav}

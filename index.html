@@ -12,6 +12,12 @@
       producing a white flash for dark-mode users on every navigation. It
       also stamps the matching theme-color so the mobile browser chrome
       agrees with the page.
+
+      Light is the default: with nothing stored the page is light regardless
+      of the OS setting. Dark is opt-in through the toggle, and that choice
+      persists. Keep this in step with readStored() in src/lib/theme.jsx —
+      if the two disagree, the script paints one palette and React reports
+      the other, which is how the toggle ends up needing two clicks.
     -->
     <script>
         (function () {
@@ -19,7 +25,7 @@
                 var stored = localStorage.getItem('korame-theme');
                 var dark =
                     stored === 'dark' ||
-                    ((stored === 'system' || !stored) &&
+                    (stored === 'system' &&
                         window.matchMedia('(prefers-color-scheme: dark)').matches);
                 if (dark) document.documentElement.classList.add('dark');
                 var meta = document.createElement('meta');

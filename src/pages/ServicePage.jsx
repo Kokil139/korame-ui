@@ -143,14 +143,14 @@ export default function ServicePage({ slug: slugProp }) {
                 <CardGrid items={service.provide} columns={3} />
             </Section>
 
-            {/* Artwork band — reuses the generated tile art, no network images. */}
+            {/* Artwork band — this service's own tile, lazy-loaded. */}
             <section className="px-6 py-8">
                 <div className="mx-auto max-w-6xl">
                     <Reveal y={24}>
                         <Card className="overflow-hidden p-0">
                             <TileImage
                                 name={service.art}
-                                alt={`${service.nav} at Korame — generated abstract artwork`}
+                                alt={`${service.nav} at Korame`}
                                 className="h-56 sm:h-72"
                                 sizes="(max-width: 1024px) 100vw, 72rem"
                                 parallax={34}

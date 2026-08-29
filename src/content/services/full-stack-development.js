@@ -7,7 +7,7 @@ export default {
         'Full-stack development from one team: React frontends, Node APIs, schema design, authentication, cloud deployment and monitoring — owned end to end.',
     h1: 'Full-stack development, owned end to end',
     kicker: 'Full-stack development',
-    art: 'work-saas',
+    art: 'service-full-stack-development',
     serviceType: 'Full-stack development',
     lede: 'Splitting a system across a frontend vendor and a backend vendor moves the hardest problems into the gap between them. Full-stack means one team is accountable from the database index to the focus ring — and nobody gets to call an integration failure somebody else\'s ticket.',
 
@@ -157,5 +157,5 @@ export default {
     ],
 
     projects: ['kepaso', 'nomadninja'],
-    related: ['web-app-development', 'web-development', 'software-development', 'cloud-development'],
+    related: ['web-app-development', 'web-development', 'software-development', 'cloud-solutions'],
 };

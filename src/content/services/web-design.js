@@ -7,7 +7,7 @@ export default {
         'Design systems, interaction and motion design, accessibility and responsive layout — drawn by the engineers who build it, against what browsers render fast.',
     h1: 'Web design, drawn by the people who have to build it',
     kicker: 'Web design',
-    art: 'service-design',
+    art: 'service-web-design',
     serviceType: 'Web design',
     lede: 'A design that cannot be built at sixty frames per second is not finished, it is a proposal. We design and engineer in the same room, which removes the most expensive conversation in this industry — the one where a handoff turns into a negotiation about what was actually possible.',
 

@@ -1,8 +1,8 @@
 /**
  * Guard the one place this codebase duplicates data.
  *
- * `src/content/service-list.js` carries navigation metadata for the nine
- * services so the app shell can list them without importing nine full content
+ * `src/content/service-list.js` carries navigation metadata for the eight
+ * services so the app shell can list them without importing eight full content
  * modules — see the header comment there for why that split exists. The cost
  * is that a handful of fields appear twice.
  *

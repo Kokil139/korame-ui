@@ -183,8 +183,8 @@ export default function AuditPage() {
                             body: 'When the fix is the frontend: bundle size, render-blocking requests, images nobody sized.',
                         },
                         {
-                            href: '/azure-development',
-                            title: 'Azure Development',
+                            href: '/cloud-solutions',
+                            title: 'Cloud Solutions',
                             body: 'When the fix is at the edge: caching, redirects, security headers, soft 404s on refresh.',
                         },
                         {

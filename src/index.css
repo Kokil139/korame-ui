@@ -450,6 +450,71 @@
 }
 
 /* ==========================================================================
+   INTERACTIVITY GLOW
+
+   One affordance, two shapes. Everything clickable that is not already a
+   <Button> gets one of these, so "this responds to you" reads the same way
+   across the navbar, the services menu, the option rows and the footer.
+
+   Colour comes from --brand-400 through color-mix, never a literal, so the
+   bloom inverts with the theme along with everything else — a white alpha
+   glow would look right on the dark palette and turn to grey haze on the
+   light one.
+
+   Press is not just "more hover": the bloom pulls in tight and the travel
+   shortens, so a click reads as contact rather than as a brighter hover.
+   Both states also answer :focus-visible, which is what makes this a
+   keyboard affordance and not only a pointer one — the global focus outline
+   stays on top of it and is what actually carries the accessibility weight.
+
+   No transition duration is declared for reduced motion: the global
+   prefers-reduced-motion block already collapses every transition to 0.01ms,
+   so these arrive instantly rather than being animated away.
+   ========================================================================== */
+
+/* For anything with a box: nav pills, menu rows, option cards. */
+@utility glow-interactive {
+    transition:
+        box-shadow 0.4s var(--ease-out-expo),
+        border-color 0.4s var(--ease-out-expo),
+        background-color 0.4s var(--ease-out-expo),
+        color 0.4s var(--ease-out-expo);
+
+    &:hover,
+    &:focus-visible {
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklch, var(--brand-400) 24%, transparent),
+            0 0 20px -7px color-mix(in oklch, var(--brand-400) 60%, transparent),
+            0 10px 28px -18px var(--shadow-tint-strong);
+    }
+
+    &:active {
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklch, var(--brand-400) 42%, transparent),
+            0 0 12px -5px color-mix(in oklch, var(--brand-400) 78%, transparent);
+        transition-duration: 0.12s;
+    }
+}
+
+/* For inline text links, where an inset ring would draw a box around a word
+   that has no box. The bloom is carried by the glyphs themselves. */
+@utility glow-text {
+    transition:
+        color 0.3s var(--ease-out-expo),
+        text-shadow 0.3s var(--ease-out-expo);
+
+    &:hover,
+    &:focus-visible {
+        text-shadow: 0 0 14px color-mix(in oklch, var(--brand-400) 52%, transparent);
+    }
+
+    &:active {
+        text-shadow: 0 0 9px color-mix(in oklch, var(--brand-400) 72%, transparent);
+        transition-duration: 0.1s;
+    }
+}
+
+/* ==========================================================================
    KEYFRAMES — continuous ambience only.
    Entrance and scroll motion belong to Motion.
    ========================================================================== */

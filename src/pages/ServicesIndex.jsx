@@ -80,7 +80,7 @@ export default function ServicesIndex() {
                                         <Card className="flex h-full flex-col overflow-hidden p-0">
                                             <TileImage
                                                 name={service.art}
-                                                alt={`${service.nav} — generated abstract artwork`}
+                                                alt={`${service.nav} at Korame`}
                                                 className="h-40 border-b border-border"
                                                 sizes="(max-width: 768px) 100vw, 33vw"
                                             >

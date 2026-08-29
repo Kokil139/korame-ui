@@ -133,7 +133,7 @@ export default function Contact({ hideHeader = false, defaultMessage = '' }) {
                                 <Card className="relative overflow-hidden p-0">
                                     <TileImage
                                         name="studio"
-                                        alt="Korame studio — layered interface panels caught in a light beam"
+                                        alt="The Korame studio desk — a laptop, monitor, tablet and phone showing work in progress"
                                         className="h-56 sm:h-64"
                                         sizes="(max-width: 1024px) 100vw, 50vw"
                                         scrim={false}

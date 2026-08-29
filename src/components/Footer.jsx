@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useHomeLink } from '@/lib/use-home-link';
 import { Mail, Instagram, MessageCircle } from 'lucide-react';
 import { SERVICE_LIST, servicePath } from '@/content/service-list';
 import { PROJECTS, projectPath } from '@/content/projects';
@@ -16,6 +17,8 @@ import { SITE } from '@/lib/site';
  * text node, so it costs nothing.
  */
 export default function Footer() {
+    const homeLink = useHomeLink();
+
     const socials = [
         { icon: Mail, label: 'Email Korame', href: `mailto:${SITE.email}` },
         {
@@ -40,7 +43,11 @@ export default function Footer() {
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
                     {/* Brand */}
                     <div>
-                        <Link to="/" className="group inline-flex items-center gap-2.5">
+                        <Link
+                            {...homeLink}
+                            className="group inline-flex items-center gap-2.5 rounded-2xl glow-interactive"
+                            aria-label="Korame — home"
+                        >
                             <span className="grid size-9 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-lg font-bold text-white transition-transform duration-500 group-hover:scale-105">
                                 K
                             </span>
@@ -83,7 +90,7 @@ export default function Footer() {
                                 <li key={s.slug}>
                                     <Link
                                         to={servicePath(s.slug)}
-                                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                        className="text-sm text-muted-foreground glow-text hover:text-foreground"
                                     >
                                         {s.nav}
                                     </Link>
@@ -101,7 +108,7 @@ export default function Footer() {
                             <li>
                                 <Link
                                     to="/projects"
-                                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                    className="text-sm text-muted-foreground glow-text hover:text-foreground"
                                 >
                                     All projects
                                 </Link>
@@ -110,7 +117,7 @@ export default function Footer() {
                                 <li key={p.slug}>
                                     <Link
                                         to={projectPath(p.slug)}
-                                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                        className="text-sm text-muted-foreground glow-text hover:text-foreground"
                                     >
                                         {p.name}
                                     </Link>
@@ -123,6 +130,7 @@ export default function Footer() {
                         </h2>
                         <ul className="mt-5 space-y-3">
                             {[
+                                { name: 'Pricing', href: '/pricing' },
                                 { name: 'About', href: '/about' },
                                 { name: 'Free website audit', href: '/free-website-audit' },
                                 { name: 'Blog', href: '/blog' },
@@ -131,7 +139,7 @@ export default function Footer() {
                                 <li key={l.href}>
                                     <Link
                                         to={l.href}
-                                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                        className="text-sm text-muted-foreground glow-text hover:text-foreground"
                                     >
                                         {l.name}
                                     </Link>

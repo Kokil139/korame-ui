@@ -57,7 +57,7 @@ src/
   components/Seo.jsx     per-route <head>; collects on the server, patches
                          the live document on client navigation
   pages/*.jsx            one file per route template
-  content/service-list.js  nav metadata for the 9 services (see its header
+  content/service-list.js  nav metadata for the 8 services (see its header
                          for why it is split from the content modules)
   content/services/*.js  one module per service page — the source of truth
                          for its copy, metadata, FAQ and cross-links
@@ -211,6 +211,23 @@ a rasterisation problem. Either drop the blur on that surface
 touch) or animate nothing but its descendants. The nav dropdown took the first
 option, which is also better for legibility over arbitrary page content.
 
+**A media query cannot gate a Motion `animate` key on a pre-rendered page.**
+`useMediaQuery` has no media query to read on the server, so its server
+snapshot is `false` and the pre-rendered HTML always ships the *desktop*
+branch's `initial` inline — the hero headline went out as
+`style="opacity:0;filter:blur(12px)"` on every device. The real value only
+arrives on the re-render after hydration, and by then `coarse` had removed
+`filter` from `animate`: Motion stops owning the value and never writes it
+again, so that pre-rendered blur stayed on `Captivate & Convert.` for good on
+every phone and tablet, while desktop was fine. Keep every animated key
+present in `animate` on all devices and vary the *value* (`blur(0px)`), and
+express "no entrance" as `initial={false}` — which snaps to the animate state
+— never as `initial`/`animate`/`variants` set to `undefined`, which leaves
+the pre-rendered hidden state in the DOM with nothing to clear it. Verify with
+CDP `Emulation.setEmulatedMedia` `hover: none` + `pointer: coarse`; dev mode
+cannot show this, because a client-only mount reads the query correctly on the
+first render.
+
 **Motion writes `transform`, so nothing else may own it.** The same dropdown
 carried `-translate-x-1/2` for centring on the very element Motion was
 animating `y` and `scale` on. Put positioning transforms on a separate,
@@ -284,16 +301,39 @@ so it failed on every run. Add eslint and put it back, or leave it out.
 
 ## Tile artwork
 
-Everything lives in `public/art/`, keyed by tile name:
+Everything lives in `public/art/`, keyed by tile name.
 
-| Tile | name |
-|---|---|
-| Services — full-stack & e-commerce | `service-commerce` |
-| Services — bespoke UI/UX & motion | `service-design` |
-| Services — hosting, domains & SEO | `service-seo` |
-| Services — shared with web-app / full-stack | `work-saas` |
-| Services — shared with app / software | `work-ai` |
-| Contact — studio card | `studio` |
+The **eight service tiles and the contact page's studio card are photographs**,
+not generated artwork, and each owns its own image.
+`scripts/generate-tile-art.mjs` builds them from the source renders in
+`scripts/tile-art/`, where **the source file name is the tile name**:
+`service-web-development.png` becomes `service-web-development.webp`, which is
+the `art` key `/web-development` declares, and `studio.png` becomes the
+`studio` tile. No mapping table to keep in step.
+
+The sources live outside `public/` because `public/` is copied into `dist/`
+verbatim — a 2MB source PNG left in `public/art/` ships to the CDN origin with
+nothing linking to it.
+
+They are stills. Sources are 3:2 and the tiles are 16:10, so the generator
+centre-crops 32px off the top and bottom — but every container these land in
+is wider still, so only a middle band survives: the contact card is about
+2.3:1 and shows roughly the middle 55% of the source height. Anything that
+must stay visible has to sit near the centre. `FOCUS` in the generator moves
+one tile's crop anchor when a composition needs it.
+
+**A tile moving from generated art to a photograph has to lose its `.webm`
+too.** `TileImage` renders `<video>` whenever the manifest lists a clip for
+that name, so leaving `studio.webm` in place would have played the old
+abstract animation with the new photograph demoted to its poster. Its entry in
+`generate-artwork.mjs` and `generate-artwork-motion.mjs` has to go as well, or
+the next `npm run artwork` puts both back.
+
+**Nothing references the generated abstract artwork any more.**
+`service-commerce`, `service-design`, `service-seo`, `work-saas`, `work-ai`
+and `streams` are all orphaned — 1.62MB still shipping in `dist/art/`.
+`generate-artwork.mjs` and `generate-artwork-motion.mjs` still emit them, and
+`scripts/lib/webm.mjs` exists only for those clips.
 
 The three case-study tiles are **not** generated abstract artwork. They are
 each project's own logo on a paper field, built by
@@ -423,29 +463,42 @@ taking the report down.
 
 ## Fabricated content that was removed
 
-Three things on the old build asserted facts that were not true. All three
-are gone rather than rewritten:
+Three things on the old build asserted facts that were not true:
 
 - `src/components/Reviews.jsx` — three testimonials with invented names,
   invented companies and an invented metric ("bounce rate dropped 45%").
-- `src/components/Pricing.jsx` — invented figures, which were also being fed
-  to search engines as `Offer` structured data in `index.html`.
+  **Still removed.** Real testimonials need real permission.
 - `src/components/Work.jsx` — "Project One" … "Project Four" with em-dash
   metrics, replaced by `SelectedWork.jsx` and the three real case studies.
+  **Still removed.**
+- `src/components/Pricing.jsx` — **restored**, at the owner's explicit
+  instruction and with the figures confirmed as the ones to publish. See
+  below.
 
 The Hero stat row asserted "50+ projects delivered", "99.9% uptime" and
-"100% client satisfaction". It now shows facts about the site itself, two of
+"100% client satisfaction". It now shows facts about the site itself, all of
 which are derived from the code so they cannot go stale.
 
-All three files are recoverable from git history. **Do not restore them with
-placeholder values.** Real testimonials need real permission, and a price
-quoted to search engines through structured data is a price you have to
-honour. `verify-content.mjs` will not catch a fabrication — that is a
+### Pricing
+
+`/pricing` publishes ₹45,000 (Launch) and ₹1,20,000 (Scale) as `Offer` nodes
+with `priceCurrency: "INR"`, which Google may surface in a result. **These are
+prices the business has to honour.** They were flagged before restoring, and
+restoring them was the answer.
+
+The numbers live in `src/content/pricing.js` and nowhere else.
+`offerCatalogNode()` in `lib/seo.js` builds the schema from the same array the
+page renders, so the two cannot disagree — which is exactly how the previous
+build ended up quoting figures its own file header described as placeholders.
+Change a price there and the page, the schema and the sitemap's lastmod all
+move together.
+
+`verify-content.mjs` will not catch a fabrication or a stale price — that is a
 judgement, not a check.
 
 ## Routing and pre-rendering
 
-The site is **21 routes plus a 404**, not a single page.
+The site is **23 routes plus a 404**, not a single page.
 
 `src/lib/routes.js` is the registry. The router, `generate-sitemap.mjs` and
 `prerender.mjs` all read it, so a page cannot exist without a sitemap entry,
@@ -479,7 +532,7 @@ appends a second copy on hydration — every page then ships the graph twice,
 with duplicate `@id` nodes.
 
 **Anything the app shell imports lands in the entry bundle.** The navbar and
-footer list all nine services; importing the full content modules to do that
+footer list all eight services; importing the full content modules to do that
 put every service page's prose into the bundle every visitor downloads.
 `content/service-list.js` exists for that reason, and `verify-content.mjs`
 fails the build if the light list and the full modules disagree.

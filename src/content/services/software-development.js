@@ -7,7 +7,7 @@ export default {
         'Software engineering services: application architecture, backend systems, APIs, data modelling, integrations and cloud deployment — built to be maintained.',
     h1: 'Software development as an engineering discipline',
     kicker: 'Software development',
-    art: 'work-ai',
+    art: 'service-software-development',
     serviceType: 'Software development',
     lede: 'The hard part of software is never the first version. It is the fourth change request, made by someone who was not in the original conversation, against code the original author has left. Everything we do about architecture, tests and documentation is aimed at that moment.',
 
@@ -157,5 +157,5 @@ export default {
     ],
 
     projects: ['kepaso', 'nomadninja', 'the-travellers-tribe'],
-    related: ['custom-software-development', 'full-stack-development', 'web-app-development', 'cloud-development'],
+    related: ['custom-software-development', 'full-stack-development', 'web-app-development', 'cloud-solutions'],
 };

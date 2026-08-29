@@ -7,7 +7,7 @@ export default {
         'Custom web application development: SaaS products, dashboards, customer portals and internal tools, with authentication, roles and cloud deployment built in.',
     h1: 'Web applications that behave under real use',
     kicker: 'Web app development',
-    art: 'work-saas',
+    art: 'service-web-app-development',
     serviceType: 'Web application development',
     lede: 'A website presents. An application does work — it holds state, enforces rules, and has to be correct when two people touch the same record at once. The engineering difference is not cosmetic, and pretending otherwise is how projects end up rewritten a year after launch.',
 
@@ -157,5 +157,5 @@ export default {
     ],
 
     projects: ['kepaso', 'nomadninja'],
-    related: ['full-stack-development', 'software-development', 'cloud-development', 'app-development'],
+    related: ['full-stack-development', 'software-development', 'cloud-solutions', 'app-development'],
 };

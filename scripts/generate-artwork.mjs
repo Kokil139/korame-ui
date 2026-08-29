@@ -1,5 +1,5 @@
 /**
- * Generates the tile artwork for Services, Work and the Contact studio card.
+ * Generates the remaining generated tile artwork.
  *
  * These are drawn here rather than pulled from a stock library for three
  * reasons: they are on-brand (same spectrum as the design tokens), they cost
@@ -370,7 +370,6 @@ export const PIECES = [
     { name: 'service-seo', a: C.violet, b: C.cyan, motif: network, seed: 33 },
     { name: 'work-saas', a: C.cyan, b: C.indigoDeep, motif: design, seed: 55 },
     { name: 'work-ai', a: C.violet, b: C.indigo, motif: neural, seed: 66 },
-    { name: 'studio', a: C.indigo, b: C.cyan, motif: studio, seed: 88 },
     { name: 'streams', a: C.cyan, b: C.violet, motif: streams, seed: 99 },
 ];
 

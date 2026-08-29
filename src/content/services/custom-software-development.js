@@ -7,7 +7,7 @@ export default {
         'Bespoke software shaped around how your business actually works — plus an honest assessment of when off-the-shelf is the better buy. Discovery to handover.',
     h1: 'Custom software — and when you should not buy it',
     kicker: 'Custom software',
-    art: 'service-commerce',
+    art: 'service-custom-software-development',
     serviceType: 'Custom software development',
     lede: 'Custom software is worth building when the way you work is the advantage. It is a poor purchase when you are paying six figures to rebuild something you could licence for a few hundred a month. Most of the value we add on these projects happens before any code exists, in getting that judgement right.',
 
@@ -182,5 +182,5 @@ export default {
     ],
 
     projects: ['kepaso', 'nomadninja'],
-    related: ['software-development', 'web-app-development', 'full-stack-development', 'cloud-development'],
+    related: ['software-development', 'web-app-development', 'full-stack-development', 'cloud-solutions'],
 };

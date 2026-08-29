@@ -1,5 +1,5 @@
 /**
- * Renders the looping tile clips for Services, Work and the Contact studio card.
+ * Renders the looping tile clips.
  *
  * The artwork itself is not defined here — `stage()` and `PIECES` come from
  * generate-artwork.mjs, so the clip and its poster still are two renders of one
@@ -46,7 +46,9 @@ const FRAMES = FPS * SECONDS;
 const QUALITY = 52;
 
 /* The clips are only worth their bytes on tiles that actually render one.
-   `streams` is drawn by generate-artwork.mjs but no tile uses it. */
+   `streams` is drawn by generate-artwork.mjs but no tile uses it, and
+   `studio` is a photograph now — a clip beside it would make TileImage render
+   the abstract video with the photo as nothing but a poster. */
 const TILES = new Set([
     'service-commerce',
     'service-design',
@@ -55,7 +57,6 @@ const TILES = new Set([
     'work-saas',
     'work-ai',
     'work-seo',
-    'studio',
 ]);
 
 /** Render one frame of a piece to a VP8 keyframe. */

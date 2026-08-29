@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/ThemeToggle';
 import { SERVICE_LIST, servicePath } from '@/content/service-list';
 import { NAV } from '@/lib/site';
+import { useHomeLink } from '@/lib/use-home-link';
 import { springSnap } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
@@ -93,6 +94,11 @@ export default function Navbar() {
     }, []);
     useEffect(() => () => clearTimeout(closeTimer.current), []);
 
+    /* Closing the drawer here matters even on the homepage branch: the
+       handler scrolls on the next frame, and the body lock has to be gone by
+       then. */
+    const homeLink = useHomeLink({ onNavigate: useCallback(() => setIsOpen(false), []) });
+
     const isServiceRoute =
         pathname === '/services' || SERVICE_LIST.some((s) => servicePath(s.slug) === pathname);
 
@@ -112,7 +118,11 @@ export default function Navbar() {
                 {/* ---------------------------------------------------------
                     Logo — the original K tile and KORAME. wordmark, kept.
                    --------------------------------------------------------- */}
-                <Link to="/" className="group flex min-w-0 items-center gap-2.5" aria-label="Korame — home">
+                <Link
+                    {...homeLink}
+                    className="group flex shrink-0 items-center gap-2.5 rounded-2xl glow-interactive"
+                    aria-label="Korame — home"
+                >
                     <span className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-xl font-bold text-white shadow-[0_6px_20px_-6px_color-mix(in_oklch,var(--brand-500)_80%,transparent)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-105">
                         K
                         {/* Sheen sweep on hover */}
@@ -128,7 +138,7 @@ export default function Navbar() {
                     Desktop nav — the active pill is a shared layout element,
                     so it slides between links instead of cross-fading.
                    --------------------------------------------------------- */}
-                <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+                <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
                     {NAV.map((link) => {
                         const isActive = linkIsActive(link.href);
                         const isServices = link.href === '/services';
@@ -142,7 +152,7 @@ export default function Navbar() {
                         );
 
                         const classes = cn(
-                            'relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300',
+                            'relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium glow-interactive',
                             isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
                         );
 
@@ -279,7 +289,7 @@ export default function Navbar() {
                                                             <Link
                                                                 to={servicePath(s.slug)}
                                                                 className={cn(
-                                                                    'block rounded-2xl px-4 py-2.5 text-sm transition-colors duration-200',
+                                                                    'block rounded-2xl px-4 py-2.5 text-sm glow-interactive',
                                                                     pathname === servicePath(s.slug)
                                                                         ? 'bg-elevate text-foreground'
                                                                         : 'text-muted-foreground hover:bg-elevate hover:text-foreground',
@@ -293,7 +303,7 @@ export default function Navbar() {
 
                                                 <Link
                                                     to="/services"
-                                                    className="mt-1 flex items-center justify-between rounded-2xl border-t border-border px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-elevate"
+                                                    className="mt-1 flex items-center justify-between rounded-2xl border-t border-border px-4 py-3 text-sm font-semibold text-foreground glow-interactive hover:bg-elevate"
                                                 >
                                                     All services
                                                     <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -320,7 +330,7 @@ export default function Navbar() {
 
                     <button
                         onClick={() => setIsOpen((v) => !v)}
-                        className="grid size-10 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-elevate hover:text-foreground lg:hidden"
+                        className="grid size-10 place-items-center rounded-xl text-muted-foreground glow-interactive hover:bg-elevate hover:text-foreground xl:hidden"
                         aria-label={isOpen ? 'Close menu' : 'Open menu'}
                         aria-expanded={isOpen}
                         aria-controls="mobile-menu"
@@ -341,7 +351,7 @@ export default function Navbar() {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ type: 'spring', bounce: 0, visualDuration: 0.35 }}
-                        className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-2xl lg:hidden"
+                        className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-2xl xl:hidden"
                     >
                         <nav
                             className="flex max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto px-6 py-6"
@@ -359,7 +369,7 @@ export default function Navbar() {
                                         <div className="flex items-center">
                                             <Link
                                                 to={link.href}
-                                                className="flex-1 rounded-xl px-3 py-3 text-lg font-medium text-muted-foreground transition-colors hover:bg-elevate hover:text-foreground"
+                                                className="flex-1 rounded-xl px-3 py-3 text-lg font-medium text-muted-foreground glow-interactive hover:bg-elevate hover:text-foreground"
                                             >
                                                 {link.name}
                                             </Link>
@@ -374,7 +384,7 @@ export default function Navbar() {
                                                             ? 'Hide service pages'
                                                             : 'Show service pages'
                                                     }
-                                                    className="grid size-10 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-elevate hover:text-foreground"
+                                                    className="grid size-10 place-items-center rounded-xl text-muted-foreground glow-interactive hover:bg-elevate hover:text-foreground"
                                                 >
                                                     <ChevronDown
                                                         className={cn(
@@ -404,7 +414,7 @@ export default function Navbar() {
                                                             <li key={s.slug}>
                                                                 <Link
                                                                     to={servicePath(s.slug)}
-                                                                    className="block rounded-xl px-3 py-2.5 text-base text-muted-foreground transition-colors hover:bg-elevate hover:text-foreground"
+                                                                    className="block rounded-xl px-3 py-2.5 text-base text-muted-foreground glow-interactive hover:bg-elevate hover:text-foreground"
                                                                 >
                                                                     {s.nav}
                                                                 </Link>

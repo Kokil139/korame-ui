@@ -24,6 +24,7 @@ export const ROUTES = [
         priority: 0.9,
         changefreq: 'monthly',
     })),
+    { path: '/pricing', priority: 0.8, changefreq: 'monthly' },
     { path: '/projects', priority: 0.8, changefreq: 'monthly' },
     ...PROJECTS.map((p) => ({
         path: projectPath(p.slug),
@@ -46,10 +47,25 @@ export const ROUTES = [
 export const NOINDEX_ROUTES = ['/404'];
 
 /**
- * Permanent redirects. `/case-studies` was in the original information
- * architecture; publishing it as a second page listing the same projects
- * would be duplicate content, so it redirects to the canonical one instead.
+ * Permanent redirects.
+ *
+ * `/case-studies` was in the original information architecture; publishing it
+ * as a second page listing the same projects would be duplicate content, so it
+ * redirects to the canonical one instead.
+ *
+ * `/cloud-development` and `/azure-development` were two pages describing one
+ * practice from two angles, competing with each other for the same queries.
+ * They are now /cloud-solutions. Both were indexed and linked, so both keep
+ * resolving — a 301 passes the ranking on, a 404 throws it away.
+ *
+ * Every entry here needs a matching rule in public/staticwebapp.config.json:
+ * this array is the client-side equivalent, so an in-app link to an old path
+ * still resolves, but only the edge can issue a real 301 to a crawler.
  */
-export const REDIRECTS = [{ from: '/case-studies', to: '/projects' }];
+export const REDIRECTS = [
+    { from: '/case-studies', to: '/projects' },
+    { from: '/cloud-development', to: '/cloud-solutions' },
+    { from: '/azure-development', to: '/cloud-solutions' },
+];
 
 export const ALL_PATHS = ROUTES.map((r) => r.path);

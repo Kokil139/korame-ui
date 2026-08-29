@@ -35,6 +35,7 @@ const ServicePage = lazy(() => import('@/pages/ServicePage'));
 const ProjectsIndex = lazy(() => import('@/pages/ProjectsIndex'));
 const ProjectPage = lazy(() => import('@/pages/ProjectPage'));
 const AuditPage = lazy(() => import('@/pages/AuditPage'));
+const PricingPage = lazy(() => import('@/pages/PricingPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const BlogIndex = lazy(() => import('@/pages/BlogIndex'));
@@ -108,6 +109,8 @@ export default function App() {
                                     element={<ServicePage slug={route.slug} />}
                                 />
                             ))}
+
+                            <Route path="/pricing" element={<PricingPage />} />
 
                             <Route path="/projects" element={<ProjectsIndex />} />
                             <Route path="/projects/:slug" element={<ProjectPage />} />

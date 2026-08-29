@@ -162,7 +162,7 @@ export const POSTS = [
         topic: 'Azure',
         excerpt:
             'The one-line fix is easy to find. The version of it that does not make every missing file return 200 OK is not.',
-        services: ['azure-development', 'cloud-development'],
+        services: ['cloud-solutions'],
         related: ['how-to-choose-a-web-development-company', 'web-development-vs-web-app-development'],
         body: [
             { type: 'p', text: 'You deploy a React, Vue or Angular app to Azure Static Web Apps. The homepage works. Clicking through the navigation works. Then you refresh on <code>/about</code>, or paste a deep link into a new tab, and you get a 404.' },

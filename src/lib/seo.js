@@ -127,6 +127,47 @@ export function serviceNode(service) {
 }
 
 /**
+ * OfferCatalog for /pricing, built from the same TIERS the page renders.
+ *
+ * ── This publishes a commitment ──────────────────────────────────────────
+ * Unlike `serviceNode`'s catalogue — which lists offers with no price, purely
+ * to describe what is on sale — these carry `price` and `priceCurrency`, and
+ * Google may show them in a result. Whatever is in src/content/pricing.js is
+ * therefore a number the business has to honour. It is generated from that one
+ * module rather than written out here so the schema cannot say something the
+ * page does not.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * An unpriced tier still gets an Offer node, just without `price`: dropping it
+ * would describe a two-tier ladder on a three-tier page. `availability` is
+ * omitted deliberately — these are engagements, not stock.
+ */
+export function offerCatalogNode({ path, tiers, currency }) {
+    return {
+        '@type': 'OfferCatalog',
+        '@id': `${url(path)}#offers`,
+        name: 'Korame engagements',
+        url: url(path),
+        itemListElement: tiers.map((tier) => ({
+            '@type': 'Offer',
+            name: tier.name,
+            description: tier.blurb,
+            url: url(path),
+            offeredBy: { '@id': ORG_ID },
+            itemOffered: {
+                '@type': 'Service',
+                name: `${tier.name} engagement`,
+                description: tier.blurb,
+                provider: { '@id': ORG_ID },
+            },
+            ...(tier.price != null
+                ? { price: String(tier.price), priceCurrency: currency }
+                : null),
+        })),
+    };
+}
+
+/**
  * FAQPage, generated from the same array the page renders.
  *
  * Google requires the answer text to be visible on the page, which is why

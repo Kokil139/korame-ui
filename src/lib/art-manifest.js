@@ -13,9 +13,6 @@ export const ART_MOTION = {
     "service-seo": [
         "webm"
     ],
-    "studio": [
-        "webm"
-    ],
     "work-ai": [
         "webm"
     ],

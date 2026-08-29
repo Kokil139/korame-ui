@@ -7,14 +7,15 @@
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .ssr && node scripts/prerender.mjs && node scripts/generate-headers.mjs && node scripts/verify-build.mjs",
     "preview": "vite preview",
-    "assets": "node scripts/generate-assets.mjs && node scripts/generate-artwork.mjs && node scripts/generate-artwork-motion.mjs && node scripts/generate-project-tiles.mjs && node scripts/generate-art-manifest.mjs",
+    "assets": "node scripts/generate-assets.mjs && node scripts/generate-artwork.mjs && node scripts/generate-artwork-motion.mjs && node scripts/generate-project-tiles.mjs && node scripts/generate-tile-art.mjs && node scripts/generate-art-manifest.mjs",
     "prebuild": "node scripts/generate-art-manifest.mjs && node scripts/verify-content.mjs && node scripts/generate-sitemap.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "artwork": "node scripts/generate-artwork.mjs && node scripts/generate-artwork-motion.mjs && node scripts/generate-project-tiles.mjs && node scripts/generate-art-manifest.mjs",
+    "artwork": "node scripts/generate-artwork.mjs && node scripts/generate-artwork-motion.mjs && node scripts/generate-project-tiles.mjs && node scripts/generate-tile-art.mjs && node scripts/generate-art-manifest.mjs",
     "art-manifest": "node scripts/generate-art-manifest.mjs",
     "verify": "node scripts/verify-content.mjs && node scripts/verify-build.mjs",
     "project-tiles": "node scripts/generate-project-tiles.mjs",
-    "headers": "node scripts/generate-headers.mjs"
+    "headers": "node scripts/generate-headers.mjs",
+    "tile-art": "node scripts/generate-tile-art.mjs"
   },
   "overrides": {
     "esbuild": "^0.25.0"

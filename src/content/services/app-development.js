@@ -7,7 +7,7 @@ export default {
         'Application development: installable web apps, cross-platform interfaces, and the APIs, authentication and cloud infrastructure behind them.',
     h1: 'Application development, without the platform theatre',
     kicker: 'App development',
-    art: 'work-ai',
+    art: 'service-app-development',
     serviceType: 'Application development',
     lede: 'Plenty of things sold as "an app" should not be one. An installable web application reaches every platform from one codebase, ships fixes the moment they are ready, and skips the app-store review queue entirely. We will tell you when that is the right answer, and when it genuinely is not.',
 
@@ -157,5 +157,5 @@ export default {
     ],
 
     projects: ['nomadninja', 'kepaso'],
-    related: ['web-app-development', 'full-stack-development', 'cloud-development', 'software-development'],
+    related: ['web-app-development', 'full-stack-development', 'cloud-solutions', 'software-development'],
 };

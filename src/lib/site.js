@@ -55,6 +55,7 @@ export const STACK = {
 /** Primary navigation. Order is the order a first-time visitor should meet it. */
 export const NAV = [
     { name: 'Services', href: '/services' },
+    { name: 'Pricing', href: '/pricing' },
     { name: 'Projects', href: '/projects' },
     { name: 'Free audit', href: '/free-website-audit' },
     { name: 'About', href: '/about' },

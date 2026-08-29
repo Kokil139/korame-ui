@@ -7,7 +7,7 @@ export default {
         'Custom web development from Korame: hand-built React frontends, Node APIs, cloud deployment and Core Web Vitals held to a budget. No templates, no page builders.',
     h1: 'Web development that is engineered, not assembled',
     kicker: 'Web development',
-    art: 'service-commerce',
+    art: 'service-web-development',
     serviceType: 'Web development',
     lede: 'Most of what gets called web development is configuration — a theme, a page builder, a pile of plugins holding each other up. We write the site instead. That costs more upfront and it is the only way to control what a page weighs, how fast it paints, and whether a search engine can read it.',
 
@@ -161,5 +161,5 @@ export default {
     ],
 
     projects: ['nomadninja', 'the-travellers-tribe', 'kepaso'],
-    related: ['web-design', 'web-app-development', 'full-stack-development', 'cloud-development'],
+    related: ['web-design', 'web-app-development', 'full-stack-development', 'cloud-solutions'],
 };

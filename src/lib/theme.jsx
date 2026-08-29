@@ -11,13 +11,27 @@ import { flushSync } from 'react-dom';
 const STORAGE_KEY = 'korame-theme';
 const ThemeContext = createContext(null);
 
-/** Read the stored choice, tolerating a blocked or empty localStorage. */
+/* Mobile browser chrome. The blocking script in index.html stamps the meta
+   tag with the same pair at load; this keeps it in step on a swap. */
+const THEME_COLOR = { dark: '#08090d', light: '#f7f8fa' };
+
+/**
+ * Read the stored choice, tolerating a blocked or empty localStorage.
+ *
+ * The default is 'light', not 'system': a first-time visitor gets the day
+ * palette whatever their OS is set to, and dark is an opt-in the toggle
+ * persists. 'system' is still honoured if it is what is stored, so the
+ * OS-following path below stays live.
+ *
+ * The blocking script in index.html decides the same thing before first
+ * paint and must be changed with this function.
+ */
 function readStored() {
     try {
         const v = localStorage.getItem(STORAGE_KEY);
-        return v === 'light' || v === 'dark' || v === 'system' ? v : 'system';
+        return v === 'light' || v === 'dark' || v === 'system' ? v : 'light';
     } catch {
-        return 'system';
+        return 'light';
     }
 }
 
@@ -29,9 +43,10 @@ const systemPrefersDark = () =>
  * Theme state.
  *
  * Three-state: 'light' | 'dark' | 'system'. The *resolved* value is what the
- * document actually wears. The blocking script in index.html has already
- * applied the correct class before first paint, so this provider adopts that
- * state rather than causing a second, visible swap on mount.
+ * document actually wears; 'light' is what an unset visitor gets. The
+ * blocking script in index.html has already applied the correct class before
+ * first paint, so this provider adopts that state rather than causing a
+ * second, visible swap on mount.
  */
 export function ThemeProvider({ children }) {
     const [theme, setThemeState] = useState(readStored);
@@ -80,6 +95,13 @@ export function ThemeProvider({ children }) {
 
         const commit = () => {
             root.classList.toggle('dark', isDark);
+
+            /* Without this the meta tag keeps whatever the blocking script
+               stamped at load, so the browser's own bar stays the colour of
+               the palette the visitor has just switched away from. */
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.content = isDark ? THEME_COLOR.dark : THEME_COLOR.light;
+
             setResolved(isDark ? 'dark' : 'light');
         };
 

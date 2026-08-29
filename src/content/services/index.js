@@ -5,8 +5,7 @@ import fullStackDevelopment from './full-stack-development.js';
 import appDevelopment from './app-development.js';
 import softwareDevelopment from './software-development.js';
 import customSoftwareDevelopment from './custom-software-development.js';
-import cloudDevelopment from './cloud-development.js';
-import azureDevelopment from './azure-development.js';
+import cloudSolutions from './cloud-solutions.js';
 
 /**
  * The service pages, in the order they should be presented.
@@ -40,8 +39,7 @@ export const SERVICES = [
     appDevelopment,
     softwareDevelopment,
     customSoftwareDevelopment,
-    cloudDevelopment,
-    azureDevelopment,
+    cloudSolutions,
 ];
 
 export const SERVICE_BY_SLUG = Object.fromEntries(SERVICES.map((s) => [s.slug, s]));

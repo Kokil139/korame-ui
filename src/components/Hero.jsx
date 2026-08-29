@@ -16,6 +16,7 @@ import { springSnap, springSoft, easeOptical } from '@/lib/motion';
 import { useMediaQuery, COARSE_POINTER } from '@/lib/use-media-query';
 import { ROUTES } from '@/lib/routes';
 import { PROJECTS } from '@/content/projects';
+import { SERVICE_LIST } from '@/content/service-list';
 
 /**
  * Facts about this site, not claims about our business.
@@ -26,12 +27,18 @@ import { PROJECTS } from '@/content/projects';
  * Publishing unverifiable numbers on a page selling engineering rigour is a
  * contradiction a visitor can spot.
  *
- * Every number below is checkable from this page. The route count is derived
- * from the route registry rather than typed, so it cannot go stale.
+ * Every number below is checkable from this page, and every one is derived
+ * from the code rather than typed, so none of them can go stale.
+ *
+ * "Decorative network images loaded: 0" used to sit in this row. It stopped
+ * being true the moment the service tiles became photographs rather than
+ * generated SVG, so it was replaced rather than left to quietly mislead —
+ * an unverifiable number on a page selling engineering rigour is a
+ * contradiction a visitor can spot.
  */
 const STATS = [
     { value: ROUTES.length, suffix: '', decimals: 0, label: 'Pages pre-rendered as static HTML' },
-    { value: 0, suffix: '', decimals: 0, label: 'Decorative network images loaded' },
+    { value: SERVICE_LIST.length, suffix: '', decimals: 0, label: 'Service pages, each written in full' },
     { value: 100, suffix: '%', decimals: 0, label: 'Animations honouring reduced motion' },
     { value: PROJECTS.length, suffix: '', decimals: 0, label: 'Case studies written up in full' },
 ];
@@ -56,13 +63,22 @@ export default function Hero() {
        frame, and this is the largest type on the page. It is also the only
        entrance that runs while the rest of the document is still mounting,
        which is why the home screen was the one that dragged on refresh while
-       every scroll-triggered section below it looked fine. */
+       every scroll-triggered section below it looked fine.
+
+       `filter` must nonetheless appear in *both* objects on *every* device.
+       `useMediaQuery` cannot read a media query on the server, so its server
+       snapshot is `false` and the pre-rendered HTML always ships the desktop
+       branch — `style="opacity:0;filter:blur(12px)"` — inline on this span.
+       `coarse` only becomes true on the re-render *after* hydration, and if
+       the key has vanished from `animate` by then Motion no longer owns
+       `filter` and never writes it again: the pre-rendered blur stays on the
+       element for good, and the gradient headline is a permanent smear on
+       every phone and tablet. Keeping the key costs a touch device one
+       `blur(0px)` -> `blur(0px)` no-op; dropping it costs it the headline. */
     const headlineIn = coarse
-        ? { opacity: 0, y: 24 }
+        ? { opacity: 0, y: 24, filter: 'blur(0px)' }
         : { opacity: 0, y: 24, filter: 'blur(12px)' };
-    const headlineOut = coarse
-        ? { opacity: 1, y: 0 }
-        : { opacity: 1, y: 0, filter: 'blur(0px)' };
+    const headlineOut = { opacity: 1, y: 0, filter: 'blur(0px)' };
 
     /* Scroll-linked depth: the headline layer drifts up and dims slightly
        faster than the page, which reads as parallax without a scroll handler.
@@ -180,16 +196,24 @@ export default function Hero() {
                     <h1 className="relative z-10 text-balance font-heading text-[2.05rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-[2.5rem] lg:text-[3.5rem]">
                         {/* Word-level 3D flip-in. The perspective lives on the
                             container so all words share one camera. */}
+                        {/* `initial={false}` rather than dropping the
+                            variants: the pre-rendered markup carries each
+                            word's hidden state inline, so a component that
+                            stops animating leaves those words at
+                            `opacity: 0` for good. Under reduced motion Motion
+                            must still write the final state — it just writes
+                            it without a transition. */}
                         <motion.span
                             className="block perspective-far"
-                            initial={reduced ? undefined : 'hidden'}
-                            animate={reduced ? undefined : 'visible'}
+                            initial={reduced ? false : 'hidden'}
+                            animate="visible"
                             transition={{ delayChildren: 0.12, staggerChildren: 0.055 }}
                         >
                             {LINE_ONE.map((word, i) => (
                                 <motion.span
                                     key={i}
-                                    variants={reduced ? undefined : wordVariants}
+                                    initial={reduced ? false : undefined}
+                                    variants={wordVariants}
                                     className="mr-[0.25em] inline-block origin-bottom will-change-transform"
                                 >
                                     {word}
@@ -198,8 +222,8 @@ export default function Hero() {
                         </motion.span>
 
                         <motion.span
-                            initial={reduced ? undefined : headlineIn}
-                            animate={reduced ? undefined : headlineOut}
+                            initial={reduced ? false : headlineIn}
+                            animate={headlineOut}
                             /* y springs; the blur gets a duration curve, per the
                                vocabulary in lib/motion.js — a spring on an
                                optical property overshoots into values Motion has

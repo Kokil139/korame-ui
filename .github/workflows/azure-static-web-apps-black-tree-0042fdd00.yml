@@ -15,23 +15,54 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Fails the build if service-list.js has drifted from the content
+      # modules, if any cross-link points at content that does not exist, or
+      # if two pages would ship the same title or meta description.
+      - name: Verify content
+        run: node scripts/verify-content.mjs
+
+      # `npm run build` is three steps: the client bundle, an SSR bundle, and
+      # scripts/prerender.mjs, which writes one static HTML file per route.
+      # `prebuild` regenerates the art manifest and the sitemap first.
+      - name: Build
+        run: npm run build
+
+      # Confirms the built output before it is deployed: every route present,
+      # one <h1> per page, unique titles and descriptions, correct canonicals,
+      # parseable JSON-LD.
+      - name: Verify build output
+        run: node scripts/verify-build.mjs
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_TREE_0042FDD00 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for GitHub integrations (i.e. PR comments)
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          app_location: "/"
+          api_location: ""
+          output_location: "dist"
+          # The build already ran above, including the pre-render step. Letting
+          # Oryx build again would run its own `npm run build` in an image we
+          # do not control, and a pre-render that silently fell back to the
+          # unrendered SPA shell would be invisible until traffic dropped.
+          skip_app_build: true
+          skip_api_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

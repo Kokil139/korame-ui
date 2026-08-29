@@ -49,7 +49,10 @@ const SPEC_LINES = [
     { indent: 1, tokens: [['styling: ', 'text-muted-foreground'], ["'Tailwind CSS v4'", 'text-amber-300'], [',', 'text-muted-foreground']] },
     { indent: 1, tokens: [['motion: ', 'text-muted-foreground'], ["'Motion + scroll-linked'", 'text-amber-300'], [',', 'text-muted-foreground']] },
     { indent: 1, tokens: [['components: ', 'text-muted-foreground'], ["'shadcn/ui'", 'text-amber-300'], [',', 'text-muted-foreground']] },
-    { indent: 1, tokens: [['a11y: ', 'text-muted-foreground'], ["'WCAG 2.1 AA'", 'text-amber-300']] },
+    /* Kept in step with STACK.practice in src/lib/site.js and the
+       accessibility chips on /web-design — one claim, stated once per
+       surface, so the site never quotes itself two different versions. */
+    { indent: 1, tokens: [['a11y: ', 'text-muted-foreground'], ["'WCAG 2.2 AA'", 'text-amber-300']] },
     { indent: 0, tokens: [['};', 'text-violet-glow']] },
 ];
 

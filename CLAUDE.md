@@ -49,15 +49,39 @@ src/
   components/motion/     Reveal, TiltCard, Magnetic, CountUp, WordReveal,
                          Aurora, ScrollProgress, CircuitDivider, TileImage,
                          CodeTypewriter, ScreenBoot, useScrollVelocityFactor
-  components/*.jsx       the page sections
+  components/*.jsx       the homepage sections
+  components/page/       Breadcrumbs, PageHero, Section, FaqList, Blocks
+                         (CardGrid, StepList, Prose, TechStrip, CheckList,
+                         LinkCards, CtaBand) — the inner pages are these
+                         components fed different data
+  components/Seo.jsx     per-route <head>; collects on the server, patches
+                         the live document on client navigation
+  pages/*.jsx            one file per route template
+  content/service-list.js  nav metadata for the 9 services (see its header
+                         for why it is split from the content modules)
+  content/services/*.js  one module per service page — the source of truth
+                         for its copy, metadata, FAQ and cross-links
+  content/projects.js    the three case studies
+  content/posts.js       blog articles, as typed content blocks
+  lib/site.js            origin, contact details, nav, technology stack
+  lib/routes.js          THE route registry — router, sitemap and pre-render
+                         all read this one array
+  lib/seo.js             JSON-LD builders (Organization, Service, Article,
+                         BreadcrumbList, FAQPage, ItemList …)
+  entry-server.jsx       pre-render entry (renderToPipeableStream)
 scripts/
+  prerender.mjs              writes one static HTML file per route
+  generate-sitemap.mjs       sitemap.xml + robots.txt, from lib/routes.js
+  verify-content.mjs         fails the build on content drift, dead
+                             cross-links, duplicate titles/descriptions
+  verify-build.mjs           fails the build on an unrendered route, a missing
+                             canonical, duplicate metadata or bad JSON-LD
   generate-assets.mjs        og-image.png + apple-touch-icon.png
   generate-artwork.mjs       the artwork itself: stage() + motifs, and the
                              public/art/*.webp stills. Exports stage()/PIECES.
   generate-artwork-motion.mjs public/art/*.webm looping clips, from the same
                              stage() — so a clip and its poster cannot drift
   lib/webm.mjs               WebM muxer (see "Encoding video with no ffmpeg")
-  generate-faq-schema.mjs  FAQPage JSON-LD, from the FAQS array
 ```
 
 Entrance motion is owned by each section through `<Reveal>`. There is no
@@ -175,6 +199,23 @@ non-bubbling `PointerEvent('pointerenter')` never reaches React's delegated
 root listener, so a hover test built that way reports a false failure. Drive
 hover with CDP `Input.dispatchMouseEvent` instead.
 
+**A frosted surface cannot be faded.** Per the Filter Effects spec, an
+ancestor with `opacity < 1` — or `will-change: opacity` — becomes a *backdrop
+root*. While the services dropdown faded in, the only thing behind it for
+`backdrop-filter` to sample was its own animating wrapper, which is empty; on
+the frame opacity reached 1 the backdrop root disappeared and the blur snapped
+to sampling the real page. That snap reads as a flicker, and no amount of
+layer promotion, `transform-gpu` or `will-change` fixes it, because it is not
+a rasterisation problem. Either drop the blur on that surface
+(`--glass-bg-flat` is the token this design system already switches to on
+touch) or animate nothing but its descendants. The nav dropdown took the first
+option, which is also better for legibility over arbitrary page content.
+
+**Motion writes `transform`, so nothing else may own it.** The same dropdown
+carried `-translate-x-1/2` for centring on the very element Motion was
+animating `y` and `scale` on. Put positioning transforms on a separate,
+static wrapper.
+
 **Tailwind arbitrary-property overrides are order-dependent.** Passing
 `className="[--gap:1rem]"` against a component's own `[--gap:3rem]` is equal
 specificity — the winner depends on stylesheet order, not call order. Expose a
@@ -219,14 +260,27 @@ opacity.
 ## Commands
 
 ```
-npm run dev      # vite dev server
-npm run build    # production build
-npm run assets   # regenerate public/og-image.png + apple-touch-icon.png
+npm run dev      # vite dev server (one HTML file, no pre-render)
+npm run build    # client bundle -> SSR bundle -> pre-render -> verify
+npm run verify   # content + built-output checks, without rebuilding
+npm run sitemap  # regenerate public/sitemap.xml + robots.txt
+npm run assets   # regenerate og-image, apple-touch-icon and the artwork
 ```
 
-`npm run lint` is declared in `package.json` but **eslint is not installed**
-— that was already true before the redesign. Either add eslint or drop the
-script.
+`npm run build` is four steps and every one of them matters:
+
+1. `vite build` — the client bundle.
+2. `vite build --ssr src/entry-server.jsx --outDir .ssr` — a Node-loadable
+   copy of the app, used once and deleted by the pre-render script.
+3. `scripts/prerender.mjs` — renders every route in `lib/routes.js` and writes
+   it as its own `index.html`.
+4. `scripts/verify-build.mjs` — refuses to ship an unrendered route.
+
+`prebuild` regenerates the art manifest, runs `verify-content.mjs` and
+regenerates the sitemap, so none of those can be stale in a build.
+
+The `lint` script was **removed**: it invoked eslint, which is not installed,
+so it failed on every run. Add eslint and put it back, or leave it out.
 
 ## Tile artwork
 
@@ -237,11 +291,42 @@ Everything lives in `public/art/`, keyed by tile name:
 | Services — full-stack & e-commerce | `service-commerce` |
 | Services — bespoke UI/UX & motion | `service-design` |
 | Services — hosting, domains & SEO | `service-seo` |
-| Work — project 1 | `work-commerce` |
-| Work — project 2 | `work-saas` |
-| Work — project 3 | `work-ai` |
-| Work — project 4 | `work-seo` |
+| Services — shared with web-app / full-stack | `work-saas` |
+| Services — shared with app / software | `work-ai` |
 | Contact — studio card | `studio` |
+
+The three case-study tiles are **not** generated abstract artwork. They are
+each project's own logo on a paper field, built by
+`scripts/generate-project-tiles.mjs` from the source marks in `scripts/brand/`:
+
+| Tile | name |
+|---|---|
+| Kepaso | `project-kepaso` |
+| NomadNinja | `project-nomadninja` |
+| The Travellers Tribe | `project-the-travellers-tribe` |
+
+Three things about those tiles are load-bearing:
+
+- **They are light, not deep-toned.** NomadNinja's mark is an ink-brush drawing
+  in near-black; on a dark field it vanishes. Paper is the only background all
+  three marks read on, and it is what they were drawn for.
+- **The field is a half-step deeper than each brand's real paper.** The light
+  theme's `--card` is pure white, and at the brands' true paper values the
+  Tribe tile was indistinguishable from the card containing it.
+- **`LOGO_HEIGHT` is capped at 230px of the 750px tile.** `TileImage` renders
+  `object-cover` with a permanent `scale-[1.18]`, and the case-study hero is
+  roughly 3.6:1 against a 16:10 image — only the middle ~37% of the image
+  height survives there. A larger logo looks fine on the homepage grid and is
+  cut in half on the case-study page. Check both.
+
+These tiles are stills only. They are logos; they should not animate, and
+having no `.webm` beside them is what makes `TileImage` render an `<img>`.
+
+`work-commerce` and `work-seo` were removed from `PIECES` when the case
+studies stopped using them — 607 kB of artwork that nothing referenced. Pieces
+are independent (`stage()` calls `rng(seed)` per piece), so dropping one
+cannot change how the others render. `streams` is still generated and still
+unreferenced; drop it too if nothing claims it.
 
 ```
 public/art/<name>.webm    motion, preferred (best compression)
@@ -336,14 +421,99 @@ The security scan is awaited as the required source; performance and the
 timing probe run alongside it and are allowed to fail individually without
 taking the report down.
 
-## Placeholder content — replace before launch
+## Fabricated content that was removed
 
-- `src/components/Work.jsx` — invented projects and em-dash metrics.
-- `src/components/Pricing.jsx` — invented figures, mirrored by the `Offer`
-  entries in `index.html`. Change both, or neither.
+Three things on the old build asserted facts that were not true. All three
+are gone rather than rewritten:
 
-Publishing invented client work or prices you do not honour misrepresents the
-business to its visitors, and the pricing is quoted to search engines through
-structured data.
+- `src/components/Reviews.jsx` — three testimonials with invented names,
+  invented companies and an invented metric ("bounce rate dropped 45%").
+- `src/components/Pricing.jsx` — invented figures, which were also being fed
+  to search engines as `Offer` structured data in `index.html`.
+- `src/components/Work.jsx` — "Project One" … "Project Four" with em-dash
+  metrics, replaced by `SelectedWork.jsx` and the three real case studies.
 
-Debug: the site is a single page; there are no routes.
+The Hero stat row asserted "50+ projects delivered", "99.9% uptime" and
+"100% client satisfaction". It now shows facts about the site itself, two of
+which are derived from the code so they cannot go stale.
+
+All three files are recoverable from git history. **Do not restore them with
+placeholder values.** Real testimonials need real permission, and a price
+quoted to search engines through structured data is a price you have to
+honour. `verify-content.mjs` will not catch a fabrication — that is a
+judgement, not a check.
+
+## Routing and pre-rendering
+
+The site is **21 routes plus a 404**, not a single page.
+
+`src/lib/routes.js` is the registry. The router, `generate-sitemap.mjs` and
+`prerender.mjs` all read it, so a page cannot exist without a sitemap entry,
+and a sitemap entry cannot 404.
+
+**Every route is pre-rendered to its own `index.html`.** `/about` is
+`dist/about/index.html`, served straight from the CDN with complete markup and
+its own `<head>`. React hydrates that markup rather than building it.
+
+Traps in this area, all of which cost real time:
+
+**`renderToString` cannot resolve `React.lazy`.** It renders the Suspense
+fallback and returns, which produced 21 empty documents and no `<Seo>`
+descriptor. `renderToPipeableStream` with `onAllReady` waits for every
+boundary to settle, so code splitting costs the static HTML nothing.
+
+**`vite preview` cannot be used to check this build.** It runs in SPA mode and
+history-falls-back every extensionless path to `index.html`, so every route
+serves the *homepage's* markup and then hydrates a different tree. That looks
+exactly like a hydration bug and is not one. Serve `dist/` with something that
+resolves `<path>/index.html` the way Azure does.
+
+**A minified React hydration error tells you nothing.** "Minified React error
+#418" carries no component stack. Build the client once through a throwaway
+config with `define: { 'process.env.NODE_ENV': '"development"' }` and
+`build.minify: false` to get the real message and the offending component.
+
+**The pre-rendered JSON-LD needs `data-seo` on its `<script>`.** Without it
+`<Seo>` does not recognise the block as its own, leaves it in place and
+appends a second copy on hydration — every page then ships the graph twice,
+with duplicate `@id` nodes.
+
+**Anything the app shell imports lands in the entry bundle.** The navbar and
+footer list all nine services; importing the full content modules to do that
+put every service page's prose into the bundle every visitor downloads.
+`content/service-list.js` exists for that reason, and `verify-content.mjs`
+fails the build if the light list and the full modules disagree.
+
+**Pre-rendered HTML is produced with the light palette.** `ThemeProvider`
+therefore starts `resolved` at `'light'` on both sides of hydration and adopts
+the real value in an effect. Reading the document class in the state
+initialiser instead makes a dark-mode visitor hydrate a tree that disagrees
+with the markup React is attaching to. The palette itself never flashes — the
+blocking script in `index.html` still applies `.dark` before first paint.
+
+**Collapsed FAQ answers must stay in the DOM.** Google requires FAQPage answer
+text to be present in the HTML it receives, and with pre-rendering that HTML
+is the initial render. `FaqList` height-animates instead of unmounting, and
+marks closed panels `inert`.
+
+**`trailingSlash` must be `"never"`** in `staticwebapp.config.json`. Every
+canonical this site emits is slash-free; under `"auto"` Azure would 301 each
+canonical URL to its trailing-slash form.
+
+**The navigation fallback must exclude asset paths.** A fallback that catches
+everything serves `index.html` with a 200 for any missing file, which is the
+soft-404 pattern that fills Search Console with URLs nobody created. See
+`/blog/azure-static-web-apps-404-on-refresh`, which is about exactly this.
+
+## Deployment — unresolved
+
+Two workflows deploy this repository on every push to `main`:
+`azure-static-web-apps-black-tree-0042fdd00.yml` and `deploy.yml` (GitHub
+Pages). `public/CNAME` claims `korame.in` for GitHub Pages.
+
+Only one host can own `korame.in`, and the other is then serving a full copy
+of the site on a domain the canonical tags all point away from. The Azure
+workflow has been updated to build and verify explicitly (`skip_app_build`,
+because Oryx would otherwise rebuild in an image we do not control and a
+failed pre-render would be invisible). **Pick a host and delete the other
+workflow.** If Azure wins, `public/CNAME` should go too.

@@ -96,3 +96,5 @@ Thumbs.db
 coverage/
 .vitest/
 CLAUDE.md
+# SSR bundle used only by scripts/prerender.mjs; deleted after each build
+.ssr/

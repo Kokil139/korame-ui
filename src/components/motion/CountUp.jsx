@@ -1,4 +1,13 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
+
+/**
+ * `useLayoutEffect` warns during pre-rendering, because a layout effect
+ * cannot be encoded into a string. It is genuinely the right hook on the
+ * client — see the comment on its use below — so alias it to `useEffect` on
+ * the server, where neither one runs and the distinction is meaningless.
+ */
+const useIsomorphicLayoutEffect =
+    typeof window === 'undefined' ? useEffect : useLayoutEffect;
 import {
     useInView,
     useMotionValue,
@@ -34,7 +43,7 @@ export default function CountUp({
     const format = (n) => prefix + n.toFixed(decimals) + suffix;
     const shouldAnimate = inView && !reduced;
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (!shouldAnimate) return;
         const node = ref.current;
         if (node) node.textContent = format(0);

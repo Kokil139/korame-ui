@@ -4,32 +4,37 @@ import DeviceShowcase from '@/components/DeviceShowcase';
 import Vision from '@/components/Vision';
 import Process from '@/components/Process';
 import Services from '@/components/Services';
-import Work from '@/components/Work';
-import Pricing from '@/components/Pricing';
+import SelectedWork from '@/components/SelectedWork';
 import AuditTool from '@/components/AuditTool';
-import Reviews from '@/components/Reviews';
 import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
 import CircuitDivider from '@/components/motion/CircuitDivider';
 
 /**
- * Everything below the first screen, in one lazily-loaded chunk.
+ * Everything below the homepage's first screen, in one lazily-loaded chunk.
  *
- * Why this is split out at all: the page is a single route, so every section
- * used to mount in the same commit as the Hero. Measured on the production
- * build at 6x CPU throttle, that was one 1295ms task before first paint,
- * followed by 365ms and 151ms tasks that landed exactly on top of the Hero's
- * entrance — a 367ms frame in the middle of the headline animation.
+ * Why this is split out: the Hero is the only section whose entrance runs on
+ * mount rather than on scroll, so it is the only one that can be starved by
+ * the initial commit. Measured on the production build at 6x CPU throttle,
+ * mounting the whole document in one go was a 1295ms task before first paint
+ * followed by work landing directly on top of the Hero's entrance.
  *
- * The Hero is the only section that animates on mount; every other one waits
- * for a scroll that cannot happen until the main thread is already idle.
- * That asymmetry is the whole reason the home screen was the one that
- * stuttered on refresh while the rest of the page felt fine.
+ * With pre-rendering, this markup is already in the served HTML, so the
+ * reader sees it immediately regardless. React 18 keeps the server HTML
+ * inside a Suspense boundary in place while the lazy chunk loads and hydrates
+ * that boundary separately — so the split now buys hydration priority for the
+ * Hero rather than paint priority, and costs the reader nothing either way.
  *
- * Ordering follows the sales argument: who we are -> proof of craft -> how we
- * work -> what we make -> proof of work -> what it costs -> a reason to act
- * now (the live audit) -> social proof -> objections -> contact.
+ * ── Two sections were removed rather than migrated ───────────────────────
+ * `Reviews` shipped three testimonials with invented names, invented
+ * companies and an invented metric ("bounce rate dropped 45%"). `Pricing`
+ * shipped invented figures that were also being fed to search engines as
+ * Offer structured data. Both are fabrications; neither is restorable
+ * without real material. See the SEO report for what to put back.
+ *
+ * Ordering follows the argument: who we are -> proof of craft -> how we work
+ * -> what we make -> proof of work -> a reason to act now -> objections ->
+ * contact.
  */
 export default function BelowTheFold() {
     return (
@@ -41,16 +46,11 @@ export default function BelowTheFold() {
             <Process />
             <CircuitDivider />
             <Services />
-            <Work />
-            <Pricing />
+            <SelectedWork />
             <AuditTool />
-            <Reviews />
             <CircuitDivider />
             <Faq />
             <Contact />
         </>
     );
 }
-
-/* Same chunk, so pulling this in costs no extra request. */
-export { Footer as SiteFooter };

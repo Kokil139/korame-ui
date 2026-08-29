@@ -10,6 +10,7 @@ import {
     ExternalLink,
     Timer,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import Reveal from '@/components/motion/Reveal';
 import { Badge } from '@/components/ui/badge';
@@ -91,7 +92,16 @@ function ScoreRing({ score, label, icon: Icon, caption, delay = 0 }) {
 
 /* -------------------------------------------------------------------- */
 
-export default function AuditTool() {
+/**
+ * The live audit.
+ *
+ * Rendered twice: as a section on the homepage, and as the body of
+ * /free-website-audit. `hideHeader` suppresses this section's own heading on
+ * the dedicated page, where the <h1> belongs to <PageHero> — two headings
+ * saying the same thing is a heading-hierarchy problem, not just a visual one.
+ */
+export default function AuditTool({ hideHeader = false }) {
+    const navigate = useNavigate();
     const [url, setUrl] = useState('');
     const [status, setStatus] = useState('idle'); // idle | running | done | error
     const [result, setResult] = useState(null);
@@ -149,16 +159,32 @@ export default function AuditTool() {
         [url],
     );
 
-    /* Hand the audited URL to the contact form so the lead arrives with context. */
+    /**
+     * Hand the audited URL to the contact form so the lead arrives with
+     * context.
+     *
+     * The form is on the same document on the homepage, and on a different
+     * route at /free-website-audit. When it is not here, navigate to /contact
+     * and carry the URL in the router state rather than dropping the handoff
+     * silently — the whole point of the button is that the visitor does not
+     * have to retype what they just scanned.
+     */
     const handoff = useCallback(() => {
-        const field = document.querySelector('#contact-message');
         const target = result?.target?.href ?? normaliseUrl(url)?.href ?? url;
+        const message = `Please send me the full written audit for ${target}.`;
+
+        const field = document.querySelector('#contact-message');
         if (field) {
-            field.value = `Please send me the full written audit for ${target}.`;
+            field.value = message;
             field.dispatchEvent(new Event('input', { bubbles: true }));
+            document
+                .getElementById('contact')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
         }
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, [result, url]);
+
+        navigate('/contact', { state: { message } });
+    }, [navigate, result, url]);
 
     return (
         <section
@@ -168,26 +194,28 @@ export default function AuditTool() {
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 dot-field" />
 
             <div className="relative mx-auto max-w-4xl">
-                <div className="text-center">
-                    <Reveal>
-                        <Badge>Free website audit</Badge>
-                    </Reveal>
+                {!hideHeader && (
+                    <div className="text-center">
+                        <Reveal>
+                            <Badge>Free website audit</Badge>
+                        </Reveal>
 
-                    <Reveal delay={0.06}>
-                        <h2 className="mt-6 text-balance font-heading text-4xl font-bold tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
-                            How healthy is your site,{' '}
-                            <span className="text-gradient-brand">really?</span>
-                        </h2>
-                    </Reveal>
+                        <Reveal delay={0.06}>
+                            <h2 className="mt-6 text-balance font-heading text-4xl font-bold tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
+                                How healthy is your site,{' '}
+                                <span className="text-gradient-brand">really?</span>
+                            </h2>
+                        </Reveal>
 
-                    <Reveal delay={0.12}>
-                        <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted-foreground">
-                            Enter your address for a live scan of your security headers,
-                            response time{hasPsi ? ' and Lighthouse scores' : ''}. No email
-                            required to see the numbers.
-                        </p>
-                    </Reveal>
-                </div>
+                        <Reveal delay={0.12}>
+                            <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted-foreground">
+                                Enter your address for a live scan of your security headers,
+                                response time{hasPsi ? ' and Lighthouse scores' : ''}. No email
+                                required to see the numbers.
+                            </p>
+                        </Reveal>
+                    </div>
+                )}
 
                 <Reveal delay={0.16}>
                     <Card lit={false} className="mt-12 p-6 sm:p-9">

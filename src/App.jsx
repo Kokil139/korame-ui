@@ -1,70 +1,85 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { ThemeProvider } from './lib/theme';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import ScrollProgress from './components/motion/ScrollProgress';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { ThemeProvider } from '@/lib/theme';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import ScrollProgress from '@/components/motion/ScrollProgress';
 
-/* Both resolve to the same module, so this is one chunk and one request. */
-const BelowTheFold = lazy(() => import('./components/BelowTheFold'));
-const SiteFooter = lazy(() =>
-    import('./components/BelowTheFold').then((m) => ({ default: m.SiteFooter })),
-);
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
+
+import { SERVICE_LIST } from '@/content/service-list';
+import { REDIRECTS } from '@/lib/routes';
 
 /**
- * Hold the rest of the document back until the Hero has had the main thread
- * to itself.
+ * Inner pages are code-split; the homepage and the 404 are not.
  *
- * The Hero is the only section whose entrance runs on mount rather than on
- * scroll, so it is the only one that can be starved by the initial commit —
- * which is exactly the shape of the bug this fixes: refresh the home screen
- * and the headline drags, while every section below it, animating later
- * against an idle thread, looks fine.
+ * The homepage is the most common entry point, so its chunk should not cost a
+ * second round trip, and the 404 has to render without one. Everything else
+ * becomes a chunk that only the visitors who go there pay for — which matters
+ * here because the nine service content modules are the largest body of text
+ * on the site and no single visitor needs more than one of them.
  *
- * Deferring is skipped whenever the reader is not actually starting at the
- * top: a deep link (`/#pricing`) or a scroll position the browser restored
- * on refresh both need the whole document present immediately, and there is
- * no entrance to protect in either case.
+ * This costs nothing on first paint. Every route is pre-rendered, so the HTML
+ * is complete when the document arrives; the chunk is needed only to hydrate
+ * it, and React keeps the server markup in place inside the Suspense boundary
+ * until it lands. `fallback={null}` is therefore never seen on a pre-rendered
+ * load — only on an in-app navigation, where it is a frame.
+ *
+ * The pre-render itself uses renderToPipeableStream with `onAllReady`, which
+ * waits for every lazy chunk before emitting, so splitting costs the static
+ * HTML nothing either. See src/entry-server.jsx.
  */
-function useBelowTheFold() {
-    const [ready, setReady] = useState(
-        () =>
-            typeof window !== 'undefined' &&
-            (window.location.hash !== '' || window.scrollY > 0),
-    );
+const ServicesIndex = lazy(() => import('@/pages/ServicesIndex'));
+const ServicePage = lazy(() => import('@/pages/ServicePage'));
+const ProjectsIndex = lazy(() => import('@/pages/ProjectsIndex'));
+const ProjectPage = lazy(() => import('@/pages/ProjectPage'));
+const AuditPage = lazy(() => import('@/pages/AuditPage'));
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const ContactPage = lazy(() => import('@/pages/ContactPage'));
+const BlogIndex = lazy(() => import('@/pages/BlogIndex'));
+const BlogPost = lazy(() => import('@/pages/BlogPost'));
+
+/**
+ * Reset scroll on navigation.
+ *
+ * The browser only restores scroll for history entries it created; a
+ * client-side route change is not one, so without this every navigation lands
+ * at whatever offset the previous page was scrolled to. Going *back* is left
+ * alone — the browser's own restoration is correct there.
+ *
+ * `behavior: 'instant'` is required: `html { scroll-behavior: smooth }` is set
+ * globally, and a smooth scroll on a page that has just swapped its entire
+ * contents animates through content the reader never asked to see.
+ */
+function ScrollToTop() {
+    const { pathname, hash } = useLocation();
 
     useEffect(() => {
-        if (ready) return undefined;
+        if (hash) {
+            const el = document.getElementById(hash.slice(1));
+            if (el) {
+                el.scrollIntoView({ behavior: 'instant', block: 'start' });
+                return;
+            }
+        }
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, [pathname, hash]);
 
-        const show = () => setReady(true);
-        /* Long enough to clear the entrance — the last child starts at 0.75s
-           and its spring settles about 0.6s after that — and short enough
-           that the content is there long before a reader could reach it. */
-        const timer = setTimeout(show, 1500);
-        /* ...unless they move first, in which case they need it now. */
-        const opts = { once: true, passive: true };
-        window.addEventListener('scroll', show, opts);
-        window.addEventListener('pointerdown', show, opts);
-        window.addEventListener('keydown', show, opts);
-
-        return () => {
-            clearTimeout(timer);
-            window.removeEventListener('scroll', show);
-            window.removeEventListener('pointerdown', show);
-            window.removeEventListener('keydown', show);
-        };
-    }, [ready]);
-
-    return ready;
+    return null;
 }
 
 /**
- * Entrance motion is owned by each section through <Reveal>. There is no
- * global animation sweep, so no component can animate a node it does not
- * render.
+ * Every service page is a separate route rather than one `:slug` catch-all.
+ *
+ * A catch-all would happily render for `/anything`, and the not-found branch
+ * would then have to live inside the page component. Declaring the nine paths
+ * explicitly means an unknown root path falls through to the 404 route, which
+ * is what both a reader and a crawler should get.
  */
-export default function App() {
-    const ready = useBelowTheFold();
+const SERVICE_ROUTES = SERVICE_LIST.map((s) => ({ path: `/${s.slug}`, slug: s.slug }));
 
+export default function App() {
     return (
         <ThemeProvider>
             <div className="relative min-h-screen">
@@ -76,15 +91,51 @@ export default function App() {
                     Skip to content
                 </a>
 
+                <ScrollToTop />
                 <Navbar />
                 <ScrollProgress />
 
                 <main id="main">
-                    <Hero />
-                    <Suspense fallback={null}>{ready && <BelowTheFold />}</Suspense>
+                    <Suspense fallback={null}>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+
+                            <Route path="/services" element={<ServicesIndex />} />
+                            {SERVICE_ROUTES.map((route) => (
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={<ServicePage slug={route.slug} />}
+                                />
+                            ))}
+
+                            <Route path="/projects" element={<ProjectsIndex />} />
+                            <Route path="/projects/:slug" element={<ProjectPage />} />
+
+                            <Route path="/free-website-audit" element={<AuditPage />} />
+                            <Route path="/about" element={<AboutPage />} />
+                            <Route path="/contact" element={<ContactPage />} />
+
+                            <Route path="/blog" element={<BlogIndex />} />
+                            <Route path="/blog/:slug" element={<BlogPost />} />
+
+                            {/* Legacy paths. The edge issues a real 301 for
+                                these; this is the client-side equivalent, so an
+                                in-app link to an old path still resolves. */}
+                            {REDIRECTS.map((r) => (
+                                <Route
+                                    key={r.from}
+                                    path={r.from}
+                                    element={<Navigate to={r.to} replace />}
+                                />
+                            ))}
+
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </Suspense>
                 </main>
 
-                <Suspense fallback={null}>{ready && <SiteFooter />}</Suspense>
+                <Footer />
             </div>
         </ThemeProvider>
     );

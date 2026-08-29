@@ -50,7 +50,21 @@ const CHANNELS = [
     },
 ];
 
-export default function Contact() {
+/**
+ * The contact section.
+ *
+ * Used twice: as the closing section of the homepage, and as the body of
+ * /contact. On the dedicated page the <h1> belongs to <PageHero>, so
+ * `hideHeader` suppresses this section's own heading block rather than
+ * shipping a second competing headline — two H-level headings saying the same
+ * thing is a heading-hierarchy problem, not just a visual one.
+ *
+ * `defaultMessage` is how the free audit hands its result across. When the
+ * audit tool is on this same document it writes into the field directly; from
+ * /free-website-audit it cannot, so it navigates here with the message in
+ * router state and <ContactPage> passes it down.
+ */
+export default function Contact({ hideHeader = false, defaultMessage = '' }) {
     const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
     const handleSubmit = async (e) => {
@@ -87,27 +101,29 @@ export default function Contact() {
             <Aurora intensity="soft" />
 
             <div className="relative mx-auto max-w-6xl">
-                <div className="mx-auto max-w-2xl text-center">
-                    <Reveal>
-                        <Badge>Get in touch</Badge>
-                    </Reveal>
+                {!hideHeader && (
+                    <div className="mx-auto max-w-2xl text-center">
+                        <Reveal>
+                            <Badge>Get in touch</Badge>
+                        </Reveal>
 
-                    <Reveal delay={0.06}>
-                        <h2 className="mt-6 text-balance font-heading text-4xl font-bold tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
-                            Let&apos;s build something{' '}
-                            <span className="text-gradient-brand">great</span>.
-                        </h2>
-                    </Reveal>
+                        <Reveal delay={0.06}>
+                            <h2 className="mt-6 text-balance font-heading text-4xl font-bold tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
+                                Let&apos;s build something{' '}
+                                <span className="text-gradient-brand">great</span>.
+                            </h2>
+                        </Reveal>
 
-                    <Reveal delay={0.12}>
-                        <p className="mt-5 text-pretty text-lg text-muted-foreground">
-                            Have an idea, or a site that needs an overhaul? Send us a message
-                            and we&apos;ll come back to you within 24 hours.
-                        </p>
-                    </Reveal>
-                </div>
+                        <Reveal delay={0.12}>
+                            <p className="mt-5 text-pretty text-lg text-muted-foreground">
+                                Have an idea, or a site that needs an overhaul? Send us a message
+                                and we&apos;ll come back to you within 24 hours.
+                            </p>
+                        </Reveal>
+                    </div>
+                )}
 
-                <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-start">
+                <div className="grid gap-12 pt-16 lg:grid-cols-2 lg:items-start">
                     {/* -------------------------------------------------
                         Left: channels + studio panel
                        ------------------------------------------------- */}
@@ -252,11 +268,21 @@ export default function Contact() {
                                     <Label htmlFor="contact-message">
                                         Project scope / details
                                     </Label>
+                                    {/* `defaultValue` rather than `value`: the
+                                        field stays uncontrolled so the audit
+                                        handoff can also write to it directly
+                                        via the DOM when both are on the
+                                        homepage. `key` forces a remount when a
+                                        prefill arrives from another route,
+                                        because React ignores a changed
+                                        defaultValue on an existing input. */}
                                     <Textarea
+                                        key={defaultMessage || 'blank'}
                                         id="contact-message"
                                         name="message"
                                         rows={4}
                                         required
+                                        defaultValue={defaultMessage}
                                         placeholder="Tell us about your project requirements..."
                                     />
                                 </div>

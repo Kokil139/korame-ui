@@ -368,10 +368,8 @@ export const PIECES = [
     { name: 'service-commerce', a: C.indigoDeep, b: C.violet, motif: commerce, seed: 11 },
     { name: 'service-design', a: C.cyan, b: C.violet, motif: design, seed: 22 },
     { name: 'service-seo', a: C.violet, b: C.cyan, motif: network, seed: 33 },
-    { name: 'work-commerce', a: C.indigo, b: C.cyan, motif: dashboard, seed: 44 },
     { name: 'work-saas', a: C.cyan, b: C.indigoDeep, motif: design, seed: 55 },
     { name: 'work-ai', a: C.violet, b: C.indigo, motif: neural, seed: 66 },
-    { name: 'work-seo', a: C.indigoDeep, b: C.cyan, motif: analytics, seed: 77 },
     { name: 'studio', a: C.indigo, b: C.cyan, motif: studio, seed: 88 },
     { name: 'streams', a: C.cyan, b: C.violet, motif: streams, seed: 99 },
 ];

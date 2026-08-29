@@ -35,12 +35,27 @@ const systemPrefersDark = () =>
  */
 export function ThemeProvider({ children }) {
     const [theme, setThemeState] = useState(readStored);
-    const [resolved, setResolved] = useState(() =>
-        typeof document !== 'undefined' &&
-        document.documentElement.classList.contains('dark')
-            ? 'dark'
-            : 'light',
-    );
+
+    /**
+     * `resolved` starts at 'light' on both sides of hydration.
+     *
+     * Reading the document's class in the initialiser would be more direct,
+     * but the pre-rendered HTML is always produced with the light palette, so
+     * a dark-mode visitor would hydrate a tree that disagrees with the markup
+     * React is attaching to — and React resolves that by warning and keeping
+     * whichever it likes. Adopting the real value in an effect instead means
+     * the first client render matches the HTML exactly, and the correction
+     * lands one commit later.
+     *
+     * The *palette* never flashes either way: the blocking script in
+     * index.html has already put `.dark` on <html> before first paint. Only
+     * the theme toggle's own icon is derived from this value.
+     */
+    const [resolved, setResolved] = useState('light');
+
+    useEffect(() => {
+        if (document.documentElement.classList.contains('dark')) setResolved('dark');
+    }, []);
 
     /**
      * Swap the palette.

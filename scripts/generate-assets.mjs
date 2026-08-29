@@ -90,7 +90,7 @@ const ogSvg = `
   <text x="88" y="404" font-family="Verdana, DejaVu Sans, sans-serif" font-size="72" font-weight="700" fill="url(#accent)">that captivate &amp; convert.</text>
 
   <!-- Supporting line -->
-  <text x="88" y="474" font-family="Verdana, DejaVu Sans, sans-serif" font-size="27" fill="#9ca3af">High-performance websites, e-commerce and AI-powered web apps.</text>
+  <text x="88" y="474" font-family="Verdana, DejaVu Sans, sans-serif" font-size="27" fill="#9ca3af">Websites, web apps, full-stack systems and custom software.</text>
 
   <!-- Footer rule + domain -->
   <rect x="88" y="524" width="1024" height="1" fill="#ffffff" fill-opacity="0.12"/>

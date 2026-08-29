@@ -19,13 +19,7 @@ export const ART_MOTION = {
     "work-ai": [
         "webm"
     ],
-    "work-commerce": [
-        "webm"
-    ],
     "work-saas": [
-        "webm"
-    ],
-    "work-seo": [
         "webm"
     ]
 };

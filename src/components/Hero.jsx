@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import {
     motion,
@@ -13,12 +14,26 @@ import Magnetic from '@/components/motion/Magnetic';
 import CountUp from '@/components/motion/CountUp';
 import { springSnap, springSoft, easeOptical } from '@/lib/motion';
 import { useMediaQuery, COARSE_POINTER } from '@/lib/use-media-query';
+import { ROUTES } from '@/lib/routes';
+import { PROJECTS } from '@/content/projects';
 
+/**
+ * Facts about this site, not claims about our business.
+ *
+ * The previous version of this row asserted "50+ projects delivered",
+ * "99.9% uptime" and "100% client satisfaction" — none of which were
+ * substantiated anywhere, and the last of which is not a measurable quantity.
+ * Publishing unverifiable numbers on a page selling engineering rigour is a
+ * contradiction a visitor can spot.
+ *
+ * Every number below is checkable from this page. The route count is derived
+ * from the route registry rather than typed, so it cannot go stale.
+ */
 const STATS = [
-    { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime & speed' },
-    { value: 50, suffix: '+', decimals: 0, label: 'Projects delivered' },
-    { value: 100, prefix: '<', suffix: 'ms', decimals: 0, label: 'Interaction latency' },
-    { value: 100, suffix: '%', decimals: 0, label: 'Client satisfaction' },
+    { value: ROUTES.length, suffix: '', decimals: 0, label: 'Pages pre-rendered as static HTML' },
+    { value: 0, suffix: '', decimals: 0, label: 'Decorative network images loaded' },
+    { value: 100, suffix: '%', decimals: 0, label: 'Animations honouring reduced motion' },
+    { value: PROJECTS.length, suffix: '', decimals: 0, label: 'Case studies written up in full' },
 ];
 
 /* Headline words, revealed as a staggered 3D card flip. */
@@ -158,7 +173,11 @@ export default function Hero() {
                         </svg>
                     </motion.div>
 
-                    <h1 className="relative z-10 text-balance font-heading text-[2.5rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-[4.5rem]">
+                    {/* Stepped down roughly a fifth from 2.5/3/4.5rem. The
+                        headline is two lines at every breakpoint either way,
+                        and at the old large size it crowded the lightning ring
+                        it sits inside. */}
+                    <h1 className="relative z-10 text-balance font-heading text-[2.05rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-[2.5rem] lg:text-[3.5rem]">
                         {/* Word-level 3D flip-in. The perspective lives on the
                             container so all words share one camera. */}
                         <motion.span
@@ -206,8 +225,9 @@ export default function Hero() {
                     transition={{ ...springSnap, delay: 0.55 }}
                     className="mx-auto mt-12 max-w-2xl text-pretty text-lg font-light leading-relaxed text-muted-foreground sm:mt-16 md:text-xl"
                 >
-                    We build high-performance websites and AI-powered web applications
-                    that help businesses grow.
+                    A software engineering studio building websites, web applications,
+                    full-stack systems and custom software — designed, built and deployed
+                    by the same people.
                 </motion.p>
 
                 {/* ---------------------------------------------------------
@@ -226,10 +246,10 @@ export default function Hero() {
                             size="lg"
                             className="group w-full sm:w-auto"
                         >
-                            <a href="#contact">
+                            <Link to="/contact">
                                 Start your project
                                 <Sparkles className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
-                            </a>
+                            </Link>
                         </Button>
                     </Magnetic>
 
@@ -240,10 +260,10 @@ export default function Hero() {
                             size="lg"
                             className="group w-full sm:w-auto"
                         >
-                            <a href="#services">
-                                Explore work
+                            <Link to="/projects">
+                                Explore our work
                                 <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-                            </a>
+                            </Link>
                         </Button>
                     </Magnetic>
                 </motion.div>

@@ -545,12 +545,36 @@
     to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Pulse travelling along a circuit trace. */
+/* Pulse travelling along a circuit trace.
+
+   ── Do not put a bare custom property back in these keyframes ────────────
+   This used to read `stroke-dashoffset: var(--trace-len)` at 0% and
+   `calc(var(--trace-len) * -1)` at 100%, with `--trace-len: 100` set inline
+   by CircuitDivider. An unregistered custom property is an untyped token
+   stream, so after substitution Blink saw a bare `<number>` at one end and a
+   `calc()` yielding a `<number>` at the other, could not resolve them to a
+   common interpolable type, and fell back to a **discrete** animation — the
+   value flipped at the midpoint instead of sweeping. The pulse sat at one end
+   of the trace, jumped to the other, and read as frozen.
+
+   WebKit interpolates the same declaration happily, which is why this looked
+   perfect on iPhone and stuck on every Android device: same markup, same CSS,
+   different leniency. Chrome on desktop had it too — it was never an Android
+   bug, only an Android report.
+
+   The values are literals with units now. `100` is not really a variable
+   anyway: it is `pathLength="100"` on the paths in CircuitDivider.jsx, which
+   normalises every trace to 100 user units so one dasharray fits them all.
+   Change it there and change it here.
+
+   `--trace-duration` is still a custom property and is fine, because
+   animation-duration is read once rather than interpolated.
+   ───────────────────────────────────────────────────────────────────────── */
 @keyframes korame-trace {
-    0%   { stroke-dashoffset: var(--trace-len); opacity: 0; }
+    0%   { stroke-dashoffset: 100px; opacity: 0; }
     12%  { opacity: 1; }
     88%  { opacity: 1; }
-    100% { stroke-dashoffset: calc(var(--trace-len) * -1); opacity: 0; }
+    100% { stroke-dashoffset: -100px; opacity: 0; }
 }
 
 @utility animate-float {

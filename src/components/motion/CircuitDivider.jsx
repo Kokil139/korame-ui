@@ -11,7 +11,8 @@ import { cn } from '@/lib/utils';
  *   reader's scroll physically lays the copper down.
  * - The *pulses* are a CSS animation on `stroke-dashoffset`, because they
  *   should keep running on their own once drawn, and a continuous rAF loop
- *   for purely ambient motion is waste.
+ *   for purely ambient motion is waste. That animation's keyframes must use
+ *   literal lengths, not a custom property — see index.css.
  *
  * `pathLength` is normalised 0-1 by SVG regardless of the real path length,
  * which is why the same transform works for every trace.
@@ -118,8 +119,14 @@ export default function CircuitDivider({ className, height = 'h-28 sm:h-36' }) {
                             filter={`url(#${glowId})`}
                             pathLength="100"
                             strokeDasharray="14 86"
+                            /* pathLength normalises this trace to 100 user
+                               units, which is what makes one dasharray and
+                               one keyframe pair fit every trace. The 100 is
+                               written literally in the @keyframes rather than
+                               passed down as a custom property — see the note
+                               on korame-trace in index.css for why that
+                               froze the whole animation in Blink. */
                             style={{
-                                '--trace-len': '100',
                                 '--trace-duration': `${4.5 + i * 0.7}s`,
                                 animationDelay: `${trace.delay}s`,
                             }}

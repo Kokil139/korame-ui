@@ -211,6 +211,50 @@ a rasterisation problem. Either drop the blur on that surface
 touch) or animate nothing but its descendants. The nav dropdown took the first
 option, which is also better for legibility over arbitrary page content.
 
+**An unregistered custom property inside @keyframes animates discretely in
+Blink.** `korame-trace` interpolated `stroke-dashoffset` from
+`var(--trace-len)` to `calc(var(--trace-len) * -1)`, with `--trace-len: 100`
+set inline. An unregistered custom property is an untyped token stream, so
+after substitution Blink saw a bare `<number>` at one end and a `calc()`
+yielding a `<number>` at the other, could not resolve a common interpolable
+type, and fell back to a **discrete** animation: the value flipped at the
+midpoint instead of sweeping. The circuit pulse sat at one end of the trace,
+jumped to the other, and read as frozen. WebKit interpolates the same
+declaration happily — so it was flawless on iPhone and stuck on Android,
+reported as an Android bug when it was every Blink browser including the
+desktop Chrome it could have been caught in. Use literal values with units in
+keyframes, or register the property with `@property` so it has a type. A var
+that is only ever read once — `animation-duration` — is fine.
+
+Symptom to recognise: the animation's `playState` is `running` and other
+properties in the same keyframes interpolate normally, while the one fed by a
+var reports exactly two computed values. `getComputedStyle` showing
+`calc(-100px)` rather than `-100px` is the tell that a value came through
+untyped var substitution.
+
+**A fluid font size needs a fluid offset.** The footer watermark is
+`text-[15vw]` and was positioned `-bottom-6` — a fixed 24px. The fraction of
+the wordmark cut off therefore grew as the viewport shrank: 24px of a 216px
+glyph at 1440 is the intended 11% bleed, but 24px of a 54px glyph on a 360px
+phone is 44%, so half the letterforms were gone. It is `-bottom-[0.11em]` now,
+which resolves against the element's own font size and holds the proportion at
+every width. Anything pairing a `vw` font size with a `px` offset, inset or
+translate has this bug waiting in it.
+
+**Replacing a tile is invisible in production without a new URL.** Files
+under `/art/` have stable names and are served `cache-control: public,
+max-age=2592000`, so swapping `studio.webp` changes the bytes behind a URL
+every returning visitor already holds — they keep the old artwork for up to
+thirty days. The CDN was correct, the markup was correct, the bytes matched by
+md5, and the page still showed the old art. A hard refresh fixes it for one
+person and for nobody else. `generate-art-manifest.mjs` now emits
+`ART_VERSION`, a content hash per tile, and `TileImage` appends it as `?v=` to
+every src, srcSet candidate, poster and `<source>`. The query string is part of
+the HTTP cache key, so new bytes mean a new URL; unchanged tiles keep their
+thirty days. Anything else that starts serving mutable content from a stable
+`public/` path needs the same treatment — Vite fingerprints `/assets/` for you,
+and `public/` is copied verbatim, so it gets nothing.
+
 **A media query cannot gate a Motion `animate` key on a pre-rendered page.**
 `useMediaQuery` has no media query to read on the server, so its server
 snapshot is `false` and the pre-rendered HTML always ships the *desktop*

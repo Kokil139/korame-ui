@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
-import { ART_MOTION } from '@/lib/art-manifest';
+import { ART_MOTION, artUrl } from '@/lib/art-manifest';
 import { useMediaQuery, TOUCH_PHONE } from '@/lib/use-media-query';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +15,11 @@ import { cn } from '@/lib/utils';
  * Either way the artwork drifts against scroll. That matters most on touch:
  * hover tilt and hover zoom do nothing on a phone, so without a scroll-linked
  * effect these tiles would be completely static for mobile readers.
+ *
+ * Every URL goes through `artUrl`, which appends the tile's content hash.
+ * /art/ is cached for thirty days on file names that never change, so a
+ * replaced tile would otherwise stay invisible to returning visitors for a
+ * month — which is exactly what happened when these became photographs.
  *
  * Playback rules:
  * - Muted + playsInline, or iOS refuses to autoplay inline at all.
@@ -93,7 +98,7 @@ export default function TileImage({
             {useVideo ? (
                 <motion.video
                     ref={videoRef}
-                    poster={`/art/${name}.webp`}
+                    poster={artUrl(`${name}.webp`, name)}
                     width={1200}
                     height={750}
                     muted
@@ -106,13 +111,17 @@ export default function TileImage({
                     className={mediaClass}
                 >
                     {formats.map((ext) => (
-                        <source key={ext} src={`/art/${name}.${ext}`} type={`video/${ext}`} />
+                        <source
+                            key={ext}
+                            src={artUrl(`${name}.${ext}`, name)}
+                            type={`video/${ext}`}
+                        />
                     ))}
                 </motion.video>
             ) : (
                 <motion.img
-                    src={`/art/${name}.webp`}
-                    srcSet={`/art/${name}@600.webp 600w, /art/${name}.webp 1200w`}
+                    src={artUrl(`${name}.webp`, name)}
+                    srcSet={`${artUrl(`${name}@600.webp`, name)} 600w, ${artUrl(`${name}.webp`, name)} 1200w`}
                     sizes={sizes}
                     width={1200}
                     height={750}

@@ -32,9 +32,20 @@ export default function Footer() {
 
     return (
         <footer className="relative overflow-hidden border-t border-border bg-background px-6 pb-10 pt-20">
+            {/* Watermark.
+
+                The submerge depth is `em`, not a fixed `-bottom-6`. The font
+                size is fluid (15vw) and the offset was not, so the fraction of
+                the wordmark being cut off grew as the screen shrank: 24px of a
+                216px glyph at 1440 is the 11% bleed this is meant to be, but
+                24px of a 54px glyph on a 360px phone is 44% — very nearly half
+                the letterforms gone, which is what "not visible fully on
+                mobile" was. In `em` it resolves against this element's own
+                font-size, so the proportion is now identical at every width
+                and desktop is unchanged. */}
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 -bottom-6 select-none text-center font-heading text-[15vw] font-extrabold leading-none tracking-tighter text-ghost"
+                className="pointer-events-none absolute inset-x-0 -bottom-[0.11em] select-none text-center font-heading text-[15vw] font-extrabold leading-none tracking-tighter text-ghost"
             >
                 KORAME
             </div>

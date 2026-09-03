@@ -29,12 +29,12 @@ export const CURRENCY = 'INR';
 export const TIERS = [
     {
         name: 'Launch',
-        price: 45000,
-        priceLabel: '₹45,000',
+        price: 9999,
+        priceLabel: '₹9,999',
         cadence: 'one-off',
-        blurb: 'A fast, credible presence for a new business or a product launch.',
+        blurb: 'A fast, credible static presence for a new business or a product launch.',
         features: [
-            'Up to 5 pages',
+            'Static site, up to 5 pages',
             'Bespoke design, no templates',
             'Mobile-first & accessible',
             'On-page SEO + structured data',
@@ -46,14 +46,14 @@ export const TIERS = [
     },
     {
         name: 'Scale',
-        price: 120000,
-        priceLabel: '₹1,20,000',
+        price: 29999,
+        priceLabel: '₹29,999',
         cadence: 'one-off',
-        blurb: 'The full studio treatment for a business the site has to carry.',
+        blurb: 'A site with a backend behind it — forms, data and logic you own.',
         features: [
-            'Up to 15 pages',
-            'Custom design system',
-            'Scroll & motion choreography',
+            'Everything in Launch, more pages',
+            'Backend, database & APIs',
+            'Accounts, dashboards & integrations',
             'CMS so you can edit content',
             'Technical SEO + analytics',
             'Performance budgets in CI',

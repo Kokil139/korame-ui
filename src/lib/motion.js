@@ -23,7 +23,7 @@ export const springSoft = {
     mass: 1,
 };
 
-/** Pointer-tracking spring — low stiffness so the element trails the cursor. */
+/** Pointer-tracking spring  low stiffness so the element trails the cursor. */
 export const springTrail = {
     stiffness: 260,
     damping: 26,
@@ -42,7 +42,7 @@ export const easeOptical = {
 /**
  * Standard viewport config: fire once, a third of the way in.
  *
- * `once` matters — re-triggering an entrance on every scroll pass is the
+ * `once` matters  re-triggering an entrance on every scroll pass is the
  * single most common way a "premium" site starts feeling cheap.
  */
 export const viewportOnce = { once: true, amount: 0.3 };

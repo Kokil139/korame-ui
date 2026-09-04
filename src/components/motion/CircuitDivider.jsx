@@ -12,17 +12,17 @@ import { cn } from '@/lib/utils';
  * - The *pulses* are a CSS animation on `stroke-dashoffset`, because they
  *   should keep running on their own once drawn, and a continuous rAF loop
  *   for purely ambient motion is waste. That animation's keyframes must use
- *   literal lengths, not a custom property — see index.css.
+ *   literal lengths, not a custom property  see index.css.
  *
  * `pathLength` is normalised 0-1 by SVG regardless of the real path length,
  * which is why the same transform works for every trace.
  *
- * Ids are generated with `useId` — hardcoded gradient/filter ids collide the
+ * Ids are generated with `useId`  hardcoded gradient/filter ids collide the
  * moment the component is used twice on one page, and the second instance
  * silently steals the first's paint server.
  */
 
-/* Hand-authored traces on a 1200x160 board. Right angles and 45s only —
+/* Hand-authored traces on a 1200x160 board. Right angles and 45s only 
    that constraint is what makes it read as a PCB rather than a squiggle. */
 const TRACES = [
     { d: 'M0 80 H240 L280 40 H520 L560 80 H1200', delay: 0 },
@@ -91,7 +91,7 @@ export default function CircuitDivider({ className, height = 'h-28 sm:h-36' }) {
                     </filter>
                 </defs>
 
-                {/* Base copper — faint, always present once drawn. */}
+                {/* Base copper  faint, always present once drawn. */}
                 {TRACES.map((trace, i) => (
                     <motion.path
                         key={`base-${i}`}
@@ -123,7 +123,7 @@ export default function CircuitDivider({ className, height = 'h-28 sm:h-36' }) {
                                units, which is what makes one dasharray and
                                one keyframe pair fit every trace. The 100 is
                                written literally in the @keyframes rather than
-                               passed down as a custom property — see the note
+                               passed down as a custom property  see the note
                                on korame-trace in index.css for why that
                                froze the whole animation in Blink. */
                             style={{

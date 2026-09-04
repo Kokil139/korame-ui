@@ -11,7 +11,7 @@ import { POSTS, postPath } from '../content/posts.js';
  * This is the single list the router, the sitemap generator and the
  * pre-render script all read. Deriving them from one array is the only
  * reliable way to stop a page existing that the sitemap does not know about,
- * or a sitemap entry that 404s — both of which are silent failures that only
+ * or a sitemap entry that 404s  both of which are silent failures that only
  * show up weeks later in Search Console.
  */
 
@@ -56,7 +56,7 @@ export const NOINDEX_ROUTES = ['/404'];
  * `/cloud-development` and `/azure-development` were two pages describing one
  * practice from two angles, competing with each other for the same queries.
  * They are now /cloud-solutions. Both were indexed and linked, so both keep
- * resolving — a 301 passes the ranking on, a 404 throws it away.
+ * resolving  a 301 passes the ranking on, a 404 throws it away.
  *
  * Every entry here needs a matching rule in public/staticwebapp.config.json:
  * this array is the client-side equivalent, so an in-app link to an old path

@@ -42,7 +42,7 @@ const iconSvg = (size) => `
 /**
  * Open Graph card, 1200x630.
  *
- * Text is drawn as SVG paths-free <text> using a generic family — the
+ * Text is drawn as SVG paths-free <text> using a generic family  the
  * rasteriser has no access to the site's webfonts, so this deliberately
  * relies on weight and scale for impact rather than the exact brand face.
  */

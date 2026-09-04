@@ -3,7 +3,7 @@
  *
  * `src/content/service-list.js` carries navigation metadata for the eight
  * services so the app shell can list them without importing eight full content
- * modules — see the header comment there for why that split exists. The cost
+ * modules  see the header comment there for why that split exists. The cost
  * is that a handful of fields appear twice.
  *
  * This script imports both and fails the build if they disagree, which turns
@@ -121,8 +121,8 @@ for (const post of POSTS) {
    3. Metadata that search engines will actually render.
 
    Titles over ~60 characters and descriptions over ~160 get truncated in the
-   results page. These are warnings, not errors — the limits are soft and
-   pixel-based rather than exact — but a title nobody can read to the end of
+   results page. These are warnings, not errors  the limits are soft and
+   pixel-based rather than exact  but a title nobody can read to the end of
    is a wasted result.
    --------------------------------------------------------------------- */
 const pages = [
@@ -147,15 +147,15 @@ for (const page of pages) {
     if (!page.description) fail(`${page.id} has no meta description.`);
 
     if (page.title && page.title.length > 65) {
-        warn(`${page.id}: title is ${page.title.length} chars — likely truncated in results.`);
+        warn(`${page.id}: title is ${page.title.length} chars  likely truncated in results.`);
     }
     if (page.description && page.description.length > 165) {
         warn(
-            `${page.id}: description is ${page.description.length} chars — likely truncated in results.`,
+            `${page.id}: description is ${page.description.length} chars  likely truncated in results.`,
         );
     }
     if (page.description && page.description.length < 70) {
-        warn(`${page.id}: description is only ${page.description.length} chars — thin.`);
+        warn(`${page.id}: description is only ${page.description.length} chars  thin.`);
     }
 
     /* Duplicate titles and descriptions across pages are a real ranking
@@ -181,7 +181,7 @@ for (const project of PROJECTS) {
     }
     if (!project.liveUrl && !project.liveNote) {
         warn(
-            `Project "${project.slug}" has no live URL and no note explaining why — readers will wonder.`,
+            `Project "${project.slug}" has no live URL and no note explaining why  readers will wonder.`,
         );
     }
 }
@@ -197,6 +197,6 @@ if (errors.length) {
 }
 
 console.log(
-    `content ok — ${SERVICES.length} services, ${PROJECTS.length} projects, ${POSTS.length} posts` +
+    `content ok  ${SERVICES.length} services, ${PROJECTS.length} projects, ${POSTS.length} posts` +
         (warnings.length ? ` (${warnings.length} warning${warnings.length > 1 ? 's' : ''})` : ''),
 );

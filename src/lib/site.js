@@ -10,7 +10,7 @@
 export const SITE = {
     name: 'Korame',
     legalName: 'Korame',
-    /** No trailing slash — `url()` below adds exactly one separator. */
+    /** No trailing slash  `url()` below adds exactly one separator. */
     origin: 'https://korame.in',
     email: 'letsbuild@korame.in',
     phone: '+91-88260-30869',
@@ -35,12 +35,12 @@ export const OG_IMAGE = {
     url: url('/og-image.png'),
     width: 1200,
     height: 630,
-    alt: 'Korame — web, application and cloud engineering.',
+    alt: 'Korame  web, application and cloud engineering.',
 };
 
 /**
  * What Korame actually works with. This feeds the Organization `knowsAbout`
- * and the technology strips on the service pages, so it must stay honest —
+ * and the technology strips on the service pages, so it must stay honest 
  * every entry here is something represented in the shipped projects or in
  * this site's own build.
  */

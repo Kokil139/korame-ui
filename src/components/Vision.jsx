@@ -29,7 +29,7 @@ export default function Vision() {
                     </blockquote>
                 </Reveal>
 
-                {/* Scroll-linked word-by-word reveal — the reader's scroll
+                {/* Scroll-linked word-by-word reveal  the reader's scroll
                     position controls the pace of the sentence. */}
                 <WordReveal
                     text={STATEMENT}

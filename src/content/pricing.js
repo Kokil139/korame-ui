@@ -1,5 +1,5 @@
 /**
- * Pricing — the source of truth for /pricing.
+ * Pricing  the source of truth for /pricing.
  *
  * ── These figures are quoted to search engines ───────────────────────────
  * `offerCatalogNode()` in src/lib/seo.js turns `TIERS` into `Offer` nodes with
@@ -10,7 +10,7 @@
  * component and a JSON-LD block separately. That split is exactly how the
  * previous build ended up quoting figures nobody had agreed to.
  *
- * A tier with `price: null` is deliberately unpriced — it renders as
+ * A tier with `price: null` is deliberately unpriced  it renders as
  * `priceLabel` and is emitted as an Offer with no price rather than being
  * omitted, so the catalogue still describes the whole ladder.
  * ─────────────────────────────────────────────────────────────────────────
@@ -21,7 +21,7 @@ export const PRICING = {
         'What a Korame project costs: fixed-scope Launch and Scale builds quoted up front, and a monthly retainer for ongoing product work. What is included, and what moves the number.',
     h1: 'Clear scope, clear price',
     kicker: 'Pricing',
-    lede: 'Fixed-scope projects are quoted up front — no hourly billing surprises and no change-request games. The figures below are starting points for the shape of work each tier describes; the quote you get is written against your actual scope.',
+    lede: 'Fixed-scope projects are quoted up front  no hourly billing surprises and no change-request games. The figures below are starting points for the shape of work each tier describes; the quote you get is written against your actual scope.',
 };
 
 export const CURRENCY = 'INR';
@@ -49,7 +49,7 @@ export const TIERS = [
         price: 29999,
         priceLabel: '₹29,999',
         cadence: 'one-off',
-        blurb: 'A site with a backend behind it — forms, data and logic you own.',
+        blurb: 'A site with a backend behind it  forms, data and logic you own.',
         features: [
             'Everything in Launch, more pages',
             'Backend, database & APIs',
@@ -81,7 +81,7 @@ export const TIERS = [
     },
 ];
 
-/** What actually moves a quote — the questions every enquiry ends up asking. */
+/** What actually moves a quote  the questions every enquiry ends up asking. */
 export const FACTORS = [
     {
         title: 'Page count and template count',
@@ -105,14 +105,14 @@ export const FACTORS = [
     },
     {
         title: 'How long you want us after launch',
-        body: 'Every tier includes a support window. Beyond it you can move to a retainer or simply take the code — there is no arrangement that requires us to stay.',
+        body: 'Every tier includes a support window. Beyond it you can move to a retainer or simply take the code  there is no arrangement that requires us to stay.',
     },
 ];
 
 export const FAQS = [
     {
         q: 'Are these prices fixed?',
-        a: 'The tier figures are starting points for the shape of work each one describes. Once we have your scope in writing you get a fixed quote against it, and that quote does not move unless the scope does — in which case you approve the change before any work happens.',
+        a: 'The tier figures are starting points for the shape of work each one describes. Once we have your scope in writing you get a fixed quote against it, and that quote does not move unless the scope does  in which case you approve the change before any work happens.',
     },
     {
         q: 'What do you need before you can quote?',
@@ -124,7 +124,7 @@ export const FAQS = [
     },
     {
         q: 'Is there anything not included?',
-        a: 'Third-party costs are yours and are billed to your own accounts, not through us: domain registration, cloud hosting, a CMS subscription, paid fonts or stock imagery. We tell you what they will come to before you commit, and they are typically small — this site\'s own hosting is inside a free tier.',
+        a: 'Third-party costs are yours and are billed to your own accounts, not through us: domain registration, cloud hosting, a CMS subscription, paid fonts or stock imagery. We tell you what they will come to before you commit, and they are typically small  this site\'s own hosting is inside a free tier.',
     },
     {
         q: 'What if the project turns out to be smaller than the tier?',

@@ -10,7 +10,7 @@
  * ── Why paper and not the site's usual deep-toned artwork ────────────────
  * NomadNinja's mark is an ink-brush drawing: near-black line work with one red
  * sun. On a dark field it disappears. Kepaso's mark is a dark badge and the
- * Tribe's is a bright gradient badge, so those two survive either way — but a
+ * Tribe's is a bright gradient badge, so those two survive either way  but a
  * set of three tiles has to be one design, and paper is the only background
  * all three read on. It also happens to be each brand's actual background
  * colour, which is why the marks were drawn for it.
@@ -19,13 +19,13 @@
  * ── Why the logo is small ────────────────────────────────────────────────
  * `TileImage` renders with `object-cover` and a permanent `scale-[1.18]`, and
  * the tile is 16:10 while the containers it lands in are much wider than that
- * — the case-study hero is roughly 3.6:1. Cover therefore crops the top and
+ *  the case-study hero is roughly 3.6:1. Cover therefore crops the top and
  * bottom hard: only about the middle 37% of the image height survives in the
  * worst case, and the scroll parallax moves that window another ±32px.
  *
  * LOGO_HEIGHT is set so the mark stays inside the middle third and is never
  * clipped in any of the four places these tiles are used. Raising it will look
- * fine on the homepage grid and cut the logo in half on the case-study page —
+ * fine on the homepage grid and cut the logo in half on the case-study page 
  * check both before changing it.
  * ─────────────────────────────────────────────────────────────────────────
  *
@@ -46,7 +46,7 @@ const WIDTH = 1200;
 const HEIGHT = 750;
 const NARROW = 600;
 
-/** Kept inside the middle third — see the header note on cropping. */
+/** Kept inside the middle third  see the header note on cropping. */
 const LOGO_HEIGHT = 230;
 
 const QUALITY = 88;
@@ -63,7 +63,7 @@ const PROJECTS = [
         /* Must match `art` in src/content/projects.js. */
         name: 'project-kepaso',
         logo: 'kepaso.svg',
-        /* Crema — the colour of the pour, and the light end of Kepaso's own
+        /* Crema  the colour of the pour, and the light end of Kepaso's own
            espresso palette. The mark is a dark badge, so it needs a light
            field to sit on. */
         top: '#ecdfca',

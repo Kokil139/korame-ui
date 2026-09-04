@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
  *
  * The card rotates about X/Y from the pointer's normalised offset, and a
  * radial "sheen" layer tracks the same position so the surface reads as lit
- * rather than merely rotated — that pairing is what sells the depth.
+ * rather than merely rotated  that pairing is what sells the depth.
  *
  * Implementation notes:
  * - Pointer position is stored in MotionValues, never React state, so a
@@ -96,7 +96,7 @@ export default function TiltCard({
        wrapper at all.
 
        On touch there is no cursor to track, so every part of this component is
-       inert — but the markup it returns is not free. Each card would still
+       inert  but the markup it returns is not free. Each card would still
        carry a permanent `will-change: transform` layer, a `preserve-3d`
        context and a `mix-blend-mode` glare overlay, and there are 15 of them
        on the page. Blend modes in particular stop Safari compositing the

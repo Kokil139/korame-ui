@@ -97,7 +97,7 @@ function ScoreRing({ score, label, icon: Icon, caption, delay = 0 }) {
  *
  * Rendered twice: as a section on the homepage, and as the body of
  * /free-website-audit. `hideHeader` suppresses this section's own heading on
- * the dedicated page, where the <h1> belongs to <PageHero> — two headings
+ * the dedicated page, where the <h1> belongs to <PageHero>  two headings
  * saying the same thing is a heading-hierarchy problem, not just a visual one.
  */
 export default function AuditTool({ hideHeader = false }) {
@@ -131,7 +131,7 @@ export default function AuditTool({ hideHeader = false }) {
             setResult(null);
 
             try {
-                /* The security scan is the one that must succeed — it is the
+                /* The security scan is the one that must succeed  it is the
                    keyless source. Performance and timing are enrichments, so
                    they run in parallel and are allowed to fail on their own
                    without taking the whole report down. */
@@ -166,7 +166,7 @@ export default function AuditTool({ hideHeader = false }) {
      * The form is on the same document on the homepage, and on a different
      * route at /free-website-audit. When it is not here, navigate to /contact
      * and carry the URL in the router state rather than dropping the handoff
-     * silently — the whole point of the button is that the visitor does not
+     * silently  the whole point of the button is that the visitor does not
      * have to retype what they just scanned.
      */
     const handoff = useCallback(() => {
@@ -453,7 +453,7 @@ const SCAN_STEPS = [
  * Progress for a request with no progress events.
  *
  * Neither source streams intermediate state, so this walks the real stages on
- * a timer. The steps are named honestly — it reports what is being done, it
+ * a timer. The steps are named honestly  it reports what is being done, it
  * does not invent a percentage.
  */
 function ScanningState() {

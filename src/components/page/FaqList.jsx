@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
  *
  * One deliberate difference from the usual implementation: **collapsed
  * panels stay in the DOM.** The obvious build unmounts them through
- * AnimatePresence, which is cheaper — but Google requires the answer text of
+ * AnimatePresence, which is cheaper  but Google requires the answer text of
  * an FAQPage to be present in the HTML it receives, and with pre-rendering
  * that HTML is a snapshot of the initial render. Unmounting would ship one
  * answer and claim seven in the structured data, which is a rich-result
@@ -46,7 +46,7 @@ export default function FaqList({ faqs, defaultOpen = 0 }) {
                                 </span>
 
                                 {/* One icon rotated 45° to become a close
-                                    affordance — cheaper than swapping nodes
+                                    affordance  cheaper than swapping nodes
                                     and it animates continuously. */}
                                 <motion.span
                                     animate={{ rotate: isOpen ? 45 : 0 }}

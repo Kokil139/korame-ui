@@ -44,7 +44,7 @@ const MEASURES = [
     },
     {
         title: 'HTTP status',
-        body: 'Whether the host actually answers cleanly — redirects, mixed content and a homepage returning something other than 200 are all findings.',
+        body: 'Whether the host actually answers cleanly  redirects, mixed content and a homepage returning something other than 200 are all findings.',
     },
     hasPsi
         ? {
@@ -53,12 +53,12 @@ const MEASURES = [
           }
         : {
               title: 'Lighthouse scores',
-              body: 'Available when a PageSpeed Insights key is configured on this deployment. Without one the scan skips it rather than calling the API keyless — the anonymous quota is permanently exhausted and would fail every time.',
+              body: 'Available when a PageSpeed Insights key is configured on this deployment. Without one the scan skips it rather than calling the API keyless  the anonymous quota is permanently exhausted and would fail every time.',
           },
 ];
 
 const MANUAL = [
-    'Indexability — robots.txt, meta robots, canonical tags and whether your sitemap agrees with the site.',
+    'Indexability  robots.txt, meta robots, canonical tags and whether your sitemap agrees with the site.',
     'Structured data, and whether it matches what is actually rendered on the page.',
     'Heading hierarchy, image alt text and keyboard operability.',
     'Broken internal links and redirect chains.',
@@ -69,11 +69,11 @@ const MANUAL = [
 const FAQS = [
     {
         q: 'Is the free website audit actually free?',
-        a: 'The live scan on this page is free, instant and requires no email — you see the numbers whether or not you ever speak to us. The written review that goes beyond what a scan can measure is also free, and it is the part where you have to give us an address to send it to.',
+        a: 'The live scan on this page is free, instant and requires no email  you see the numbers whether or not you ever speak to us. The written review that goes beyond what a scan can measure is also free, and it is the part where you have to give us an address to send it to.',
     },
     {
         q: 'What is the difference between the live scan and the written audit?',
-        a: 'The scan is automated: security headers, response time and, where configured, Lighthouse scores. The written audit is a person looking at the things a scanner cannot judge — whether your structured data matches the page, whether the heading order makes sense, whether the conversion path asks for too much. Most of the useful findings are in the second one.',
+        a: 'The scan is automated: security headers, response time and, where configured, Lighthouse scores. The written audit is a person looking at the things a scanner cannot judge  whether your structured data matches the page, whether the heading order makes sense, whether the conversion path asks for too much. Most of the useful findings are in the second one.',
     },
     {
         q: 'Do I have to hire you afterwards?',
@@ -89,7 +89,7 @@ const FAQS = [
     },
     {
         q: 'Can you audit a site that is behind a login?',
-        a: 'Not with the live scan — it only sees what a public visitor sees. Authenticated areas are covered in the written review, which is one of the reasons that part is not automated.',
+        a: 'Not with the live scan  it only sees what a public visitor sees. Authenticated areas are covered in the written review, which is one of the reasons that part is not automated.',
     },
 ];
 
@@ -135,7 +135,7 @@ export default function AuditPage() {
             <PageHero
                 kicker="Free website audit"
                 title="How healthy is your site, really?"
-                lede="Run a live scan of your security headers, response time and speed scores — in the browser, in about a minute, with no email required to see the result. Then, if you want it, a written review of the things a scanner cannot judge."
+                lede="Run a live scan of your security headers, response time and speed scores  in the browser, in about a minute, with no email required to see the result. Then, if you want it, a written review of the things a scanner cannot judge."
                 trail={trail}
             />
 
@@ -162,7 +162,7 @@ export default function AuditPage() {
                     <Card className="p-8">
                         <CheckList items={MANUAL} />
                         <p className="mt-6 text-pretty text-sm leading-relaxed text-muted-foreground">
-                            Run the scan above, then ask for the written version — the button on
+                            Run the scan above, then ask for the written version  the button on
                             your result carries the address across so you do not have to type it
                             again. We come back within one working day.
                         </p>
@@ -199,7 +199,7 @@ export default function AuditPage() {
 
             <CtaBand
                 title="Want the written audit?"
-                body={`Send us the address and we will come back within a working day — whether or not there is a project in it. Or email ${SITE.email} directly.`}
+                body={`Send us the address and we will come back within a working day  whether or not there is a project in it. Or email ${SITE.email} directly.`}
                 primary={{ href: '/contact', label: 'Request the written audit' }}
                 secondary={{ href: '/services', label: 'What we do' }}
             />
@@ -208,7 +208,7 @@ export default function AuditPage() {
                 <Reveal y={16}>
                     <p className="text-sm text-muted-foreground">
                         The scan is powered by the MDN HTTP Observatory and, where configured,
-                        Google PageSpeed Insights. Both are public tools — you can run them
+                        Google PageSpeed Insights. Both are public tools  you can run them
                         yourself, and we would rather you knew that.{' '}
                         <Link
                             to="/blog"

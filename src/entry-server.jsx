@@ -19,7 +19,7 @@ export { ROUTES, NOINDEX_ROUTES, REDIRECTS } from './lib/routes.js';
  * ── Why streaming and not renderToString ─────────────────────────────────
  * Every inner page is a React.lazy chunk. `renderToString` cannot resolve a
  * lazy component: it hits the Suspense boundary, renders the fallback, and
- * returns — which produced twenty-one empty documents and no <Seo> descriptor
+ * returns  which produced twenty-one empty documents and no <Seo> descriptor
  * before this was switched over.
  *
  * `renderToPipeableStream` with `onAllReady` waits for every boundary to
@@ -64,7 +64,7 @@ export function render(path) {
                 </StaticRouter>
             </HeadCollectorContext.Provider>,
             {
-                /* Fire only once the whole tree — every lazy chunk included —
+                /* Fire only once the whole tree  every lazy chunk included 
                    has resolved. `onShellReady` would emit the shell with
                    Suspense fallbacks still in place, which is the streaming
                    behaviour we specifically do not want from a build step. */

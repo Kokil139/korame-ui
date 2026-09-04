@@ -31,7 +31,7 @@ const buttonVariants = cva(
                     'hover:shadow-[inset_0_1px_0_0_oklch(1_0_0/0.35),0_14px_44px_-10px_color-mix(in_oklch,var(--brand-500)_85%,transparent)]',
                     'active:scale-[0.98]',
                 ],
-                /* Solid white — the highest-contrast action on a dark canvas. */
+                /* Solid white  the highest-contrast action on a dark canvas. */
                 contrast: [
                     'bg-foreground text-background',
                     'hover:shadow-[0_10px_36px_-10px_var(--shadow-tint-strong)]',

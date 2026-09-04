@@ -13,7 +13,7 @@ import { SITE, url, OG_IMAGE } from '@/lib/site';
  *   all, and a title injected at runtime is invisible to them.
  *
  * - **Client navigation.** No collector, so the effect below patches the live
- *   document instead — for the reader, for the tab title, and for anything
+ *   document instead  for the reader, for the tab title, and for anything
  *   that reads the DOM after hydration.
  *
  * Tags this component owns are marked with `data-seo`, so a route change can

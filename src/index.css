@@ -147,14 +147,14 @@
     --glass-border: oklch(0.19 0.021 265 / 0.1);
     --glass-highlight: oklch(1 0 0 / 0.95);
 
-    /* Neutral alphas — ink-based in light, light-based in dark. */
+    /* Neutral alphas  ink-based in light, light-based in dark. */
     --elevate-1: oklch(0.19 0.021 265 / 0.04);
     --elevate-2: oklch(0.19 0.021 265 / 0.075);
     --field-bg: oklch(1 0 0 / 0.85);
     --ghost-ink: oklch(0.19 0.021 265 / 0.045);
     --grid-line: oklch(0.19 0.021 265 / 0.055);
 
-    /* Shadows are cool grey, not black — black on white looks like dirt. */
+    /* Shadows are cool grey, not black  black on white looks like dirt. */
     --shadow-tint: oklch(0.35 0.05 265 / 0.09);
     --shadow-tint-strong: oklch(0.3 0.06 265 / 0.14);
 
@@ -206,7 +206,7 @@
     --surface-3: oklch(0.25 0.015 265);
 
     --glass-bg: oklch(1 0 0 / 0.04);
-    /* 4% white over an unblurred dark page is invisible — the flat variant
+    /* 4% white over an unblurred dark page is invisible  the flat variant
        has to carry its own surface tone rather than an alpha over nothing. */
     --glass-bg-flat: oklch(0.196 0.013 265 / 0.94);
     --glass-border: oklch(1 0 0 / 0.1);
@@ -253,7 +253,7 @@
 
     /* Theme swap.
 
-       Preferred path is the View Transitions API — the browser cross-fades a
+       Preferred path is the View Transitions API  the browser cross-fades a
        snapshot of the whole page, so gradients, shadows and images fade too,
        not just the properties a CSS transition can interpolate. */
     ::view-transition-old(root),
@@ -263,7 +263,7 @@
     }
 
     /* Fallback for browsers without view transitions. Scoped to the swap,
-       and only the properties worth interpolating — a permanent transition
+       and only the properties worth interpolating  a permanent transition
        on every element would lag scrolling. */
     html.theme-switching,
     html.theme-switching body,
@@ -403,7 +403,7 @@
     transform-style: preserve-3d;
 }
 
-/* Fine film grain — kills banding on large gradients. Multiplies on light,
+/* Fine film grain  kills banding on large gradients. Multiplies on light,
    overlays on dark, so it darkens rather than blows out in both. */
 @utility grain {
     position: relative;
@@ -428,7 +428,7 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
 }
 
-/* Dot matrix — a lighter-touch tech field than the full grid. */
+/* Dot matrix  a lighter-touch tech field than the full grid. */
 @utility dot-field {
     background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
     background-size: 22px 22px;
@@ -457,14 +457,14 @@
    across the navbar, the services menu, the option rows and the footer.
 
    Colour comes from --brand-400 through color-mix, never a literal, so the
-   bloom inverts with the theme along with everything else — a white alpha
+   bloom inverts with the theme along with everything else  a white alpha
    glow would look right on the dark palette and turn to grey haze on the
    light one.
 
    Press is not just "more hover": the bloom pulls in tight and the travel
    shortens, so a click reads as contact rather than as a brighter hover.
    Both states also answer :focus-visible, which is what makes this a
-   keyboard affordance and not only a pointer one — the global focus outline
+   keyboard affordance and not only a pointer one  the global focus outline
    stays on top of it and is what actually carries the accessibility weight.
 
    No transition duration is declared for reduced motion: the global
@@ -515,7 +515,7 @@
 }
 
 /* ==========================================================================
-   KEYFRAMES — continuous ambience only.
+   KEYFRAMES  continuous ambience only.
    Entrance and scroll motion belong to Motion.
    ========================================================================== */
 
@@ -553,13 +553,13 @@
    by CircuitDivider. An unregistered custom property is an untyped token
    stream, so after substitution Blink saw a bare `<number>` at one end and a
    `calc()` yielding a `<number>` at the other, could not resolve them to a
-   common interpolable type, and fell back to a **discrete** animation — the
+   common interpolable type, and fell back to a **discrete** animation  the
    value flipped at the midpoint instead of sweeping. The pulse sat at one end
    of the trace, jumped to the other, and read as frozen.
 
    WebKit interpolates the same declaration happily, which is why this looked
    perfect on iPhone and stuck on every Android device: same markup, same CSS,
-   different leniency. Chrome on desktop had it too — it was never an Android
+   different leniency. Chrome on desktop had it too  it was never an Android
    bug, only an Android report.
 
    The values are literals with units now. `100` is not really a variable
@@ -630,7 +630,7 @@
 
     /* The same switch for the places that use Tailwind's backdrop utilities
        directly: the fixed header, the mobile drawer, the service tile icons.
-       The header's is the costliest on the page — it is on screen for every
+       The header's is the costliest on the page  it is on screen for every
        frame of every scroll, so its backdrop is re-blurred continuously.
        (Written here rather than as a `pointer-coarse:` variant because this
        Tailwind build has no such variant; the classes compile to nothing.) */
@@ -648,7 +648,7 @@
     }
 
     /* The film grain is a 140px noise tile at 2-3.5% opacity behind a blend
-       mode. It exists to break up banding on large gradients — which is a
+       mode. It exists to break up banding on large gradients  which is a
        desktop-monitor problem. At phone pixel density it is invisible, and it
        is the reason every section it wraps needs a compositing pass. */
     .grain::after {
@@ -656,7 +656,7 @@
     }
 
     /* The hero's travelling arc animates `stroke-dashoffset`, which is not a
-       compositable property — every frame is a real repaint of the path, and
+       compositable property  every frame is a real repaint of the path, and
        it runs `3.2s linear infinite` for as long as the home screen is open.
        Behind an feGaussianBlur that repaint also re-runs the filter, which
        Safari has no GPU path for. Keep the motion, drop the glow. */

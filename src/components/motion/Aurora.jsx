@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
  * Ambient background field: slow-drifting colour blooms over an optional
  * grid, finished with film grain.
  *
- * Pure CSS on purpose. These are large, heavily-blurred surfaces — driving
+ * Pure CSS on purpose. These are large, heavily-blurred surfaces  driving
  * them from JS would mean compositing multi-megapixel layers every frame for
  * motion nobody consciously registers. `korame-drift` animates only
  * `transform`, so each bloom stays on its own compositor layer.

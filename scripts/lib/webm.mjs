@@ -5,13 +5,13 @@
  * library, and adding one would break the "no unjustified dependencies" rule
  * for what is a build-time asset step. But `sharp` already ships a WebP
  * encoder, and a lossy WebP file *is* a single VP8 keyframe wrapped in a RIFF
- * container — so a sequence of WebP frames can be unwrapped and re-muxed into
+ * container  so a sequence of WebP frames can be unwrapped and re-muxed into
  * a valid `.webm` with nothing but the dependency we already have.
  *
  * The trade-off is that every frame is a keyframe: there is no inter-frame
  * prediction, so files are larger than a real VP9 encode would produce. That
  * is affordable here only because the artwork is dark, flat and gradient-based
- * and compresses to a few KB a frame — measure before raising the resolution
+ * and compresses to a few KB a frame  measure before raising the resolution
  * or frame rate. It also has one genuine upside: every frame is independently
  * decodable, so looping and seeking never stall on a missing reference frame.
  *
@@ -109,8 +109,8 @@ const ID = {
  * Pulls the raw VP8 keyframe bitstream out of a lossy WebP file.
  *
  * A simple-format lossy WebP is `RIFF....WEBP` followed by one `VP8 ` chunk
- * whose payload is exactly the VP8 keyframe we want. Anything else — `VP8L`
- * (lossless) or `VP8X` (extended, i.e. alpha/animation/metadata) — is not a
+ * whose payload is exactly the VP8 keyframe we want. Anything else  `VP8L`
+ * (lossless) or `VP8X` (extended, i.e. alpha/animation/metadata)  is not a
  * plain VP8 frame, so we refuse rather than emit a file that will not decode.
  */
 export function vp8FromWebP(buf) {
@@ -126,10 +126,10 @@ export function vp8FromWebP(buf) {
 
         if (id === 'VP8 ') return body;
         if (id === 'VP8L') {
-            throw new Error('lossless WebP has no VP8 frame — encode with lossless:false');
+            throw new Error('lossless WebP has no VP8 frame  encode with lossless:false');
         }
         if (id === 'VP8X') {
-            throw new Error('extended WebP (alpha/animation) — encode opaque, non-animated');
+            throw new Error('extended WebP (alpha/animation)  encode opaque, non-animated');
         }
 
         off += 8 + size + (size & 1); // chunks are padded to even lengths
@@ -144,7 +144,7 @@ export function vp8FromWebP(buf) {
  *
  * Every frame goes into a single Cluster. SimpleBlock timecodes are a signed
  * 16-bit offset from the cluster's own timecode, so one cluster is only valid
- * while the clip is under ~32.7s — which is enforced below rather than left to
+ * while the clip is under ~32.7s  which is enforced below rather than left to
  * produce a subtly corrupt file.
  *
  * @param {Buffer[]} frames VP8 keyframe bitstreams, in order
@@ -157,7 +157,7 @@ export function muxWebM(frames, { width, height, fps }) {
     const msPerFrame = 1000 / fps;
     const durationMs = frames.length * msPerFrame;
     if (durationMs > 32767) {
-        throw new Error(`clip too long for a single cluster (${durationMs}ms) — split into clusters`);
+        throw new Error(`clip too long for a single cluster (${durationMs}ms)  split into clusters`);
     }
 
     const header = el(

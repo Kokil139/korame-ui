@@ -22,7 +22,7 @@ export const FAQS = [
     },
     {
         q: 'What does the free website audit actually include?',
-        a: 'We run your current site through Core Web Vitals and Lighthouse, check the technical SEO basics — indexability, structured data, metadata, heading structure, broken links — and review the conversion path. You get a written summary of what is costing you traffic or sales, whether or not you hire us.',
+        a: 'We run your current site through Core Web Vitals and Lighthouse, check the technical SEO basics  indexability, structured data, metadata, heading structure, broken links  and review the conversion path. You get a written summary of what is costing you traffic or sales, whether or not you hire us.',
     },
     {
         q: 'Do you work with clients outside India?',
@@ -30,7 +30,7 @@ export const FAQS = [
     },
     {
         q: 'Will I be able to edit the content myself?',
-        a: 'Where that is a requirement, yes — we integrate a headless CMS so you can edit copy, images and pages without touching code. It is a deliberate scope decision rather than a default, because a CMS adds moving parts a small site may not need, and one you never use is cost and attack surface. You can add it later without a rebuild.',
+        a: 'Where that is a requirement, yes  we integrate a headless CMS so you can edit copy, images and pages without touching code. It is a deliberate scope decision rather than a default, because a CMS adds moving parts a small site may not need, and one you never use is cost and attack surface. You can add it later without a rebuild.',
     },
     {
         q: 'What happens after the site launches?',
@@ -42,7 +42,7 @@ export const FAQS = [
     },
     {
         q: 'Do you handle hosting and domains?',
-        a: 'Yes — domain registration or transfer, DNS, SSL certificates and cloud hosting are configured as part of every project. We prefer static or edge-delivered deployments, which are fast and inexpensive to run. You own every account; we are never a middleman on your infrastructure.',
+        a: 'Yes  domain registration or transfer, DNS, SSL certificates and cloud hosting are configured as part of every project. We prefer static or edge-delivered deployments, which are fast and inexpensive to run. You own every account; we are never a middleman on your infrastructure.',
     },
 ];
 
@@ -75,7 +75,7 @@ export default function Faq() {
                         >
                             Ask us directly
                         </Link>{' '}
-                        — we answer within one working day.
+                         we answer within one working day.
                     </p>
                 </Reveal>
             </div>

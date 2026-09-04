@@ -22,7 +22,7 @@ import CircuitDivider from '@/components/motion/CircuitDivider';
  * With pre-rendering, this markup is already in the served HTML, so the
  * reader sees it immediately regardless. React 18 keeps the server HTML
  * inside a Suspense boundary in place while the lazy chunk loads and hydrates
- * that boundary separately — so the split now buys hydration priority for the
+ * that boundary separately  so the split now buys hydration priority for the
  * Hero rather than paint priority, and costs the reader nothing either way.
  *
  * ── Two sections were removed rather than migrated ───────────────────────

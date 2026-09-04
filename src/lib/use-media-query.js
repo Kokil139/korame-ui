@@ -22,15 +22,15 @@ export function useMediaQuery(query) {
 }
 
 /**
- * True on a touch screen — no hover, no fine pointer.
+ * True on a touch screen  no hover, no fine pointer.
  *
  * Everything gated on this is pointer-driven decoration (tilt, specular
  * glare, hover zoom) that can never fire on a touch device, but whose
- * compositing cost — a permanent `will-change` layer, a `preserve-3d`
- * context, a `mix-blend-mode` overlay per card — is paid on every scroll
+ * compositing cost  a permanent `will-change` layer, a `preserve-3d`
+ * context, a `mix-blend-mode` overlay per card  is paid on every scroll
  * frame regardless. iOS Safari is where that bill actually lands.
  */
 export const COARSE_POINTER = '(hover: none) and (pointer: coarse)';
 
-/** Coarse pointer *and* phone-sized — tablets keep the richer treatment. */
+/** Coarse pointer *and* phone-sized  tablets keep the richer treatment. */
 export const TOUCH_PHONE = '(hover: none) and (pointer: coarse) and (max-width: 767px)';

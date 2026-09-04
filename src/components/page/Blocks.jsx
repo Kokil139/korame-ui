@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
  * The repeating layout blocks the content pages are assembled from.
  *
  * Keeping these in one module is what stops nine service pages drifting into
- * nine slightly different designs — every page is the same components fed
+ * nine slightly different designs  every page is the same components fed
  * different data.
  */
 
@@ -195,7 +195,7 @@ export function LinkCards({ items, columns = 3 }) {
 /** Closing call to action. Every content page ends with one. */
 export function CtaBand({
     title = 'Tell us what you are trying to build.',
-    body = 'A short conversation is usually enough to tell you whether this is a week of work or a quarter of it — and whether you should be building it at all.',
+    body = 'A short conversation is usually enough to tell you whether this is a week of work or a quarter of it  and whether you should be building it at all.',
     primary = { href: '/contact', label: 'Start a project' },
     secondary = { href: '/projects', label: 'See our work' },
 }) {

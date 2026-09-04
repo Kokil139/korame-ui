@@ -62,7 +62,7 @@ export const dcos = (t, phase = 0) => Math.cos(TAU * (t + phase)) - Math.cos(TAU
 export const env = (t) => Math.sin(Math.PI * t) ** 2;
 
 /** Stable per-element phase derived from geometry, so it never disturbs the
-    PRNG call order — adding a rand() call here would reshuffle every layout. */
+    PRNG call order  adding a rand() call here would reshuffle every layout. */
 const phaseOf = (x, y) => (((x * 0.0131 + y * 0.0179) % 1) + 1) % 1;
 
 /**
@@ -143,7 +143,7 @@ const commerce = (rand, t) => {
     return out;
 };
 
-/** Overlapping translucent discs — a colour/type system. */
+/** Overlapping translucent discs  a colour/type system. */
 const design = (rand, t) => {
     const discs = [
         [430, 330, 168, C.cyan],
@@ -151,7 +151,7 @@ const design = (rand, t) => {
         [500, 265, 168, C.violet],
     ];
     // Each disc walks a small circle a third of a turn out of phase with the
-    // next, so the overlaps — where the screen blend actually reads — keep
+    // next, so the overlaps  where the screen blend actually reads  keep
     // shifting instead of the trio sliding around rigidly.
     let out = discs
         .map(
@@ -169,7 +169,7 @@ const design = (rand, t) => {
     return out;
 };
 
-/** Node graph — search / distribution. */
+/** Node graph  search / distribution. */
 const network = (rand, t) => {
     const nodes = Array.from({ length: 22 }, () => [
         120 + rand() * (W - 240),
@@ -306,7 +306,7 @@ const dashboard = (rand, t) => {
             (760 - i * 90) * (1 + 0.07 * dsin(t, i * 0.16))
         }" height="20" rx="10" fill="${C.white}" fill-opacity="${0.16 - i * 0.02}"/>`;
     }
-    // Sheen travelling the full panel width once per loop — the one cue that
+    // Sheen travelling the full panel width once per loop  the one cue that
     // says "live data" without any element having to change shape.
     out += `<rect x="${-260 + 1160 * t}" y="0" width="180" height="510" fill="${C.white}" fill-opacity="${
         0.05 * env(t)
@@ -333,7 +333,7 @@ const streams = (rand) => {
 const studio = (rand, t) => {
     /* Lens ring. A dash-array equal to the exact circumference leaves a
        hairline seam where the dash meets its own start, and rotating a
-       fully-drawn circle is invisible anyway — so the gap is opened by the
+       fully-drawn circle is invisible anyway  so the gap is opened by the
        envelope instead: closed (and the attribute omitted entirely) at t=0
        and t=1, widest mid-loop, sweeping round as it goes. */
     const circ = 2 * Math.PI * 62;

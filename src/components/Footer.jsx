@@ -10,7 +10,7 @@ import { SITE } from '@/lib/site';
  *
  * This is also the site's internal linking backbone. Every service page and
  * every case study is reachable in one hop from any page on the site, which
- * is the cheapest possible way to make a small site fully crawlable — no
+ * is the cheapest possible way to make a small site fully crawlable  no
  * page ends up more than two clicks from the homepage.
  *
  * The oversized clipped wordmark is kept from the original build; it is a
@@ -38,7 +38,7 @@ export default function Footer() {
                 size is fluid (15vw) and the offset was not, so the fraction of
                 the wordmark being cut off grew as the screen shrank: 24px of a
                 216px glyph at 1440 is the 11% bleed this is meant to be, but
-                24px of a 54px glyph on a 360px phone is 44% — very nearly half
+                24px of a 54px glyph on a 360px phone is 44%  very nearly half
                 the letterforms gone, which is what "not visible fully on
                 mobile" was. In `em` it resolves against this element's own
                 font-size, so the proportion is now identical at every width
@@ -57,7 +57,7 @@ export default function Footer() {
                         <Link
                             {...homeLink}
                             className="group inline-flex items-center gap-2.5 rounded-2xl glow-interactive"
-                            aria-label="Korame — home"
+                            aria-label="Korame  home"
                         >
                             <span className="grid size-9 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-lg font-bold text-white transition-transform duration-500 group-hover:scale-105">
                                 K
@@ -69,7 +69,7 @@ export default function Footer() {
 
                         <p className="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-muted-foreground">
                             A software engineering studio building websites, web applications,
-                            full-stack systems and custom software — designed, built and
+                            full-stack systems and custom software  designed, built and
                             deployed by the same people.
                         </p>
 
@@ -91,7 +91,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Services — the full list, so every service page is one hop away. */}
+                    {/* Services  the full list, so every service page is one hop away. */}
                     <nav aria-label="Services">
                         <h2 className="font-heading text-sm font-bold uppercase tracking-[0.14em] text-foreground">
                             Services

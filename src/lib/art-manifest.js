@@ -1,5 +1,5 @@
 /**
- * GENERATED — do not edit.
+ * GENERATED  do not edit.
  * Written by scripts/generate-art-manifest.mjs from the contents of
  * public/art/. Add or remove a file there and re-run `npm run artwork`.
  */

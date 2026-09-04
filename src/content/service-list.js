@@ -1,5 +1,5 @@
 /**
- * Lightweight service index — navigation metadata only.
+ * Lightweight service index  navigation metadata only.
  *
  * ── Why this exists separately ───────────────────────────────────────────
  * The navbar, the footer, the homepage capability cards and the 404 all need
@@ -8,8 +8,8 @@
  * main bundle, because the array references every module and there is nothing
  * for the bundler to tree-shake.
  *
- * So the shell reads this file, and only <ServicePage> — which is lazily
- * loaded per route — reads the full modules.
+ * So the shell reads this file, and only <ServicePage>  which is lazily
+ * loaded per route  reads the full modules.
  *
  * The duplication is deliberate and it is checked: scripts/verify-content.mjs
  * imports both this file and the full modules and fails the build if any
@@ -32,7 +32,7 @@ export const SERVICE_LIST = [
         short: 'Web design',
         art: 'service-web-design',
         description:
-            'Design systems, interaction and motion design, accessibility and responsive layout — drawn by the engineers who build it, against what browsers render fast.',
+            'Design systems, interaction and motion design, accessibility and responsive layout  drawn by the engineers who build it, against what browsers render fast.',
         chips: ['CSS custom properties', 'Tailwind CSS v4', 'Design tokens'],
     },
     {
@@ -50,7 +50,7 @@ export const SERVICE_LIST = [
         short: 'Full-stack development',
         art: 'service-full-stack-development',
         description:
-            'Full-stack development from one team: React frontends, Node APIs, schema design, authentication, cloud deployment and monitoring — owned end to end.',
+            'Full-stack development from one team: React frontends, Node APIs, schema design, authentication, cloud deployment and monitoring  owned end to end.',
         chips: ['React', 'Vite', 'TypeScript'],
     },
     {
@@ -68,7 +68,7 @@ export const SERVICE_LIST = [
         short: 'Software development',
         art: 'service-software-development',
         description:
-            'Software engineering services: application architecture, backend systems, APIs, data modelling, integrations and cloud deployment — built to be maintained.',
+            'Software engineering services: application architecture, backend systems, APIs, data modelling, integrations and cloud deployment  built to be maintained.',
         chips: ['JavaScript', 'TypeScript', 'SQL'],
     },
     {
@@ -77,7 +77,7 @@ export const SERVICE_LIST = [
         short: 'Custom software development',
         art: 'service-custom-software-development',
         description:
-            'Bespoke software shaped around how your business actually works — plus an honest assessment of when off-the-shelf is the better buy. Discovery to handover.',
+            'Bespoke software shaped around how your business actually works  plus an honest assessment of when off-the-shelf is the better buy. Discovery to handover.',
         chips: ['React', 'TypeScript', 'Node.js'],
     },
     {

@@ -2,7 +2,7 @@
  * Website audit sources.
  *
  * This site is a static deploy with no backend, so everything here has to be
- * callable directly from the browser — which means CORS-enabled and, ideally,
+ * callable directly from the browser  which means CORS-enabled and, ideally,
  * keyless.
  *
  * Two sources, deliberately:
@@ -13,8 +13,8 @@
  *
  * 2. Google PageSpeed Insights. Only runs when `VITE_PSI_API_KEY` is set.
  *    PSI's keyless quota is a single pool shared by every anonymous caller on
- *    the internet and is permanently exhausted — a keyless request returns
- *    429 immediately, not under load — so calling it without a key is not a
+ *    the internet and is permanently exhausted  a keyless request returns
+ *    429 immediately, not under load  so calling it without a key is not a
  *    degraded path, it is a guaranteed failure. We do not attempt it.
  */
 
@@ -121,8 +121,8 @@ export async function runPageSpeed(href, signal) {
 /**
  * Best-effort round-trip timing.
  *
- * A cross-origin `no-cors` fetch returns an opaque response — we cannot read
- * its status — but the request still happens and still produces a
+ * A cross-origin `no-cors` fetch returns an opaque response  we cannot read
+ * its status  but the request still happens and still produces a
  * PerformanceResourceTiming entry. Without `Timing-Allow-Origin` the detailed
  * phases are zeroed, but `duration` is exposed, and that is a real number for
  * how long the document took to come back.

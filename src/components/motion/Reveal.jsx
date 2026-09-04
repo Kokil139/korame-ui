@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
  * that owns it, so a section can never animate an element it does not render.
  *
  * When reduced motion is set the content renders at its final state rather
- * than a degraded animation — no transform, no opacity ramp.
+ * than a degraded animation  no transform, no opacity ramp.
  */
 export default function Reveal({
     children,

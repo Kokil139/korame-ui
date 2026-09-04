@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/staticwebapp.config.json",
 
-  "_comment_location": "Azure Static Web Apps reads this from the ROOT of the deployed artifact. It lives in public/ so Vite copies it to dist/ verbatim during `vite build`; dist/ is what output_location points at in the workflow. Do not move it to the repo root — Vite would not copy it and Azure would serve the site with no configuration at all.",
+  "_comment_location": "Azure Static Web Apps reads this from the ROOT of the deployed artifact. It lives in public/ so Vite copies it to dist/ verbatim during `vite build`; dist/ is what output_location points at in the workflow. Do not move it to the repo root  Vite would not copy it and Azure would serve the site with no configuration at all.",
 
-  "_comment_csp": "__INLINE_SCRIPT_HASHES__ is replaced at build time by scripts/generate-headers.mjs with the real sha256 of every executable inline script in dist/index.html. It is a placeholder rather than a pasted literal because a hardcoded hash silently stops matching the moment anyone edits the theme script in index.html, and the failure mode is a blank page — the script would be blocked, the pre-paint theme class never applied. verify-build.mjs fails the build if the placeholder is still present.",
+  "_comment_csp": "__INLINE_SCRIPT_HASHES__ is replaced at build time by scripts/generate-headers.mjs with the real sha256 of every executable inline script in dist/index.html. It is a placeholder rather than a pasted literal because a hardcoded hash silently stops matching the moment anyone edits the theme script in index.html, and the failure mode is a blank page  the script would be blocked, the pre-paint theme class never applied. verify-build.mjs fails the build if the placeholder is still present.",
 
-  "_comment_trailingSlash": "Must be 'never': every canonical URL this site emits is slash-free (https://korame.in/web-development). Under 'auto', Azure would 301 that URL to the trailing-slash form, so every canonical would point at a redirect. 'never' does the opposite — /web-development/ redirects to /web-development, which is what the canonical, the sitemap and the internal links all say.",
+  "_comment_trailingSlash": "Must be 'never': every canonical URL this site emits is slash-free (https://korame.in/web-development). Under 'auto', Azure would 301 that URL to the trailing-slash form, so every canonical would point at a redirect. 'never' does the opposite  /web-development/ redirects to /web-development, which is what the canonical, the sitemap and the internal links all say.",
   "trailingSlash": "never",
 
   "routes": [

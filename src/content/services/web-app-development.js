@@ -9,13 +9,13 @@ export default {
     kicker: 'Web app development',
     art: 'service-web-app-development',
     serviceType: 'Web application development',
-    lede: 'A website presents. An application does work — it holds state, enforces rules, and has to be correct when two people touch the same record at once. The engineering difference is not cosmetic, and pretending otherwise is how projects end up rewritten a year after launch.',
+    lede: 'A website presents. An application does work  it holds state, enforces rules, and has to be correct when two people touch the same record at once. The engineering difference is not cosmetic, and pretending otherwise is how projects end up rewritten a year after launch.',
 
     whatItIs: {
         heading: 'Where a website ends and an application begins',
         body: [
             'The line is state. If the page shows the same thing to everyone and nothing the visitor does persists, it is a website, and the right architecture is static output on a CDN. The moment there are accounts, saved records, permissions or workflows, it becomes an application, and the questions change: who is allowed to see this, what happens on a conflicting write, how does this behave when the network drops halfway through a save.',
-            'Web applications get built in the browser rather than installed, which means one deployment for every platform and no app-store review between a fix and your users. The trade is that you carry the responsibilities a native runtime would otherwise handle — session management, offline behaviour, and performance on hardware you do not control.',
+            'Web applications get built in the browser rather than installed, which means one deployment for every platform and no app-store review between a fix and your users. The trade is that you carry the responsibilities a native runtime would otherwise handle  session management, offline behaviour, and performance on hardware you do not control.',
         ],
     },
 
@@ -26,7 +26,7 @@ export default {
         },
         {
             title: 'Dashboards and analytics',
-            body: 'Query-backed views that stay responsive at real data volume — server-side aggregation, pagination, and charts that do not re-render the world on every filter change.',
+            body: 'Query-backed views that stay responsive at real data volume  server-side aggregation, pagination, and charts that do not re-render the world on every filter change.',
         },
         {
             title: 'Customer portals',
@@ -125,7 +125,7 @@ export default {
         },
         {
             title: 'Reliability',
-            body: 'Error tracking with stack traces, structured request logging, uptime monitoring, and defined behaviour for the failure cases most projects skip — expired session mid-action, duplicate submit, partial network failure.',
+            body: 'Error tracking with stack traces, structured request logging, uptime monitoring, and defined behaviour for the failure cases most projects skip  expired session mid-action, duplicate submit, partial network failure.',
         },
     ],
 
@@ -148,7 +148,7 @@ export default {
         },
         {
             q: 'How do you handle multi-tenancy?',
-            a: 'Tenant identity is part of the data model and every query is scoped to it at the API layer, not by filtering in the client. Which isolation model — shared schema, schema per tenant, or database per tenant — depends on your compliance requirements and expected scale.',
+            a: 'Tenant identity is part of the data model and every query is scoped to it at the API layer, not by filtering in the client. Which isolation model  shared schema, schema per tenant, or database per tenant  depends on your compliance requirements and expected scale.',
         },
         {
             q: 'Do you integrate payments?',

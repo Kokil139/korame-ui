@@ -69,7 +69,7 @@ export default function ServicesIndex() {
                                 <Link
                                     to={servicePath(service.slug)}
                                     className="group block h-full"
-                                    aria-label={`${service.nav} — read more`}
+                                    aria-label={`${service.nav}  read more`}
                                 >
                                     <TiltCard
                                         className="h-full"
@@ -125,7 +125,7 @@ export default function ServicesIndex() {
                     <Reveal y={18}>
                         <p className="text-pretty">
                             These are not nine separate departments. Most engagements draw on
-                            several of them at once — a web application needs design, frontend,
+                            several of them at once  a web application needs design, frontend,
                             an API, a data model and somewhere to run, and splitting those across
                             vendors moves the hardest problems into the gaps between them.
                         </p>
@@ -135,7 +135,7 @@ export default function ServicesIndex() {
                             The pages are separate because the questions people arrive with are
                             separate. Someone comparing custom software against an off-the-shelf
                             product needs a different answer from someone whose Azure deployment
-                            returns 404 on refresh — and both deserve a real one.
+                            returns 404 on refresh  and both deserve a real one.
                         </p>
                     </Reveal>
                 </div>

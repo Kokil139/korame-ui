@@ -3,9 +3,9 @@
  *
  * ── Why this is generated rather than written by hand ─────────────────────
  * `index.html` carries one inline script: the blocking snippet that applies
- * the theme class before first paint. It has to stay inline — moving it to a
+ * the theme class before first paint. It has to stay inline  moving it to a
  * file would add a blocking round trip in front of the paint it exists to
- * protect — so the CSP has to allow it by hash.
+ * protect  so the CSP has to allow it by hash.
  *
  * A hash pasted into the config by hand stops matching the moment anyone edits
  * that script by a single character, and the failure is silent and severe: the
@@ -17,7 +17,7 @@
  * `<script type="application/ld+json">` blocks are deliberately NOT hashed.
  * They are data blocks, not scripts: the HTML spec returns from "prepare the
  * script element" before the CSP check for any non-JavaScript type, so
- * script-src never applies to them. Hashing them would be impossible anyway —
+ * script-src never applies to them. Hashing them would be impossible anyway 
  * the graph differs per route and this config is global.
  *
  * Runs after prerender, against dist/. See the `build` script in package.json.
@@ -38,8 +38,8 @@ const INLINE_SCRIPT = /<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/gi;
 
 /**
  * A script element only runs as JavaScript when it has no `type`, or a type
- * the HTML spec recognises as classic or module. Anything else — importmap,
- * application/ld+json, text/template — is a data block the parser never
+ * the HTML spec recognises as classic or module. Anything else  importmap,
+ * application/ld+json, text/template  is a data block the parser never
  * executes, so script-src does not govern it.
  */
 function isExecutable(attrs) {
@@ -61,11 +61,11 @@ async function main() {
     if (!existsSync(configPath)) {
         throw new Error(
             'dist/staticwebapp.config.json is missing. It should have been copied from public/ ' +
-                'by `vite build` — check that it still exists in public/.',
+                'by `vite build`  check that it still exists in public/.',
         );
     }
     if (!existsSync(htmlPath)) {
-        throw new Error('dist/index.html is missing — run the build before this script.');
+        throw new Error('dist/index.html is missing  run the build before this script.');
     }
 
     const html = await readFile(htmlPath, 'utf8');
@@ -80,7 +80,7 @@ async function main() {
 
     if (!hashes.length) {
         /* Not an error in itself, but it almost certainly means the regex
-           stopped matching rather than that the script genuinely went away —
+           stopped matching rather than that the script genuinely went away 
            and the result would be a CSP that blocks a script nobody noticed. */
         console.warn(
             '  warn  no executable inline scripts found in dist/index.html. If the theme ' +
@@ -99,7 +99,7 @@ async function main() {
     const filled = raw.split(PLACEHOLDER).join(hashes.join(' '));
 
     /* Parse before writing: an unparseable config is not rejected by Azure, it
-       is ignored — the site would deploy with no headers, no fallback and no
+       is ignored  the site would deploy with no headers, no fallback and no
        redirects, and nothing would say so. */
     let parsed;
     try {

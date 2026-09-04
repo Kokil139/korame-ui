@@ -25,7 +25,7 @@ const PATH = '/pricing';
  * interaction model; everything around them is the standard page kit, so this
  * route reads like every other inner page.
  *
- * `heading={false}` because <PageHero> already states the h1 — leaving the
+ * `heading={false}` because <PageHero> already states the h1  leaving the
  * section's own h2 in place would put "Clear scope, clear price" on the screen
  * twice within one viewport.
  *
@@ -102,7 +102,7 @@ export default function PricingPage() {
 
             <CtaBand
                 title="Tell us the scope and we will quote it."
-                body="A short conversation is usually enough to put a real number against the work — including telling you when it is smaller than the tier you were looking at."
+                body="A short conversation is usually enough to put a real number against the work  including telling you when it is smaller than the tier you were looking at."
                 primary={{ href: '/contact', label: 'Get a quote' }}
                 secondary={{ href: '/projects', label: 'See our work' }}
             />

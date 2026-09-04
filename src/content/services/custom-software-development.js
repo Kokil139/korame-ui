@@ -4,8 +4,8 @@ export default {
     short: 'Custom software development',
     title: 'Custom Software Development Services | Korame',
     description:
-        'Bespoke software shaped around how your business actually works — plus an honest assessment of when off-the-shelf is the better buy. Discovery to handover.',
-    h1: 'Custom software — and when you should not buy it',
+        'Bespoke software shaped around how your business actually works  plus an honest assessment of when off-the-shelf is the better buy. Discovery to handover.',
+    h1: 'Custom software  and when you should not buy it',
     kicker: 'Custom software',
     art: 'service-custom-software-development',
     serviceType: 'Custom software development',
@@ -15,7 +15,7 @@ export default {
         heading: 'Custom software versus off-the-shelf',
         body: [
             'Off-the-shelf software encodes somebody else\'s idea of how the work should be done. That is usually a bargain: you get years of development, a support team and a security posture for a subscription. The cost is that your process has to bend to the product, and you inherit its roadmap and its pricing decisions.',
-            'Custom software inverts both. You own the roadmap, the data and the process, and the system can encode the specific thing you do better than your competitors. In exchange you take on the full cost of building, hosting, securing and maintaining it — which is not a project cost, it is an ongoing one. The question is never "which is better". It is whether the difference between the two is worth what it costs you every year.',
+            'Custom software inverts both. You own the roadmap, the data and the process, and the system can encode the specific thing you do better than your competitors. In exchange you take on the full cost of building, hosting, securing and maintaining it  which is not a project cost, it is an ongoing one. The question is never "which is better". It is whether the difference between the two is worth what it costs you every year.',
         ],
     },
 
@@ -24,7 +24,7 @@ export default {
         buy: {
             title: 'Buy off-the-shelf when',
             points: [
-                'The process is genuinely standard — accounting, payroll, email, CRM basics.',
+                'The process is genuinely standard  accounting, payroll, email, CRM basics.',
                 'A mature product covers 80% or more of what you need without heavy configuration.',
                 'The capability is not a competitive differentiator, just a cost of doing business.',
                 'You do not have, and do not want, the ongoing budget to maintain a system.',
@@ -41,13 +41,13 @@ export default {
                 'The integration work needed to make a bought product fit is approaching the cost of building.',
             ],
         },
-        note: 'The most common right answer is neither purely one nor the other: buy the commodity pieces, build the part that is genuinely yours, and integrate them properly. We are happy to be told the answer is "buy" — a project that should not exist is the most expensive kind.',
+        note: 'The most common right answer is neither purely one nor the other: buy the commodity pieces, build the part that is genuinely yours, and integrate them properly. We are happy to be told the answer is "buy"  a project that should not exist is the most expensive kind.',
     },
 
     provide: [
         {
             title: 'Discovery and requirements',
-            body: 'Time with the people doing the work, including the exceptions they handle by hand. A written specification of what the system must do and — just as usefully — what it will not.',
+            body: 'Time with the people doing the work, including the exceptions they handle by hand. A written specification of what the system must do and  just as usefully  what it will not.',
         },
         {
             title: 'Build-versus-buy assessment',
@@ -59,7 +59,7 @@ export default {
         },
         {
             title: 'Integrations',
-            body: 'Connecting the custom part to the bought parts — accounting, CRM, payments, messaging — so data moves automatically instead of by export and re-import.',
+            body: 'Connecting the custom part to the bought parts  accounting, CRM, payments, messaging  so data moves automatically instead of by export and re-import.',
         },
         {
             title: 'Data migration',
@@ -74,7 +74,7 @@ export default {
     audience: [
         {
             title: 'Businesses running on stitched-together tools',
-            body: 'Four subscriptions and a person whose job is moving data between them is a system — an expensive, fragile, undocumented one.',
+            body: 'Four subscriptions and a person whose job is moving data between them is a system  an expensive, fragile, undocumented one.',
         },
         {
             title: 'Companies whose process is their advantage',
@@ -108,7 +108,7 @@ export default {
     approach: [
         {
             title: 'Discovery before commitment',
-            body: 'A short, paid, fixed-scope phase producing a specification, an architecture and a realistic estimate — including the recommendation not to build, if that is the honest one.',
+            body: 'A short, paid, fixed-scope phase producing a specification, an architecture and a realistic estimate  including the recommendation not to build, if that is the honest one.',
         },
         {
             title: 'Deliver in usable increments',
@@ -142,7 +142,7 @@ export default {
         },
         {
             title: 'Testing',
-            body: 'Automated coverage on business rules — the calculations, state transitions and permission checks where a silent error is worse than a crash — plus reconciliation testing on any data migration.',
+            body: 'Automated coverage on business rules  the calculations, state transitions and permission checks where a silent error is worse than a crash  plus reconciliation testing on any data migration.',
         },
         {
             title: 'Cloud deployment',
@@ -165,7 +165,7 @@ export default {
     faqs: [
         {
             q: 'When is custom software actually worth it?',
-            a: 'When the process is a competitive advantage, when licensing plus the manual work bridging tool gaps already approaches the build cost, or when your data needs to be in a shape no vendor exposes. If a mature product covers most of the requirement and the capability is not a differentiator, buy it — we will say so.',
+            a: 'When the process is a competitive advantage, when licensing plus the manual work bridging tool gaps already approaches the build cost, or when your data needs to be in a shape no vendor exposes. If a mature product covers most of the requirement and the capability is not a differentiator, buy it  we will say so.',
         },
         {
             q: 'What does custom software cost to run after launch?',

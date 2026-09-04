@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
  * Rebuilt as a real 3D scene rather than three flat divs: one shared camera
  * (`perspective-far`) on the stage, `preserve-3d` on the rig, and each device
  * placed at a different `translateZ` so parallax between them is produced by
- * the projection itself — the depth is genuine, not faked with offsets.
+ * the projection itself  the depth is genuine, not faked with offsets.
  *
  * The rig's rotateX eases from tilted to flat as the section scrolls through
  * the viewport, so the hardware appears to stand up to meet the reader.
@@ -85,7 +85,7 @@ export default function DeviceShowcase() {
                     className="perspective-far relative mt-20 flex min-h-[540px] items-center justify-center sm:min-h-[540px]"
                 >
                     {/* The rig spans the full stage width, not just the
-                        laptop's — the phone and tablet anchor to its edges, so
+                        laptop's  the phone and tablet anchor to its edges, so
                         a narrower rig would park them on top of the laptop
                         screen and cover the content they exist to frame. */}
                     <motion.div
@@ -93,7 +93,7 @@ export default function DeviceShowcase() {
                         className="preserve-3d relative flex w-full justify-center"
                     >
                         {/* -------------------------------------------------
-                            Laptop — the base plane, z = 0
+                            Laptop  the base plane, z = 0
                            ------------------------------------------------- */}
                         <div className="relative z-10">
                             <div className="relative flex h-[230px] w-[248px] flex-col overflow-hidden rounded-t-2xl border-[6px] border-surface-3 bg-surface-1 shadow-[0_40px_80px_-30px_var(--shadow-tint-strong)] sm:h-[360px] sm:w-[580px] sm:border-[10px] lg:h-[440px] lg:w-[720px]">
@@ -111,7 +111,7 @@ export default function DeviceShowcase() {
                                     <span className="w-8" />
                                 </div>
 
-                                {/* Screen content — boots like a real page load */}
+                                {/* Screen content  boots like a real page load */}
                                 <ScreenBoot base={0.15} className="flex-1 overflow-hidden bg-gradient-to-b from-background to-surface-1 p-4 sm:p-8">
                                     <ScreenWake base={0.15} />
                                     <BootProgress base={0.15} />
@@ -188,7 +188,7 @@ export default function DeviceShowcase() {
                         </div>
 
                         {/* -------------------------------------------------
-                            Tablet — pushed forward in Z, right of the laptop
+                            Tablet  pushed forward in Z, right of the laptop
                            ------------------------------------------------- */}
                         <motion.div
                             style={reduced ? undefined : { translateZ: tabletZ }}
@@ -231,11 +231,11 @@ export default function DeviceShowcase() {
                         </motion.div>
 
                         {/* -------------------------------------------------
-                            Phone — furthest forward, left of the laptop
+                            Phone  furthest forward, left of the laptop
                            ------------------------------------------------- */}
                         {/* animationDelay sits on the element that actually
                             carries animate-float, and is offset so the two
-                            devices never bob in lockstep — that sync reads
+                            devices never bob in lockstep  that sync reads
                             as fake. */}
                         <motion.div
                             style={{

@@ -9,7 +9,7 @@ export default {
     kicker: 'Web development',
     art: 'service-web-development',
     serviceType: 'Web development',
-    lede: 'Most of what gets called web development is configuration — a theme, a page builder, a pile of plugins holding each other up. We write the site instead. That costs more upfront and it is the only way to control what a page weighs, how fast it paints, and whether a search engine can read it.',
+    lede: 'Most of what gets called web development is configuration  a theme, a page builder, a pile of plugins holding each other up. We write the site instead. That costs more upfront and it is the only way to control what a page weighs, how fast it paints, and whether a search engine can read it.',
 
     whatItIs: {
         heading: 'What web development actually covers',
@@ -64,7 +64,7 @@ export default {
     problems: [
         {
             title: 'The site is slow and nobody can say why',
-            body: 'Usually render-blocking third-party scripts, unoptimised images, and a JavaScript bundle nobody has looked at since launch. We measure first, then cut — and put a budget in CI so it cannot creep back.',
+            body: 'Usually render-blocking third-party scripts, unoptimised images, and a JavaScript bundle nobody has looked at since launch. We measure first, then cut  and put a budget in CI so it cannot creep back.',
         },
         {
             title: 'Search engines are not seeing the pages',
@@ -121,7 +121,7 @@ export default {
         },
         {
             title: 'Testing',
-            body: 'Unit tests on the logic that would be expensive to get wrong, integration tests across the API boundary, and a production build that runs in CI on every pull request — because a build that only works on one laptop is not a build.',
+            body: 'Unit tests on the logic that would be expensive to get wrong, integration tests across the API boundary, and a production build that runs in CI on every pull request  because a build that only works on one laptop is not a build.',
         },
         {
             title: 'Maintenance',
@@ -144,11 +144,11 @@ export default {
         },
         {
             q: 'Do you work with an existing codebase, or only new builds?',
-            a: 'Both. Taking over an existing project starts with an audit — dependencies, build, test coverage, performance and accessibility baseline — so we can tell you what is worth keeping before anyone proposes a rewrite.',
+            a: 'Both. Taking over an existing project starts with an audit  dependencies, build, test coverage, performance and accessibility baseline  so we can tell you what is worth keeping before anyone proposes a rewrite.',
         },
         {
             q: 'Which frontend framework do you use?',
-            a: 'React with Vite by default, because the ecosystem and hiring pool are the deepest and the build tooling is fast. Where a page has no interactive requirement we ship static HTML instead — the fastest framework is the one you did not load.',
+            a: 'React with Vite by default, because the ecosystem and hiring pool are the deepest and the build tooling is fast. Where a page has no interactive requirement we ship static HTML instead  the fastest framework is the one you did not load.',
         },
         {
             q: 'Will I be able to edit content without a developer?',

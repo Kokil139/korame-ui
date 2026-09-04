@@ -4,17 +4,17 @@ export default {
     short: 'Web design',
     title: 'Web Design Services | Design Systems & Motion | Korame',
     description:
-        'Design systems, interaction and motion design, accessibility and responsive layout — drawn by the engineers who build it, against what browsers render fast.',
+        'Design systems, interaction and motion design, accessibility and responsive layout  drawn by the engineers who build it, against what browsers render fast.',
     h1: 'Web design, drawn by the people who have to build it',
     kicker: 'Web design',
     art: 'service-web-design',
     serviceType: 'Web design',
-    lede: 'A design that cannot be built at sixty frames per second is not finished, it is a proposal. We design and engineer in the same room, which removes the most expensive conversation in this industry — the one where a handoff turns into a negotiation about what was actually possible.',
+    lede: 'A design that cannot be built at sixty frames per second is not finished, it is a proposal. We design and engineer in the same room, which removes the most expensive conversation in this industry  the one where a handoff turns into a negotiation about what was actually possible.',
 
     whatItIs: {
         heading: 'Design and development are one discipline here',
         body: [
-            'The traditional split — an agency designs, a development shop builds — creates a gap that somebody pays for. Shadows that cost a repaint on every scroll frame, a hero image nobody sized, type that reflows on a narrow viewport, a hover state that means nothing on a phone: none of these are design mistakes or engineering mistakes. They are handoff mistakes.',
+            'The traditional split  an agency designs, a development shop builds  creates a gap that somebody pays for. Shadows that cost a repaint on every scroll frame, a hero image nobody sized, type that reflows on a narrow viewport, a hover state that means nothing on a phone: none of these are design mistakes or engineering mistakes. They are handoff mistakes.',
             'We treat the design system and the component library as the same artefact. A colour is a token in the stylesheet before it is a swatch in a mockup. A motion curve is a shared constant rather than a description. When the design changes, the code changes with it, because there is only one definition of either.',
         ],
     },
@@ -26,7 +26,7 @@ export default {
         },
         {
             title: 'Interface design',
-            body: 'Layout, hierarchy and typography for the pages that carry the argument — landing pages, product surfaces, forms and the states around them.',
+            body: 'Layout, hierarchy and typography for the pages that carry the argument  landing pages, product surfaces, forms and the states around them.',
         },
         {
             title: 'Interaction design',
@@ -34,7 +34,7 @@ export default {
         },
         {
             title: 'Motion design',
-            body: 'Motion as a shared vocabulary — a small set of springs and easing curves reused everywhere — so the whole product moves like one thing rather than eleven.',
+            body: 'Motion as a shared vocabulary  a small set of springs and easing curves reused everywhere  so the whole product moves like one thing rather than eleven.',
         },
         {
             title: 'Responsive design',
@@ -152,7 +152,7 @@ export default {
         },
         {
             q: 'How do you handle dark mode?',
-            a: 'Both themes are defined at the token layer from the start. Retrofitting dark mode means hunting down every hardcoded colour someone wrote when only one theme existed — it is much more expensive than doing it once.',
+            a: 'Both themes are defined at the token layer from the start. Retrofitting dark mode means hunting down every hardcoded colour someone wrote when only one theme existed  it is much more expensive than doing it once.',
         },
     ],
 

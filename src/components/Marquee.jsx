@@ -37,7 +37,7 @@ const BASE_SPEED = 22; // px per second at rest
  * - Position is a MotionValue advanced in `useAnimationFrame`; it never
  *   touches React state, so this does not re-render while scrolling.
  * - `wrap` is done manually against half the track width, because the track
- *   holds exactly two copies of the list — so -50% is one full copy.
+ *   holds exactly two copies of the list  so -50% is one full copy.
  * - The duplicate copy is `aria-hidden`; a screen reader hears the list once.
  */
 export default function Marquee() {

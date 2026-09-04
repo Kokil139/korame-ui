@@ -16,7 +16,7 @@ import { REDIRECTS } from '@/lib/routes';
  *
  * The homepage is the most common entry point, so its chunk should not cost a
  * second round trip, and the 404 has to render without one. Everything else
- * becomes a chunk that only the visitors who go there pay for — which matters
+ * becomes a chunk that only the visitors who go there pay for  which matters
  * here because the nine service content modules are the largest body of text
  * on the site and no single visitor needs more than one of them.
  *
@@ -24,7 +24,7 @@ import { REDIRECTS } from '@/lib/routes';
  * is complete when the document arrives; the chunk is needed only to hydrate
  * it, and React keeps the server markup in place inside the Suspense boundary
  * until it lands. `fallback={null}` is therefore never seen on a pre-rendered
- * load — only on an in-app navigation, where it is a frame.
+ * load  only on an in-app navigation, where it is a frame.
  *
  * The pre-render itself uses renderToPipeableStream with `onAllReady`, which
  * waits for every lazy chunk before emitting, so splitting costs the static
@@ -47,7 +47,7 @@ const BlogPost = lazy(() => import('@/pages/BlogPost'));
  * The browser only restores scroll for history entries it created; a
  * client-side route change is not one, so without this every navigation lands
  * at whatever offset the previous page was scrolled to. Going *back* is left
- * alone — the browser's own restoration is correct there.
+ * alone  the browser's own restoration is correct there.
  *
  * `behavior: 'instant'` is required: `html { scroll-behavior: smooth }` is set
  * globally, and a smooth scroll on a page that has just swapped its entire
@@ -84,7 +84,7 @@ export default function App() {
     return (
         <ThemeProvider>
             <div className="relative min-h-screen">
-                {/* Skip link — first tab stop, hidden until focused. */}
+                {/* Skip link  first tab stop, hidden until focused. */}
                 <a
                     href="#main"
                     className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-background"

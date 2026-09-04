@@ -4,7 +4,7 @@ export default {
     short: 'Software development',
     title: 'Software Development Services | Korame',
     description:
-        'Software engineering services: application architecture, backend systems, APIs, data modelling, integrations and cloud deployment — built to be maintained.',
+        'Software engineering services: application architecture, backend systems, APIs, data modelling, integrations and cloud deployment  built to be maintained.',
     h1: 'Software development as an engineering discipline',
     kicker: 'Software development',
     art: 'service-software-development',
@@ -15,14 +15,14 @@ export default {
         heading: 'What the work consists of',
         body: [
             'Software development is the whole path from an ambiguous business problem to a running system somebody depends on: understanding the domain, choosing an architecture proportionate to it, modelling the data, writing and reviewing the code, testing it, deploying it repeatably, and operating it once real users arrive.',
-            'The discipline is mostly about restraint. Almost every serious failure we are asked to rescue was caused by something being more clever than the problem required — a distributed architecture for one server\'s worth of traffic, an abstraction built for a second use case that never arrived, a framework chosen because it was new. Boring, well-understood technology applied carefully outperforms novelty almost every time.',
+            'The discipline is mostly about restraint. Almost every serious failure we are asked to rescue was caused by something being more clever than the problem required  a distributed architecture for one server\'s worth of traffic, an abstraction built for a second use case that never arrived, a framework chosen because it was new. Boring, well-understood technology applied carefully outperforms novelty almost every time.',
         ],
     },
 
     provide: [
         {
             title: 'Application architecture',
-            body: 'Choosing the shape of the system — where boundaries go, what is synchronous, what can fail independently — sized against the load and the team you actually have.',
+            body: 'Choosing the shape of the system  where boundaries go, what is synchronous, what can fail independently  sized against the load and the team you actually have.',
         },
         {
             title: 'Backend systems',
@@ -30,7 +30,7 @@ export default {
         },
         {
             title: 'APIs',
-            body: 'Versioned, documented interfaces with consistent error handling and idempotency on writes — designed so a second consumer does not force a redesign.',
+            body: 'Versioned, documented interfaces with consistent error handling and idempotency on writes  designed so a second consumer does not force a redesign.',
         },
         {
             title: 'Databases and data modelling',
@@ -38,7 +38,7 @@ export default {
         },
         {
             title: 'Integrations',
-            body: 'Payment providers, CRMs, ERPs, messaging and third-party APIs — with retries, backoff, webhook verification and a plan for the day the other side is down.',
+            body: 'Payment providers, CRMs, ERPs, messaging and third-party APIs  with retries, backoff, webhook verification and a plan for the day the other side is down.',
         },
         {
             title: 'Legacy modernisation',
@@ -134,17 +134,17 @@ export default {
         'Building the backend and integrations behind an existing product',
         'Modernising a working but unchangeable legacy system incrementally',
         'Connecting systems that currently exchange data by export and re-import',
-        'Adding engineering rigour — tests, CI, monitoring — to a product built at speed',
+        'Adding engineering rigour  tests, CI, monitoring  to a product built at speed',
     ],
 
     faqs: [
         {
             q: 'What is the difference between software development and web development?',
-            a: 'Web development is a subset — software delivered through a browser. Software development is the wider practice: the same engineering applied to backends, integrations, data pipelines and internal systems that may have no interface at all. Most of our work is delivered on the web, but the discipline behind it is not web-specific.',
+            a: 'Web development is a subset  software delivered through a browser. Software development is the wider practice: the same engineering applied to backends, integrations, data pipelines and internal systems that may have no interface at all. Most of our work is delivered on the web, but the discipline behind it is not web-specific.',
         },
         {
             q: 'Do you write tests?',
-            a: 'On the logic where a defect would be expensive, and at system boundaries. We do not chase a coverage percentage — tests written to satisfy a metric tend to test implementation rather than behaviour, and they make refactoring harder rather than safer.',
+            a: 'On the logic where a defect would be expensive, and at system boundaries. We do not chase a coverage percentage  tests written to satisfy a metric tend to test implementation rather than behaviour, and they make refactoring harder rather than safer.',
         },
         {
             q: 'How do you handle a system nobody understands any more?',
@@ -152,7 +152,7 @@ export default {
         },
         {
             q: 'What happens if we want to bring the work in-house later?',
-            a: 'That is a normal and healthy outcome. Everything — repository, infrastructure, accounts, documentation — is yours throughout, and handover to an internal team is a planned piece of work rather than a negotiation.',
+            a: 'That is a normal and healthy outcome. Everything  repository, infrastructure, accounts, documentation  is yours throughout, and handover to an internal team is a planned piece of work rather than a negotiation.',
         },
     ],
 

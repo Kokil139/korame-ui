@@ -8,7 +8,7 @@ import './index.css';
  * Client entry.
  *
  * Every route is pre-rendered to static HTML at build time, so the normal
- * path here is hydration rather than a fresh render — the document already
+ * path here is hydration rather than a fresh render  the document already
  * has its content and React is only attaching behaviour to it. `createRoot`
  * is kept as the fallback for the dev server, where `#root` is empty.
  */
@@ -36,7 +36,7 @@ const app = (
  * `firstElementChild`, not `hasChildNodes()`.
  *
  * In development Vite serves index.html untouched, so `#root` still contains
- * the literal `<!--app-html-->` placeholder — which is a child *node*. Testing
+ * the literal `<!--app-html-->` placeholder  which is a child *node*. Testing
  * for any child would take the hydration path against a container holding
  * nothing but a comment, and every dev session would open on a hydration
  * mismatch. An element child only exists when the pre-render actually ran.

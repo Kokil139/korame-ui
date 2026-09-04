@@ -26,7 +26,7 @@ import {
  *
  * Structure follows the shape a reader evaluating a studio actually reads in:
  * what it is, what was hard, what we did about it, what that required, and
- * what came out. No invented metrics — see the header comment in
+ * what came out. No invented metrics  see the header comment in
  * content/projects.js for why that constraint is enforced at the data layer.
  */
 export default function ProjectPage() {
@@ -124,7 +124,7 @@ export default function ProjectPage() {
                 </div>
             </section>
 
-            {/* Fact strip — capabilities and stack, both verifiable. */}
+            {/* Fact strip  capabilities and stack, both verifiable. */}
             <Section width="max-w-5xl">
                 <div className="grid gap-8 sm:grid-cols-2">
                     <Reveal y={20}>

@@ -19,10 +19,10 @@ import {
 
 const TITLE = 'Contact Korame | Start a Web, App or Software Project';
 const DESCRIPTION =
-    'Talk to Korame about a web, application, software or cloud project. Email, WhatsApp or the form — we answer within one working day.';
+    'Talk to Korame about a web, application, software or cloud project. Email, WhatsApp or the form  we answer within one working day.';
 
 const WHAT_TO_SEND = [
-    'What you are trying to build, in whatever detail you have — a paragraph is enough to start.',
+    'What you are trying to build, in whatever detail you have  a paragraph is enough to start.',
     'What has to be true for it to be worth building. This is usually the most useful thing you can tell us.',
     'Any deadline that is real, and why it is real.',
     'A link to what exists today, if anything does.',
@@ -44,7 +44,7 @@ const CONTACT_FAQS = [
     },
     {
         q: 'Do you charge for the first conversation?',
-        a: 'No. Discovery — the structured phase that produces a specification and an estimate — is a paid piece of work on larger projects, and it is agreed separately. The conversation that decides whether that is even worth doing is not.',
+        a: 'No. Discovery  the structured phase that produces a specification and an estimate  is a paid piece of work on larger projects, and it is agreed separately. The conversation that decides whether that is even worth doing is not.',
     },
     {
         q: 'Can you take over an existing project?',
@@ -85,7 +85,7 @@ export default function ContactPage() {
             <PageHero
                 kicker="Contact"
                 title="Tell us what you are trying to build"
-                lede="Email, WhatsApp or the form below — all three reach the same people. We answer every genuine enquiry within one working day, including the ones where the answer is that you should hire somebody else."
+                lede="Email, WhatsApp or the form below  all three reach the same people. We answer every genuine enquiry within one working day, including the ones where the answer is that you should hire somebody else."
                 trail={trail}
             />
 

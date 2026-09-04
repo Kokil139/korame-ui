@@ -13,7 +13,7 @@ import { TIERS } from '@/content/pricing';
 /**
  * The engagement tiers.
  *
- * Restored from the pre-SEO build with its interaction model intact — the
+ * Restored from the pre-SEO build with its interaction model intact  the
  * three-source highlight (pin beats hover beats scroll), the accent rail, the
  * per-card tilt. Two things are deliberately different.
  *
@@ -30,7 +30,7 @@ import { TIERS } from '@/content/pricing';
 export default function Pricing({ heading = true }) {
     /* Three independent sources of "which tier is lit", in priority order.
        A pinned click beats a hover, and a hover beats whatever scrolled into
-       view — otherwise moving the mouse away would snap the highlight to a
+       view  otherwise moving the mouse away would snap the highlight to a
        card the reader is not looking at. */
     const [pinned, setPinned] = useState(null);
     const [hovered, setHovered] = useState(null);
@@ -43,7 +43,7 @@ export default function Pricing({ heading = true }) {
      * Scroll-driven highlight, stacked layouts only.
      *
      * Once the three tiers sit side by side they are all in view at once, so
-     * a scroll highlight would be meaningless — and it would fight the
+     * a scroll highlight would be meaningless  and it would fight the
      * pointer. The observer is therefore only attached below `lg`.
      */
     useEffect(() => {
@@ -122,7 +122,7 @@ export default function Pricing({ heading = true }) {
                                The Card inside lifts on hover; if the Card also
                                owned the pointer handlers, that lift would slide
                                it out from under the cursor, fire pointerleave,
-                               drop the lift, slide it back — flickering several
+                               drop the lift, slide it back  flickering several
                                times a second. Same reason Magnetic splits its
                                wrapper from the element it translates. */
                             <li
@@ -152,7 +152,7 @@ export default function Pricing({ heading = true }) {
                                           Highlight is state-driven, not a :hover
                                           rule, so pointer, tap and scroll can all
                                           light the same card. No tier is lit at
-                                          rest — nothing is pre-selected for the
+                                          rest  nothing is pre-selected for the
                                           reader.
 
                                           onClick sits on the card rather than a
@@ -256,7 +256,7 @@ export default function Pricing({ heading = true }) {
                                                         : 'opacity-0',
                                                 )}
                                             >
-                                                {isPinned ? 'Selected — tap again to clear' : ' '}
+                                                {isPinned ? 'Selected  tap again to clear' : ' '}
                                             </span>
                                         </Card>
                                     </TiltCard>

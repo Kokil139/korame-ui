@@ -62,15 +62,15 @@ for (const { path: route } of ROUTES) {
     /* 1. The route actually rendered. An unrendered SPA shell is a few
        hundred bytes and would otherwise deploy without complaint. */
     if (html.includes('<!--app-html-->')) {
-        fail(route, 'the app placeholder was never replaced — this route did not render');
+        fail(route, 'the app placeholder was never replaced  this route did not render');
     }
     if (html.includes('<!--SEO:START-->')) {
-        fail(route, 'the SEO placeholder was never replaced — this route has the fallback head');
+        fail(route, 'the SEO placeholder was never replaced  this route has the fallback head');
     }
 
     const text = stripTags(html);
     if (text.length < 600) {
-        fail(route, `only ${text.length} characters of text — the page looks empty`);
+        fail(route, `only ${text.length} characters of text  the page looks empty`);
     }
 
     /* 2. Exactly one <h1>. */
@@ -113,7 +113,7 @@ for (const { path: route } of ROUTES) {
 
     /* 6. Structured data parses. A JSON-LD block with a syntax error is
        ignored in full and reports nothing in the browser. */
-    /* `[^>]*` because the pre-rendered tag carries data-seo — see the note in
+    /* `[^>]*` because the pre-rendered tag carries data-seo  see the note in
        scripts/prerender.mjs on why it has to. */
     const blocks = [
         ...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g),
@@ -141,7 +141,7 @@ for (const { path: route } of ROUTES) {
     }
 }
 
-/* 9. Every internal link resolves — to a route, a declared redirect, or a
+/* 9. Every internal link resolves  to a route, a declared redirect, or a
    real file in dist (favicon, manifest, artwork). */
 for (const [href, from] of linkTargets) {
     if (knownRoutes.has(href) || redirectSources.has(href)) continue;
@@ -149,7 +149,7 @@ for (const [href, from] of linkTargets) {
     fail(from, `links to "${href}", which is neither a route nor a file in dist/`);
 }
 
-/* 10. The 404 document exists and is noindex — it is referenced by
+/* 10. The 404 document exists and is noindex  it is referenced by
    responseOverrides in staticwebapp.config.json. */
 const notFound = path.join(dist, '404.html');
 if (!existsSync(notFound)) {
@@ -169,7 +169,7 @@ for (const asset of ['sitemap.xml', 'robots.txt', 'staticwebapp.config.json']) {
 /**
  * 12. The Azure config is present, parseable and carries the security headers.
  *
- * Azure does not reject a malformed staticwebapp.config.json — it ignores it.
+ * Azure does not reject a malformed staticwebapp.config.json  it ignores it.
  * The site deploys with no headers, no navigation fallback and no redirects,
  * and nothing anywhere says so. That is worth failing a build over.
  */
@@ -222,7 +222,7 @@ if (existsSync(configPath)) {
             if (csp.includes("'unsafe-eval'")) fail('/', "CSP allows 'unsafe-eval'");
 
             if (!/script-src[^;]*'sha256-/.test(csp)) {
-                fail('/', 'CSP script-src carries no hash — the inline theme script would be blocked');
+                fail('/', 'CSP script-src carries no hash  the inline theme script would be blocked');
             }
         }
 
@@ -243,12 +243,12 @@ if (existsSync(configPath)) {
         if (!lower['referrer-policy']) fail('/', 'no referrer-policy');
 
         /* A navigation fallback that catches assets serves HTML with a 200 for
-           every missing file — the soft-404 pattern. */
+           every missing file  the soft-404 pattern. */
         const exclude = config.navigationFallback?.exclude ?? [];
         if (!config.navigationFallback?.rewrite) {
-            fail('/', 'no navigationFallback — deep links would 404 on refresh');
+            fail('/', 'no navigationFallback  deep links would 404 on refresh');
         } else if (!exclude.length) {
-            fail('/', 'navigationFallback has no exclude list — missing assets would return 200 HTML');
+            fail('/', 'navigationFallback has no exclude list  missing assets would return 200 HTML');
         }
     }
 }
@@ -260,4 +260,4 @@ if (errors.length) {
     process.exit(1);
 }
 
-console.log(`build ok — ${ROUTES.length} routes verified, plus 404, sitemap and robots`);
+console.log(`build ok  ${ROUTES.length} routes verified, plus 404, sitemap and robots`);

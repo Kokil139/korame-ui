@@ -2,7 +2,7 @@
  * Photographic tiles.
  *
  * The eight service pages used to share five pieces of generated abstract
- * artwork between them — `work-saas` appeared on two pages, `work-ai` on two,
+ * artwork between them  `work-saas` appeared on two pages, `work-ai` on two,
  * `service-seo` on two. A visitor comparing two services saw the same picture
  * twice, which told them nothing. These are one image per tile, so a tile is
  * recognisably the thing it belongs to.
@@ -10,7 +10,7 @@
  * ── Why the sources live here and not in public/ ─────────────────────────
  * Vite copies `public/` into `dist/` verbatim. The source renders are ~2MB
  * PNGs each; left in `public/art/` they would ship to every visitor's CDN
- * origin alongside the WebP the site actually requests — 15.7MB of files
+ * origin alongside the WebP the site actually requests  15.7MB of files
  * nothing links to. They are build input, so they live beside the script that
  * consumes them, exactly like `scripts/brand/` does for the project tiles.
  * ─────────────────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@
  *
  * ── Framing ──────────────────────────────────────────────────────────────
  * Sources are 3:2 (1536x1024); tiles are 16:10, the ratio `TileImage`
- * declares. That is a centre crop of 32px from the top and bottom — small,
+ * declares. That is a centre crop of 32px from the top and bottom  small,
  * because the subject of every source render sits in the middle.
  *
  * Be careful raising the crop: `TileImage` renders `object-cover` with a
@@ -38,11 +38,11 @@
  * the service renders are decoration and are expected to be cut.
  *
  * FOCUS lets one source pull its crop off centre when the composition needs
- * it — `sharp`'s `position` on a cover resize, so it is the crop that moves,
+ * it  `sharp`'s `position` on a cover resize, so it is the crop that moves,
  * not the framing of the output.
  * ─────────────────────────────────────────────────────────────────────────
  *
- * Stills only — these are photographs of a desk, not motion pieces, and
+ * Stills only  these are photographs of a desk, not motion pieces, and
  * `TileImage` renders an `<img>` for any tile with no `.webm` beside it. A
  * tile moving from generated art to a photograph therefore has to lose its
  * clip from public/art/ *and* its entry in generate-artwork.mjs, or the next

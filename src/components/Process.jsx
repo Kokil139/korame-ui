@@ -16,7 +16,7 @@ const STEPS = [
     {
         icon: Compass,
         title: 'Discover',
-        copy: 'We audit your current site, map competitors, and agree the commercial outcome the project has to move — before a pixel is drawn.',
+        copy: 'We audit your current site, map competitors, and agree the commercial outcome the project has to move  before a pixel is drawn.',
         deliverable: 'Audit + scope',
         checks: ['Technical audit', 'Competitor teardown', 'Success metrics agreed'],
     },
@@ -55,7 +55,7 @@ const STEPS = [
  * thing that becomes React state, and it changes four times across the entire
  * section rather than every frame.
  *
- * Reduced motion collapses the whole mechanism to a plain stacked list — a
+ * Reduced motion collapses the whole mechanism to a plain stacked list  a
  * pinned section that cannot animate is just a very tall page.
  */
 export default function Process() {
@@ -114,7 +114,7 @@ export default function Process() {
             >
                 <div className="sticky top-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
                     {/* ---------------------------------------------------
-                        Pinned visual — the stage indicator
+                        Pinned visual  the stage indicator
                        --------------------------------------------------- */}
                     <div className="relative hidden lg:block">
                         <div className="glass relative aspect-square overflow-hidden rounded-[2rem] p-10">
@@ -182,7 +182,7 @@ export default function Process() {
                     </div>
 
                     {/* ---------------------------------------------------
-                        Copy column — all steps present, inactive ones dim
+                        Copy column  all steps present, inactive ones dim
                        --------------------------------------------------- */}
                     <div className="flex items-center">
                         <div className="relative w-full">

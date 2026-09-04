@@ -21,7 +21,7 @@ import {
 
 const TITLE = 'Projects & Case Studies | Korame';
 const DESCRIPTION =
-    'Project experience from Korame: real-time 3D on the web, scroll-driven narrative sites and programmatic brand animation — each written up with what was actually engineered.';
+    'Project experience from Korame: real-time 3D on the web, scroll-driven narrative sites and programmatic brand animation  each written up with what was actually engineered.';
 
 export default function ProjectsIndex() {
     const trail = [{ name: 'Projects', path: '/projects' }];
@@ -50,7 +50,7 @@ export default function ProjectsIndex() {
             <PageHero
                 kicker="Project experience"
                 title="Things we have actually built"
-                lede="Three builds, written up honestly. Each one exists because it forced a specific engineering problem to be solved properly — real-time 3D that does not melt a laptop, a video narrative that only ever decodes one clip, a brand intro that weighs a few kilobytes."
+                lede="Three builds, written up honestly. Each one exists because it forced a specific engineering problem to be solved properly  real-time 3D that does not melt a laptop, a video narrative that only ever decodes one clip, a brand intro that weighs a few kilobytes."
                 trail={trail}
             />
 
@@ -150,7 +150,7 @@ export default function ProjectsIndex() {
                         <p className="text-pretty">
                             All three are Korame builds rather than client engagements, and they
                             say so. Presenting our own work as somebody else&apos;s commission
-                            would be a fabrication, and it would be an unnecessary one — the
+                            would be a fabrication, and it would be an unnecessary one  the
                             engineering is the same either way, and it is what these pages are
                             about.
                         </p>

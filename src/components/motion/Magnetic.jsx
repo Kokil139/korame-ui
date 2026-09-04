@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
  * Two elements, deliberately. The outer wrapper receives the pointer events
  * and never moves; only the inner span is translated.
  *
- * Putting both on one element — which is the obvious way to write this —
+ * Putting both on one element  which is the obvious way to write this 
  * creates a feedback loop: the element translates away from the cursor, hit
  * testing then finds the cursor is no longer over it, `pointerleave` fires,
  * the spring returns it to centre, which puts it back under the cursor,

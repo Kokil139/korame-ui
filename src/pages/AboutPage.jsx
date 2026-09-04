@@ -23,7 +23,7 @@ const DESCRIPTION =
 const PRINCIPLES = [
     {
         title: 'Design and engineering are one job',
-        body: 'The same people draw it and build it. That removes the most expensive conversation in this industry — the one after a handoff, about what was actually possible.',
+        body: 'The same people draw it and build it. That removes the most expensive conversation in this industry  the one after a handoff, about what was actually possible.',
     },
     {
         title: 'Budgets, not aspirations',
@@ -35,7 +35,7 @@ const PRINCIPLES = [
     },
     {
         title: 'You own everything',
-        body: 'Repository, cloud accounts, domain, documentation — yours from the first commit. There is no proprietary layer you would have to keep licensing to keep your site running.',
+        body: 'Repository, cloud accounts, domain, documentation  yours from the first commit. There is no proprietary layer you would have to keep licensing to keep your site running.',
     },
     {
         title: 'We will tell you not to build it',
@@ -50,7 +50,7 @@ const PRINCIPLES = [
 const HOW_WE_WORK = [
     {
         title: 'Discovery',
-        body: 'Time with the people who will use the thing, including the exceptions they currently handle by hand. Output is a written scope, an architecture and an honest estimate — including a recommendation not to proceed if that is the truthful one.',
+        body: 'Time with the people who will use the thing, including the exceptions they currently handle by hand. Output is a written scope, an architecture and an honest estimate  including a recommendation not to proceed if that is the truthful one.',
     },
     {
         title: 'Design system first',
@@ -58,7 +58,7 @@ const HOW_WE_WORK = [
     },
     {
         title: 'Vertical slices',
-        body: 'One complete path through the system — interface, API, data, deployed — before the second one starts. Integration risk surfaces in week one rather than week nine.',
+        body: 'One complete path through the system  interface, API, data, deployed  before the second one starts. Integration risk surfaces in week one rather than week nine.',
     },
     {
         title: 'Continuous deployment',
@@ -71,7 +71,7 @@ const HOW_WE_WORK = [
 ];
 
 const NOT_US = [
-    'Native iOS and Android development — we build for the web platform and the APIs behind native clients.',
+    'Native iOS and Android development  we build for the web platform and the APIs behind native clients.',
     'Azure consultancy for networking, Kubernetes, identity governance or data-platform engineering.',
     'Paid media, brand strategy or content marketing as standalone services.',
     'Large enterprise ERP or SAP implementation programmes.',
@@ -100,7 +100,7 @@ export default function AboutPage() {
             <PageHero
                 kicker="About"
                 title="A small studio that builds the whole thing"
-                lede="Korame is a remote-first software engineering studio. We design, build and deploy websites, web applications, full-stack systems and custom software — the same people from the data model to the focus ring."
+                lede="Korame is a remote-first software engineering studio. We design, build and deploy websites, web applications, full-stack systems and custom software  the same people from the data model to the focus ring."
                 trail={trail}
             />
 
@@ -108,9 +108,9 @@ export default function AboutPage() {
                 <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
                     <Reveal y={18}>
                         <p className="text-pretty">
-                            Korame is small on purpose. The work we are good at — systems where
+                            Korame is small on purpose. The work we are good at  systems where
                             design, frontend, API and infrastructure decisions have to agree with
-                            each other — is work that gets worse when it is divided between
+                            each other  is work that gets worse when it is divided between
                             people who meet at a handoff.
                         </p>
                     </Reveal>
@@ -184,7 +184,7 @@ export default function AboutPage() {
             <Section
                 kicker="Evidence"
                 title="Judge it by the work"
-                lede="Three builds, written up with what was actually engineered rather than what it achieved commercially — because we do not publish figures we cannot substantiate."
+                lede="Three builds, written up with what was actually engineered rather than what it achieved commercially  because we do not publish figures we cannot substantiate."
                 width="max-w-6xl"
             >
                 <LinkCards

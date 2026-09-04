@@ -1,12 +1,12 @@
 /**
- * Cloud Solutions — the merge of the former /cloud-development and
+ * Cloud Solutions  the merge of the former /cloud-development and
  * /azure-development pages.
  *
  * The two pages described one practice from two angles: the general
  * architecture argument (static-first, serverless, pipelines) and the
  * platform specifics (Static Web Apps, Functions, routing config). Split
  * across two URLs they competed with each other for the same queries and each
- * told half the story. Both old paths 301 here — see REDIRECTS in
+ * told half the story. Both old paths 301 here  see REDIRECTS in
  * src/lib/routes.js and the matching rules in public/staticwebapp.config.json.
  *
  * The Azure specifics are kept rather than generalised away: the
@@ -30,16 +30,16 @@ export default {
     whatItIs: {
         heading: 'What cloud solutions mean in practice',
         body: [
-            'Cloud development is building applications that assume managed infrastructure rather than servers you own. Instead of provisioning a machine, patching it, and hoping it is sized correctly, you assemble managed services — static hosting on a global CDN, serverless compute that scales with requests, a managed database with backups handled for you — and connect them with a deployment pipeline.',
-            'The engineering shift is that infrastructure becomes part of the codebase. Environments are defined in configuration, deployments are triggered by merges, and rebuilding the whole stack from an empty account is a documented procedure rather than an archaeology project. That is what makes an application recoverable, auditable and transferable — and it is why "it runs on a server someone set up in 2019" is a risk rather than an architecture.',
-            'In practice that means Microsoft Azure for us: Azure Static Web Apps for hosting, Azure Functions for the API layer, GitHub Actions for the pipeline, and Azure\'s managed certificates and custom domain handling for the front door. It is a narrow slice of a very large platform, and it is the slice that covers most web and web-application workloads properly. We are not an Azure consultancy for identity governance, virtual network design, Kubernetes or data-platform engineering — if your project needs those you want a Microsoft partner with that specialisation, and we would rather say so now than discover it in month three. The architecture principles here are portable, and we will work inside an existing AWS or Google Cloud footprint rather than insisting on a migration you have no reason to want.',
+            'Cloud development is building applications that assume managed infrastructure rather than servers you own. Instead of provisioning a machine, patching it, and hoping it is sized correctly, you assemble managed services  static hosting on a global CDN, serverless compute that scales with requests, a managed database with backups handled for you  and connect them with a deployment pipeline.',
+            'The engineering shift is that infrastructure becomes part of the codebase. Environments are defined in configuration, deployments are triggered by merges, and rebuilding the whole stack from an empty account is a documented procedure rather than an archaeology project. That is what makes an application recoverable, auditable and transferable  and it is why "it runs on a server someone set up in 2019" is a risk rather than an architecture.',
+            'In practice that means Microsoft Azure for us: Azure Static Web Apps for hosting, Azure Functions for the API layer, GitHub Actions for the pipeline, and Azure\'s managed certificates and custom domain handling for the front door. It is a narrow slice of a very large platform, and it is the slice that covers most web and web-application workloads properly. We are not an Azure consultancy for identity governance, virtual network design, Kubernetes or data-platform engineering  if your project needs those you want a Microsoft partner with that specialisation, and we would rather say so now than discover it in month three. The architecture principles here are portable, and we will work inside an existing AWS or Google Cloud footprint rather than insisting on a migration you have no reason to want.',
         ],
     },
 
     provide: [
         {
             title: 'Cloud architecture',
-            body: 'Choosing the services and the boundaries between them, sized against your actual traffic and your actual team — not a reference architecture for a company a hundred times larger.',
+            body: 'Choosing the services and the boundaries between them, sized against your actual traffic and your actual team  not a reference architecture for a company a hundred times larger.',
         },
         {
             title: 'Static-first hosting',
@@ -47,7 +47,7 @@ export default {
         },
         {
             title: 'Serverless APIs',
-            body: 'Azure Functions for the parts that genuinely need a server — either the managed API that ships with Static Web Apps or a separate Function App where the workload warrants isolation — scaling to zero between requests.',
+            body: 'Azure Functions for the parts that genuinely need a server  either the managed API that ships with Static Web Apps or a separate Function App where the workload warrants isolation  scaling to zero between requests.',
         },
         {
             title: 'CI/CD pipelines',
@@ -67,7 +67,7 @@ export default {
         },
         {
             title: 'Migration and cutover',
-            body: 'The new environment built and verified in parallel on a temporary hostname, then a DNS cut-over with a low TTL set in advance — so the rollback is a DNS change rather than a rebuild.',
+            body: 'The new environment built and verified in parallel on a temporary hostname, then a DNS cut-over with a low TTL set in advance  so the rollback is a DNS change rather than a rebuild.',
         },
         {
             title: 'Monitoring and cost control',
@@ -105,7 +105,7 @@ export default {
     problems: [
         {
             title: 'Refreshing a deep link returns 404',
-            body: 'The single most common Azure Static Web Apps issue: a client-routed application with no navigation fallback configured. The fix is a few lines of routing config — and the correct fix still lets genuinely missing paths return a real 404 rather than serving the homepage with a 200.',
+            body: 'The single most common Azure Static Web Apps issue: a client-routed application with no navigation fallback configured. The fix is a few lines of routing config  and the correct fix still lets genuinely missing paths return a real 404 rather than serving the homepage with a 200.',
         },
         {
             title: 'Deployment is a manual ritual',
@@ -136,7 +136,7 @@ export default {
         },
         {
             title: 'Push work to build time',
-            body: 'Anything that can be computed during the build should be. A pre-rendered page is faster, cheaper and more reliable than the fastest possible server-rendered one — and it means crawlers get real HTML without waiting for JavaScript.',
+            body: 'Anything that can be computed during the build should be. A pre-rendered page is faster, cheaper and more reliable than the fastest possible server-rendered one  and it means crawlers get real HTML without waiting for JavaScript.',
         },
         {
             title: 'Configuration lives in the repository',
@@ -210,15 +210,15 @@ export default {
     faqs: [
         {
             q: 'Which cloud provider do you use?',
-            a: 'Microsoft Azure by default — it is where our shipped projects run and where our operational depth is. The architecture principles are portable, and we will work with an existing AWS or Google Cloud footprint rather than insisting on a migration you have no reason to want.',
+            a: 'Microsoft Azure by default  it is where our shipped projects run and where our operational depth is. The architecture principles are portable, and we will work with an existing AWS or Google Cloud footprint rather than insisting on a migration you have no reason to want.',
         },
         {
             q: 'Why does my Azure Static Web App return 404 when I refresh a page?',
-            a: 'Because the requested path exists in your client-side router but not as a file on disk, and no navigation fallback is configured. Adding a navigationFallback to staticwebapp.config.json fixes it. Configure the exclusion list carefully — a fallback that catches everything will serve HTML with a 200 status for missing assets, which confuses both browsers and crawlers.',
+            a: 'Because the requested path exists in your client-side router but not as a file on disk, and no navigation fallback is configured. Adding a navigationFallback to staticwebapp.config.json fixes it. Configure the exclusion list carefully  a fallback that catches everything will serve HTML with a 200 status for missing assets, which confuses both browsers and crawlers.',
         },
         {
             q: 'Is serverless actually cheaper?',
-            a: 'For bursty or low-to-moderate traffic, substantially — you pay per request instead of per hour. For sustained high throughput a reserved instance can win. The larger saving is usually operational: no servers to patch, monitor or size.',
+            a: 'For bursty or low-to-moderate traffic, substantially  you pay per request instead of per hour. For sustained high throughput a reserved instance can win. The larger saving is usually operational: no servers to patch, monitor or size.',
         },
         {
             q: 'Can you move an existing site to the cloud without downtime?',
@@ -226,7 +226,7 @@ export default {
         },
         {
             q: 'Do you work with Azure services beyond Static Web Apps and Functions?',
-            a: 'We use Blob Storage, Azure SQL and managed identity as part of application delivery. We do not present ourselves as an Azure consultancy for networking, Kubernetes, identity governance or data-platform work — that is a different specialisation and you should hire for it directly.',
+            a: 'We use Blob Storage, Azure SQL and managed identity as part of application delivery. We do not present ourselves as an Azure consultancy for networking, Kubernetes, identity governance or data-platform work  that is a different specialisation and you should hire for it directly.',
         },
         {
             q: 'Can Azure Static Web Apps serve a server-rendered site?',

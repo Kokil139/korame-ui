@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 /**
  * `useLayoutEffect` warns during pre-rendering, because a layout effect
  * cannot be encoded into a string. It is genuinely the right hook on the
- * client — see the comment on its use below — so alias it to `useEffect` on
+ * client  see the comment on its use below  so alias it to `useEffect` on
  * the server, where neither one runs and the distinction is meaningless.
  */
 const useIsomorphicLayoutEffect =
@@ -24,7 +24,7 @@ import {
  * The element's *initial* markup is the final value, so a crawler or a
  * reduced-motion user reads the real number. The zero is written in a layout
  * effect at the moment the animation starts, which lands in the same paint
- * as the first animated frame — no flash of the final value.
+ * as the first animated frame  no flash of the final value.
  */
 export default function CountUp({
     value,

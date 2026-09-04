@@ -1,19 +1,19 @@
 /**
  * Renders the looping tile clips.
  *
- * The artwork itself is not defined here — `stage()` and `PIECES` come from
+ * The artwork itself is not defined here  `stage()` and `PIECES` come from
  * generate-artwork.mjs, so the clip and its poster still are two renders of one
  * definition rather than two drawings that can drift apart. Frame 0 is rendered
  * at t=0, which is exactly what the poster is, so playback starts without a pop.
  *
  * Encoding, since this machine has no ffmpeg and adding an encoder dependency
  * for a build-time asset step is not justified: each frame is encoded to lossy
- * WebP by sharp, and a lossy WebP *is* a VP8 keyframe in a RIFF wrapper — so
+ * WebP by sharp, and a lossy WebP *is* a VP8 keyframe in a RIFF wrapper  so
  * the frames are unwrapped and muxed straight into WebM. See scripts/lib/webm.mjs.
  *
  * Because every frame is a keyframe there is no inter-frame prediction, so the
  * knobs below are chosen against measured output rather than taste. Raising
- * SIZE, FPS or QUALITY costs bytes roughly linearly — re-measure if you change
+ * SIZE, FPS or QUALITY costs bytes roughly linearly  re-measure if you change
  * them. The artwork is dark, flat and gradient-based, which is the only reason
  * an all-keyframe clip is affordable at all.
  *
@@ -47,7 +47,7 @@ const QUALITY = 52;
 
 /* The clips are only worth their bytes on tiles that actually render one.
    `streams` is drawn by generate-artwork.mjs but no tile uses it, and
-   `studio` is a photograph now — a clip beside it would make TileImage render
+   `studio` is a photograph now  a clip beside it would make TileImage render
    the abstract video with the photo as nothing but a poster. */
 const TILES = new Set([
     'service-commerce',
@@ -64,7 +64,7 @@ async function frame(piece, i) {
     const svg = stage({ ...piece, t: i / FRAMES });
     const webp = await sharp(Buffer.from(svg))
         .resize(W, H)
-        // Opaque and non-animated, so sharp emits a bare `VP8 ` chunk — an
+        // Opaque and non-animated, so sharp emits a bare `VP8 ` chunk  an
         // alpha channel would produce VP8X, which vp8FromWebP rejects.
         .flatten({ background: '#07080c' })
         .webp({ quality: QUALITY, effort: 6, alphaQuality: 0 })
@@ -72,7 +72,7 @@ async function frame(piece, i) {
     return vp8FromWebP(webp);
 }
 
-/** Bounded concurrency — sharp is happy in parallel, the box has finite cores. */
+/** Bounded concurrency  sharp is happy in parallel, the box has finite cores. */
 async function mapLimit(items, limit, fn) {
     const out = new Array(items.length);
     let next = 0;
@@ -107,7 +107,7 @@ async function main() {
     }
 
     console.log(
-        `Generated ${pieces.length} clips (${W}x${H}, ${SECONDS}s @ ${FPS}fps) — ${(
+        `Generated ${pieces.length} clips (${W}x${H}, ${SECONDS}s @ ${FPS}fps)  ${(
             total / 1024 / 1024
         ).toFixed(2)} MB total`,
     );

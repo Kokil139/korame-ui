@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
  * Breadcrumb trail.
  *
  * `trail` is [{ name, path }] from the root inward, excluding Home, which is
- * prepended here — the same shape `breadcrumbNode()` in lib/seo.js takes, so
+ * prepended here  the same shape `breadcrumbNode()` in lib/seo.js takes, so
  * the visible trail and the BreadcrumbList structured data are always built
  * from one array. Google requires the two to agree.
  *

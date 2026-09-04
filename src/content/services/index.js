@@ -13,7 +13,7 @@ import cloudSolutions from './cloud-solutions.js';
  * Each module is the single source of truth for its page: the copy, the
  * metadata, the FAQ (which also becomes FAQPage structured data) and the
  * cross-links to related services and projects. Adding a service means
- * adding a module here — the route, the sitemap entry, the services index
+ * adding a module here  the route, the sitemap entry, the services index
  * and the footer all derive from this array.
  *
  * Shape (see any module for a worked example):

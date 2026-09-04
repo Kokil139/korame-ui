@@ -45,7 +45,7 @@ function Line({ tokens, indent, progress, index, count }) {
     /* Two nested spans on purpose. The outer one is a block so each line
        occupies its own row; the inner one is inline-block so it hugs the
        text. The caret is positioned against the inner span, so `left: 100%`
-       means "end of this line's text" rather than "right edge of the card" —
+       means "end of this line's text" rather than "right edge of the card" 
        which is both where a caret belongs and what stops it overflowing the
        container and summoning a horizontal scrollbar. */
     return (

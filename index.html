@@ -15,7 +15,7 @@
 
       Light is the default: with nothing stored the page is light regardless
       of the OS setting. Dark is opt-in through the toggle, and that choice
-      persists. Keep this in step with readStored() in src/lib/theme.jsx —
+      persists. Keep this in step with readStored() in src/lib/theme.jsx
       if the two disagree, the script paints one palette and React reports
       the other, which is how the toggle ends up needing two clicks.
     -->
@@ -33,7 +33,7 @@
                 meta.content = dark ? '#08090d' : '#f7f8fa';
                 document.head.appendChild(meta);
             } catch (e) {
-                /* Blocked storage — fall through to the light default. */
+                /* Blocked storage  fall through to the light default. */
             }
         })();
     </script>
@@ -66,7 +66,7 @@
   There is no <noscript> fallback here, and that is deliberate.
 
   Every route is pre-rendered to complete static HTML, so a visitor with
-  JavaScript disabled already gets the whole page — copy, navigation, links
+  JavaScript disabled already gets the whole page  copy, navigation, links
   and all. A <noscript> block would only add a second <h1> to every document,
   which is a heading-hierarchy problem for a page that no longer needs the
   fallback at all.

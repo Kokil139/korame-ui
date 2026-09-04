@@ -14,11 +14,11 @@ import { SERVICE_LIST, serviceBySlug, servicePath } from '@/content/service-list
  *
  * Three featured services carry the artwork; the remaining five are a compact
  * link list underneath. Every service page is therefore linked from the
- * homepage — which is what makes the site's link graph shallow — without
+ * homepage  which is what makes the site's link graph shallow  without
  * putting eight full-bleed cards on one screen.
  *
  * The tiles are one image per service, generated from the source renders in
- * scripts/tile-art/ — see scripts/generate-tile-art.mjs. They are
+ * scripts/tile-art/  see scripts/generate-tile-art.mjs. They are
  * lazy-loaded below the fold and served through a srcSet, so nothing here
  * blocks the first paint.
  */
@@ -79,7 +79,7 @@ export default function Services() {
                                 <Link
                                     to={servicePath(item.slug)}
                                     className="group block h-full"
-                                    aria-label={`${item.nav} — read more`}
+                                    aria-label={`${item.nav}  read more`}
                                 >
                                     <TiltCard
                                         className="h-full"

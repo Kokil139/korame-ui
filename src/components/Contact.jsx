@@ -56,7 +56,7 @@ const CHANNELS = [
  * Used twice: as the closing section of the homepage, and as the body of
  * /contact. On the dedicated page the <h1> belongs to <PageHero>, so
  * `hideHeader` suppresses this section's own heading block rather than
- * shipping a second competing headline — two H-level headings saying the same
+ * shipping a second competing headline  two H-level headings saying the same
  * thing is a heading-hierarchy problem, not just a visual one.
  *
  * `defaultMessage` is how the free audit hands its result across. When the
@@ -133,7 +133,7 @@ export default function Contact({ hideHeader = false, defaultMessage = '' }) {
                                 <Card className="relative overflow-hidden p-0">
                                     <TileImage
                                         name="studio"
-                                        alt="The Korame studio desk — a laptop, monitor, tablet and phone showing work in progress"
+                                        alt="The Korame studio desk  a laptop, monitor, tablet and phone showing work in progress"
                                         className="h-56 sm:h-64"
                                         sizes="(max-width: 1024px) 100vw, 50vw"
                                         scrim={false}
@@ -146,7 +146,7 @@ export default function Contact({ hideHeader = false, defaultMessage = '' }) {
                                         </span>
                                         <span className="text-muted-foreground">
                                             {' '}
-                                            — crafting pixel-perfect web experiences.
+                                             crafting pixel-perfect web experiences.
                                         </span>
                                     </div>
                                 </Card>
@@ -202,7 +202,7 @@ export default function Contact({ hideHeader = false, defaultMessage = '' }) {
                     <Reveal delay={0.1} y={36}>
                         <Card lit={false} className="p-8">
                             <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
-                                {/* Honeypot — bots fill it, humans never see it. */}
+                                {/* Honeypot  bots fill it, humans never see it. */}
                                 <input
                                     type="checkbox"
                                     name="botcheck"

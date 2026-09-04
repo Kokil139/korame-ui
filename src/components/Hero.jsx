@@ -22,7 +22,7 @@ import { SERVICE_LIST } from '@/content/service-list';
  * Facts about this site, not claims about our business.
  *
  * The previous version of this row asserted "50+ projects delivered",
- * "99.9% uptime" and "100% client satisfaction" — none of which were
+ * "99.9% uptime" and "100% client satisfaction"  none of which were
  * substantiated anywhere, and the last of which is not a measurable quantity.
  * Publishing unverifiable numbers on a page selling engineering rigour is a
  * contradiction a visitor can spot.
@@ -32,7 +32,7 @@ import { SERVICE_LIST } from '@/content/service-list';
  *
  * "Decorative network images loaded: 0" used to sit in this row. It stopped
  * being true the moment the service tiles became photographs rather than
- * generated SVG, so it was replaced rather than left to quietly mislead —
+ * generated SVG, so it was replaced rather than left to quietly mislead 
  * an unverifiable number on a page selling engineering rigour is a
  * contradiction a visitor can spot.
  */
@@ -68,7 +68,7 @@ export default function Hero() {
        `filter` must nonetheless appear in *both* objects on *every* device.
        `useMediaQuery` cannot read a media query on the server, so its server
        snapshot is `false` and the pre-rendered HTML always ships the desktop
-       branch — `style="opacity:0;filter:blur(12px)"` — inline on this span.
+       branch  `style="opacity:0;filter:blur(12px)"`  inline on this span.
        `coarse` only becomes true on the re-render *after* hydration, and if
        the key has vanished from `animate` by then Motion no longer owns
        `filter` and never writes it again: the pre-rendered blur stays on the
@@ -127,7 +127,7 @@ export default function Hero() {
                     Headline + the signature glowing lightning ring
                    --------------------------------------------------------- */}
                 <div className="relative">
-                    {/* Ring layer — kept from the original build, rebuilt to
+                    {/* Ring layer  kept from the original build, rebuilt to
                         scale with scroll and sit on its own composited layer. */}
                     <motion.div
                         aria-hidden="true"
@@ -201,7 +201,7 @@ export default function Hero() {
                             word's hidden state inline, so a component that
                             stops animating leaves those words at
                             `opacity: 0` for good. Under reduced motion Motion
-                            must still write the final state — it just writes
+                            must still write the final state  it just writes
                             it without a transition. */}
                         <motion.span
                             className="block perspective-far"
@@ -225,7 +225,7 @@ export default function Hero() {
                             initial={reduced ? false : headlineIn}
                             animate={headlineOut}
                             /* y springs; the blur gets a duration curve, per the
-                               vocabulary in lib/motion.js — a spring on an
+                               vocabulary in lib/motion.js  a spring on an
                                optical property overshoots into values Motion has
                                to clamp, which just extends the repaint tail. */
                             transition={{
@@ -250,7 +250,7 @@ export default function Hero() {
                     className="mx-auto mt-12 max-w-2xl text-pretty text-lg font-light leading-relaxed text-muted-foreground sm:mt-16 md:text-xl"
                 >
                     A software engineering studio building websites, web applications,
-                    full-stack systems and custom software — designed, built and deployed
+                    full-stack systems and custom software  designed, built and deployed
                     by the same people.
                 </motion.p>
 

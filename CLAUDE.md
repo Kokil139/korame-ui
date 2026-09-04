@@ -1,4 +1,4 @@
-# Project guide — Korame marketing site
+# Project guide  Korame marketing site
 
 ## Standing rules
 
@@ -11,7 +11,7 @@
 ## Actual stack
 
 **Verify before assuming.** This file previously described a completely
-different project — Tailwind v4 + React 19 + shadcn + R3F + `lenis`, with
+different project  Tailwind v4 + React 19 + shadcn + R3F + `lenis`, with
 traps about `src/components/three/Scene.jsx`, `Harvest.jsx` and
 `public/journey/`. None of that exists here; it was copied from
 `Documents/3d` (the Kepaso build). Check `package.json` before trusting any
@@ -25,7 +25,7 @@ stack claim, including this table.
 | CSS | **Tailwind v4** via `@tailwindcss/vite`. No `tailwind.config.js`, no `postcss.config.js`, no `autoprefixer` |
 | Components | shadcn v4, `base-nova` style, Base UI, `tsx: false` (see `components.json`) |
 | Animation | `motion` v13 → import from `motion/react`. **No GSAP** |
-| 3D | CSS 3D only — perspective + `preserve-3d`. No WebGL, no three.js |
+| 3D | CSS 3D only  perspective + `preserve-3d`. No WebGL, no three.js |
 | Theme | **Light-first** with a dark toggle. `ThemeProvider` in `src/lib/theme.jsx`; a blocking script in `index.html` applies the class pre-paint |
 | Fonts | Self-hosted via `@fontsource-variable/{syne,plus-jakarta-sans}` |
 | Assets | `sharp` (devDependency, build-time only) |
@@ -52,19 +52,19 @@ src/
   components/*.jsx       the homepage sections
   components/page/       Breadcrumbs, PageHero, Section, FaqList, Blocks
                          (CardGrid, StepList, Prose, TechStrip, CheckList,
-                         LinkCards, CtaBand) — the inner pages are these
+                         LinkCards, CtaBand)  the inner pages are these
                          components fed different data
   components/Seo.jsx     per-route <head>; collects on the server, patches
                          the live document on client navigation
   pages/*.jsx            one file per route template
   content/service-list.js  nav metadata for the 8 services (see its header
                          for why it is split from the content modules)
-  content/services/*.js  one module per service page — the source of truth
+  content/services/*.js  one module per service page  the source of truth
                          for its copy, metadata, FAQ and cross-links
   content/projects.js    the three case studies
   content/posts.js       blog articles, as typed content blocks
   lib/site.js            origin, contact details, nav, technology stack
-  lib/routes.js          THE route registry — router, sitemap and pre-render
+  lib/routes.js          THE route registry  router, sitemap and pre-render
                          all read this one array
   lib/seo.js             JSON-LD builders (Organization, Service, Article,
                          BreadcrumbList, FAQPage, ItemList …)
@@ -80,34 +80,34 @@ scripts/
   generate-artwork.mjs       the artwork itself: stage() + motifs, and the
                              public/art/*.webp stills. Exports stage()/PIECES.
   generate-artwork-motion.mjs public/art/*.webm looping clips, from the same
-                             stage() — so a clip and its poster cannot drift
+                             stage()  so a clip and its poster cannot drift
   lib/webm.mjs               WebM muxer (see "Encoding video with no ffmpeg")
 ```
 
 Entrance motion is owned by each section through `<Reveal>`. There is no
-global animation sweep — an earlier version ran one GSAP ScrollTrigger over
+global animation sweep  an earlier version ran one GSAP ScrollTrigger over
 every `.gsap-reveal` in the document, which meant any component could animate
 a node it did not render.
 
 ## Skills and tools to use
 
-**`motion` skill + Motion MCP — required before writing any animation.**
+**`motion` skill + Motion MCP  required before writing any animation.**
 Call `mcp__motion__search-motion-docs` first and build on what it returns;
 read the `motion://docs/...` resource links with the MCP resource reader.
 `mcp__motion__generate-css-easing` produces CSS `linear()` springs. Some
-results are Motion+ and return metadata only — describe and link those, do
+results are Motion+ and return metadata only  describe and link those, do
 not reconstruct their source. Best practices are also on disk at
 `~/.claude/skills/motion/best-practices/` and work with no server.
 
 **shadcn CLI** for registry components. `npx shadcn@latest init` is already
 done; add with `npx shadcn@latest add <name>`. Note the CLI's preset list is
-`nova, vega, maia, lyra, mira, luma, sera, rhea` — there is no `base-nova`
+`nova, vega, maia, lyra, mira, luma, sera, rhea`  there is no `base-nova`
 preset even though that is what lands in `components.json` as the style;
 `-b base -p nova` is the invocation that produced this config.
 
 **`sharp`** for any image work (`npm run assets`). This machine has no
 ImageMagick, no PIL, no `cwebp`. `convert` on PATH is Windows' filesystem
-tool (`C:\Windows\system32\convert`) — never call it.
+tool (`C:\Windows\system32\convert`)  never call it.
 
 ## Traps hit on this build
 
@@ -115,7 +115,7 @@ tool (`C:\Windows\system32\convert`) — never call it.
 `--virtual-time-budget` (and equally a minimised or occluded tab, where
 `document.visibilityState` is `"hidden"`) starves `requestAnimationFrame`.
 Every Motion entrance stays pinned at its `initial` value, so the page
-screenshots half-empty and looks like a bug that is not there — 64 elements
+screenshots half-empty and looks like a bug that is not there  64 elements
 sat at `opacity: 0` in a dump that was actually fine. **Drive the page over
 CDP on real wall-clock time instead**, with
 `Emulation.setFocusEmulationEnabled`. Scratch scripts for this pattern are in
@@ -125,10 +125,10 @@ the session scratchpad (`shots.mjs`, `reduced.mjs`).
 `useTransform` input ranges to `ScrollTimeline` as keyframe offsets. Any range
 built by padding a slice (`start - fade`, `end + fade`) throws
 `Offsets must be null or in the range [0,1]` and blanks the page. Use
-`clamp01()` from `src/lib/utils.js` — `WordReveal.jsx` does.
+`clamp01()` from `src/lib/utils.js`  `WordReveal.jsx` does.
 
 **`useTransform(value, callback)` is deprecated.** Use
-`useTransform(value, inputRange, outputRange)` — it is also the form that can
+`useTransform(value, inputRange, outputRange)`  it is also the form that can
 run on the compositor. Motion's own published examples still use the old form;
 do not copy it.
 
@@ -158,7 +158,7 @@ look broken when it was fine. Always pass `behavior: 'instant'` when driving
 scroll from a test.
 
 **Unbounded `useTransform` is for magnitude, not for legibility.**
-`{ clamp: false }` on the marquee's velocity factor is right — momentum should
+`{ clamp: false }` on the marquee's velocity factor is right  momentum should
 be allowed to keep accelerating the track. Feeding that same unbounded value
 into `skewX` pushed it past 20deg on a hard flick and the words stopped being
 readable. Clamp anything that affects whether text can be read.
@@ -190,7 +190,7 @@ literal.
 **A scroll-locked body swallows `scrollIntoView`.** The mobile drawer sets
 `body { overflow: hidden }`; React restores it on its *next commit*, which is
 after the click handler returns. Calling `scrollIntoView` inside the handler
-issued the scroll against a still-locked body and it was silently dropped —
+issued the scroll against a still-locked body and it was silently dropped 
 every mobile nav link did nothing while desktop worked fine. `Navbar`
 releases the lock explicitly and scrolls on the next frame.
 
@@ -200,7 +200,7 @@ root listener, so a hover test built that way reports a false failure. Drive
 hover with CDP `Input.dispatchMouseEvent` instead.
 
 **A frosted surface cannot be faded.** Per the Filter Effects spec, an
-ancestor with `opacity < 1` — or `will-change: opacity` — becomes a *backdrop
+ancestor with `opacity < 1`  or `will-change: opacity`  becomes a *backdrop
 root*. While the services dropdown faded in, the only thing behind it for
 `backdrop-filter` to sample was its own animating wrapper, which is empty; on
 the frame opacity reached 1 the backdrop root disappeared and the blur snapped
@@ -220,11 +220,11 @@ yielding a `<number>` at the other, could not resolve a common interpolable
 type, and fell back to a **discrete** animation: the value flipped at the
 midpoint instead of sweeping. The circuit pulse sat at one end of the trace,
 jumped to the other, and read as frozen. WebKit interpolates the same
-declaration happily — so it was flawless on iPhone and stuck on Android,
+declaration happily  so it was flawless on iPhone and stuck on Android,
 reported as an Android bug when it was every Blink browser including the
 desktop Chrome it could have been caught in. Use literal values with units in
 keyframes, or register the property with `@property` so it has a type. A var
-that is only ever read once — `animation-duration` — is fine.
+that is only ever read once  `animation-duration`  is fine.
 
 Symptom to recognise: the animation's `playState` is `running` and other
 properties in the same keyframes interpolate normally, while the one fed by a
@@ -233,7 +233,7 @@ var reports exactly two computed values. `getComputedStyle` showing
 untyped var substitution.
 
 **A fluid font size needs a fluid offset.** The footer watermark is
-`text-[15vw]` and was positioned `-bottom-6` — a fixed 24px. The fraction of
+`text-[15vw]` and was positioned `-bottom-6`  a fixed 24px. The fraction of
 the wordmark cut off therefore grew as the viewport shrank: 24px of a 216px
 glyph at 1440 is the intended 11% bleed, but 24px of a 54px glyph on a 360px
 phone is 44%, so half the letterforms were gone. It is `-bottom-[0.11em]` now,
@@ -244,7 +244,7 @@ translate has this bug waiting in it.
 **Replacing a tile is invisible in production without a new URL.** Files
 under `/art/` have stable names and are served `cache-control: public,
 max-age=2592000`, so swapping `studio.webp` changes the bytes behind a URL
-every returning visitor already holds — they keep the old artwork for up to
+every returning visitor already holds  they keep the old artwork for up to
 thirty days. The CDN was correct, the markup was correct, the bytes matched by
 md5, and the page still showed the old art. A hard refresh fixes it for one
 person and for nobody else. `generate-art-manifest.mjs` now emits
@@ -252,21 +252,21 @@ person and for nobody else. `generate-art-manifest.mjs` now emits
 every src, srcSet candidate, poster and `<source>`. The query string is part of
 the HTTP cache key, so new bytes mean a new URL; unchanged tiles keep their
 thirty days. Anything else that starts serving mutable content from a stable
-`public/` path needs the same treatment — Vite fingerprints `/assets/` for you,
+`public/` path needs the same treatment  Vite fingerprints `/assets/` for you,
 and `public/` is copied verbatim, so it gets nothing.
 
 **A media query cannot gate a Motion `animate` key on a pre-rendered page.**
 `useMediaQuery` has no media query to read on the server, so its server
 snapshot is `false` and the pre-rendered HTML always ships the *desktop*
-branch's `initial` inline — the hero headline went out as
+branch's `initial` inline  the hero headline went out as
 `style="opacity:0;filter:blur(12px)"` on every device. The real value only
 arrives on the re-render after hydration, and by then `coarse` had removed
 `filter` from `animate`: Motion stops owning the value and never writes it
 again, so that pre-rendered blur stayed on `Captivate & Convert.` for good on
 every phone and tablet, while desktop was fine. Keep every animated key
 present in `animate` on all devices and vary the *value* (`blur(0px)`), and
-express "no entrance" as `initial={false}` — which snaps to the animate state
-— never as `initial`/`animate`/`variants` set to `undefined`, which leaves
+express "no entrance" as `initial={false}`  which snaps to the animate state
+ never as `initial`/`animate`/`variants` set to `undefined`, which leaves
 the pre-rendered hidden state in the DOM with nothing to clear it. Verify with
 CDP `Emulation.setEmulatedMedia` `hover: none` + `pointer: coarse`; dev mode
 cannot show this, because a client-only mount reads the query correctly on the
@@ -279,7 +279,7 @@ static wrapper.
 
 **Tailwind arbitrary-property overrides are order-dependent.** Passing
 `className="[--gap:1rem]"` against a component's own `[--gap:3rem]` is equal
-specificity — the winner depends on stylesheet order, not call order. Expose a
+specificity  the winner depends on stylesheet order, not call order. Expose a
 prop and set it via inline `style`.
 
 ## Performance posture
@@ -313,7 +313,7 @@ adopts whatever that script already decided rather than re-applying it.
 ## Accessibility baseline
 
 Every animation respects `useReducedMotion()` / `prefers-reduced-motion`, and
-reduced motion renders the **final** state rather than a degraded animation —
+reduced motion renders the **final** state rather than a degraded animation 
 scroll-linked transforms are skipped entirely, not slowed. Verified: with the
 media feature forced on, no element anywhere on the page is left below 0.4
 opacity.
@@ -330,12 +330,12 @@ npm run assets   # regenerate og-image, apple-touch-icon and the artwork
 
 `npm run build` is four steps and every one of them matters:
 
-1. `vite build` — the client bundle.
-2. `vite build --ssr src/entry-server.jsx --outDir .ssr` — a Node-loadable
+1. `vite build`  the client bundle.
+2. `vite build --ssr src/entry-server.jsx --outDir .ssr`  a Node-loadable
    copy of the app, used once and deleted by the pre-render script.
-3. `scripts/prerender.mjs` — renders every route in `lib/routes.js` and writes
+3. `scripts/prerender.mjs`  renders every route in `lib/routes.js` and writes
    it as its own `index.html`.
-4. `scripts/verify-build.mjs` — refuses to ship an unrendered route.
+4. `scripts/verify-build.mjs`  refuses to ship an unrendered route.
 
 `prebuild` regenerates the art manifest, runs `verify-content.mjs` and
 regenerates the sitemap, so none of those can be stale in a build.
@@ -356,11 +356,11 @@ the `art` key `/web-development` declares, and `studio.png` becomes the
 `studio` tile. No mapping table to keep in step.
 
 The sources live outside `public/` because `public/` is copied into `dist/`
-verbatim — a 2MB source PNG left in `public/art/` ships to the CDN origin with
+verbatim  a 2MB source PNG left in `public/art/` ships to the CDN origin with
 nothing linking to it.
 
 They are stills. Sources are 3:2 and the tiles are 16:10, so the generator
-centre-crops 32px off the top and bottom — but every container these land in
+centre-crops 32px off the top and bottom  but every container these land in
 is wider still, so only a middle band survives: the contact card is about
 2.3:1 and shows roughly the middle 55% of the source height. Anything that
 must stay visible has to sit near the centre. `FOCUS` in the generator moves
@@ -375,7 +375,7 @@ the next `npm run artwork` puts both back.
 
 **Nothing references the generated abstract artwork any more.**
 `service-commerce`, `service-design`, `service-seo`, `work-saas`, `work-ai`
-and `streams` are all orphaned — 1.62MB still shipping in `dist/art/`.
+and `streams` are all orphaned  1.62MB still shipping in `dist/art/`.
 `generate-artwork.mjs` and `generate-artwork-motion.mjs` still emit them, and
 `scripts/lib/webm.mjs` exists only for those clips.
 
@@ -399,7 +399,7 @@ Three things about those tiles are load-bearing:
   Tribe tile was indistinguishable from the card containing it.
 - **`LOGO_HEIGHT` is capped at 230px of the 750px tile.** `TileImage` renders
   `object-cover` with a permanent `scale-[1.18]`, and the case-study hero is
-  roughly 3.6:1 against a 16:10 image — only the middle ~37% of the image
+  roughly 3.6:1 against a 16:10 image  only the middle ~37% of the image
   height survives there. A larger logo looks fine on the homepage grid and is
   cut in half on the case-study page. Check both.
 
@@ -407,7 +407,7 @@ These tiles are stills only. They are logos; they should not animate, and
 having no `.webm` beside them is what makes `TileImage` render an `<img>`.
 
 `work-commerce` and `work-seo` were removed from `PIECES` when the case
-studies stopped using them — 607 kB of artwork that nothing referenced. Pieces
+studies stopped using them  607 kB of artwork that nothing referenced. Pieces
 are independent (`stage()` calls `rng(seed)` per piece), so dropping one
 cannot change how the others render. `streams` is still generated and still
 unreferenced; drop it too if nothing claims it.
@@ -415,49 +415,49 @@ unreferenced; drop it too if nothing claims it.
 ```
 public/art/<name>.webm    motion, preferred (best compression)
 public/art/<name>.mp4     motion, fallback for older Safari
-public/art/<name>.webp    still — poster frame + reduced-motion fallback
+public/art/<name>.webp    still  poster frame + reduced-motion fallback
 public/art/<name>@600.webp  narrow-viewport still (srcSet)
 ```
 
 The still is **required**; the motion files are optional per tile. Ratio
-16:10 (1200×750). Keep clips short (3–6s), seamlessly looping, and silent —
+16:10 (1200×750). Keep clips short (3–6s), seamlessly looping, and silent 
 they are rendered muted and audio would be dead weight.
 
 `src/lib/art-manifest.js` is **generated** by
 `scripts/generate-art-manifest.mjs` from the contents of that directory, and
-runs in `prebuild`. Drop a file in, rebuild, done — no code edit. The
+runs in `prebuild`. Drop a file in, rebuild, done  no code edit. The
 manifest exists because a `<video>` whose `<source>` 404s still fires the
 request, so letting the component try-and-fail would log a network error for
 every still tile on every page load.
 
 The `.webp` stills **and** the `.webm` clips are **generated placeholders**
-from `npm run artwork` — edit `scripts/generate-artwork.mjs`, never the output
+from `npm run artwork`  edit `scripts/generate-artwork.mjs`, never the output
 files. Replace them with real work when you have it.
 
 Clips are 960x600 (the tile's own 16:10, so `object-cover` crops nothing),
 5s at 12fps, silent, ~2.4MB for all eight.
 
 **Motion is written as displacement, so the loop cannot show a seam.** Every
-animated term in `generate-artwork.mjs` is built from `dsin`/`dcos` — which
+animated term in `generate-artwork.mjs` is built from `dsin`/`dcos`  which
 return the offset *from* the resting position and so are exactly 0 at t=0 for
-any phase — or from `env(t)`, a `sin^2` envelope that is 0 at both ends and
+any phase  or from `env(t)`, a `sin^2` envelope that is 0 at both ends and
 carries the travelling highlights. Two properties fall out and are worth
 keeping: rendering at t=0 reproduces the still byte for byte (so the poster and
-frame 0 can never drift), and the wrap is just another frame — measured at
+frame 0 can never drift), and the wrap is just another frame  measured at
 0.5-1.3 grey levels against 2.2-9.4 for an ordinary mid-loop step.
 
 Adding a `rand()` call inside a motif reshuffles every later draw and silently
 relays out the whole piece. Derive per-element phase from geometry with
-`phaseOf(x, y)` instead — that is why it exists.
+`phaseOf(x, y)` instead  that is why it exists.
 
 `TileImage` handles playback: muted + `playsInline` (iOS refuses inline
 autoplay otherwise), play/pause driven by an IntersectionObserver so
 off-screen clips do not decode, and no video at all under reduced motion.
-Either way the artwork drifts against scroll — that parallax is the point on
+Either way the artwork drifts against scroll  that parallax is the point on
 touch, where hover tilt and hover zoom do nothing.
 
 **Animated WebP/GIF also works** if dropped in as `<name>.webp`, since an
-`<img>` plays it — but it cannot be paused, so it ignores
+`<img>` plays it  but it cannot be paused, so it ignores
 `prefers-reduced-motion`. Prefer video.
 
 ## Encoding video with no ffmpeg
@@ -465,7 +465,7 @@ touch, where hover tilt and hover zoom do nothing.
 This machine has no ffmpeg, no ImageMagick and no encoder library, and adding
 one for a build-time asset step was not justified. `scripts/lib/webm.mjs`
 closes the gap: a lossy WebP file *is* a single VP8 keyframe in a RIFF
-wrapper, so `sharp` is used as the video encoder — each frame is encoded to
+wrapper, so `sharp` is used as the video encoder  each frame is encoded to
 WebP, the `VP8 ` chunk is unwrapped, and the frames are muxed straight into a
 WebM container. `npm run artwork` therefore regenerates the clips with no new
 dependency and no external tool.
@@ -487,7 +487,7 @@ Sources live in `src/lib/audit.js`. Everything must be callable from the
 browser, so: CORS-enabled and ideally keyless.
 
 **Primary (keyless, always runs): MDN HTTP Observatory.**
-`POST https://observatory-api.mdn.mozilla.net/api/v2/scan?host=…` — free, no
+`POST https://observatory-api.mdn.mozilla.net/api/v2/scan?host=…`  free, no
 key, `access-control-allow-origin: *`. Returns a real security grade, score,
 tests passed and the host's status code. This is what makes the section work
 with zero configuration. Note v2 exposes **only** the summary; there is no
@@ -497,7 +497,7 @@ per-test endpoint (`/api/v2/tests` 404s), so specific findings link out to
 **Optional: Google PageSpeed Insights.** Only attempted when
 `VITE_PSI_API_KEY` is set, and adds the four Lighthouse scores plus Core Web
 Vitals. **Do not call PSI keyless.** Its anonymous quota is one pool shared by
-every anonymous caller on the internet and is permanently exhausted — a
+every anonymous caller on the internet and is permanently exhausted  a
 keyless request returns `429 RESOURCE_EXHAUSTED` immediately, not under load.
 That is a guaranteed failure, not a degraded path.
 
@@ -509,13 +509,13 @@ taking the report down.
 
 Three things on the old build asserted facts that were not true:
 
-- `src/components/Reviews.jsx` — three testimonials with invented names,
+- `src/components/Reviews.jsx`  three testimonials with invented names,
   invented companies and an invented metric ("bounce rate dropped 45%").
   **Still removed.** Real testimonials need real permission.
-- `src/components/Work.jsx` — "Project One" … "Project Four" with em-dash
+- `src/components/Work.jsx`  "Project One" … "Project Four" with em-dash
   metrics, replaced by `SelectedWork.jsx` and the three real case studies.
   **Still removed.**
-- `src/components/Pricing.jsx` — **restored**, at the owner's explicit
+- `src/components/Pricing.jsx`  **restored**, at the owner's explicit
   instruction and with the figures confirmed as the ones to publish. See
   below.
 
@@ -532,12 +532,12 @@ restoring them was the answer.
 
 The numbers live in `src/content/pricing.js` and nowhere else.
 `offerCatalogNode()` in `lib/seo.js` builds the schema from the same array the
-page renders, so the two cannot disagree — which is exactly how the previous
+page renders, so the two cannot disagree  which is exactly how the previous
 build ended up quoting figures its own file header described as placeholders.
 Change a price there and the page, the schema and the sitemap's lastmod all
 move together.
 
-`verify-content.mjs` will not catch a fabrication or a stale price — that is a
+`verify-content.mjs` will not catch a fabrication or a stale price  that is a
 judgement, not a check.
 
 ## Routing and pre-rendering
@@ -572,7 +572,7 @@ config with `define: { 'process.env.NODE_ENV': '"development"' }` and
 
 **The pre-rendered JSON-LD needs `data-seo` on its `<script>`.** Without it
 `<Seo>` does not recognise the block as its own, leaves it in place and
-appends a second copy on hydration — every page then ships the graph twice,
+appends a second copy on hydration  every page then ships the graph twice,
 with duplicate `@id` nodes.
 
 **Anything the app shell imports lands in the entry bundle.** The navbar and
@@ -585,7 +585,7 @@ fails the build if the light list and the full modules disagree.
 therefore starts `resolved` at `'light'` on both sides of hydration and adopts
 the real value in an effect. Reading the document class in the state
 initialiser instead makes a dark-mode visitor hydrate a tree that disagrees
-with the markup React is attaching to. The palette itself never flashes — the
+with the markup React is attaching to. The palette itself never flashes  the
 blocking script in `index.html` still applies `.dark` before first paint.
 
 **Collapsed FAQ answers must stay in the DOM.** Google requires FAQPage answer
@@ -602,7 +602,7 @@ everything serves `index.html` with a 200 for any missing file, which is the
 soft-404 pattern that fills Search Console with URLs nobody created. See
 `/blog/azure-static-web-apps-404-on-refresh`, which is about exactly this.
 
-## Deployment — unresolved
+## Deployment  unresolved
 
 Two workflows deploy this repository on every push to `main`:
 `azure-static-web-apps-black-tree-0042fdd00.yml` and `deploy.yml` (GitHub

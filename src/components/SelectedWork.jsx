@@ -14,12 +14,12 @@ import { PROJECTS, projectPath } from '@/content/projects';
  * Replaces the placeholder `Work` section, which shipped four invented
  * projects ("Project One" … "Project Four") with em-dash metrics standing in
  * for numbers that were never going to exist. These are the three real
- * builds, each linking to a case study and — where the deployment is
- * actually up — to the live site.
+ * builds, each linking to a case study and  where the deployment is
+ * actually up  to the live site.
  *
  * The live link stays conditional on purpose. All three deployments are up
  * today, but a "View live project" button that lands on a 404 is worse than
- * no button — so the link is driven by `liveUrl` in content/projects.js and
+ * no button  so the link is driven by `liveUrl` in content/projects.js and
  * simply disappears if one goes down again.
  */
 export default function SelectedWork() {
@@ -40,7 +40,7 @@ export default function SelectedWork() {
 
                         <Reveal delay={0.1}>
                             <p className="mt-5 text-pretty text-lg text-muted-foreground">
-                                Three builds, each written up with what was actually engineered —
+                                Three builds, each written up with what was actually engineered 
                                 no invented metrics, no borrowed logos.
                             </p>
                         </Reveal>

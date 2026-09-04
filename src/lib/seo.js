@@ -130,8 +130,8 @@ export function serviceNode(service) {
  * OfferCatalog for /pricing, built from the same TIERS the page renders.
  *
  * ── This publishes a commitment ──────────────────────────────────────────
- * Unlike `serviceNode`'s catalogue — which lists offers with no price, purely
- * to describe what is on sale — these carry `price` and `priceCurrency`, and
+ * Unlike `serviceNode`'s catalogue  which lists offers with no price, purely
+ * to describe what is on sale  these carry `price` and `priceCurrency`, and
  * Google may show them in a result. Whatever is in src/content/pricing.js is
  * therefore a number the business has to honour. It is generated from that one
  * module rather than written out here so the schema cannot say something the
@@ -140,7 +140,7 @@ export function serviceNode(service) {
  *
  * An unpriced tier still gets an Offer node, just without `price`: dropping it
  * would describe a two-tier ladder on a three-tier page. `availability` is
- * omitted deliberately — these are engagements, not stock.
+ * omitted deliberately  these are engagements, not stock.
  */
 export function offerCatalogNode({ path, tiers, currency }) {
     return {

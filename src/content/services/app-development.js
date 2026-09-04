@@ -14,8 +14,8 @@ export default {
     whatItIs: {
         heading: 'Being straight about what we build',
         body: [
-            'Korame builds applications for the web platform: React interfaces, Node and serverless APIs, and the cloud infrastructure underneath. That includes installable Progressive Web Apps — applications a user adds to a home screen, that launch without browser chrome, work from a cached shell, and update silently on next load.',
-            'What we do not do is claim a native iOS or Android practice we do not have. If your requirements genuinely need a native runtime — deep hardware integration, background location, App Store or Play Store distribution as a business requirement — the honest answer is a specialist studio for the client, and we are well placed to build and own the API, data model and cloud infrastructure it runs against. Overstating capability is how projects end up half-delivered, and it is not a trade we make.',
+            'Korame builds applications for the web platform: React interfaces, Node and serverless APIs, and the cloud infrastructure underneath. That includes installable Progressive Web Apps  applications a user adds to a home screen, that launch without browser chrome, work from a cached shell, and update silently on next load.',
+            'What we do not do is claim a native iOS or Android practice we do not have. If your requirements genuinely need a native runtime  deep hardware integration, background location, App Store or Play Store distribution as a business requirement  the honest answer is a specialist studio for the client, and we are well placed to build and own the API, data model and cloud infrastructure it runs against. Overstating capability is how projects end up half-delivered, and it is not a trade we make.',
         ],
     },
 
@@ -30,7 +30,7 @@ export default {
         },
         {
             title: 'Backend and API integration',
-            body: 'The API your application talks to — designed, versioned and documented — whether the client is ours or somebody else\'s.',
+            body: 'The API your application talks to  designed, versioned and documented  whether the client is ours or somebody else\'s.',
         },
         {
             title: 'Authentication',
@@ -38,7 +38,7 @@ export default {
         },
         {
             title: 'Notifications',
-            body: 'Web push where the platform supports it, and email or messaging fallbacks where it does not — chosen against where your users actually are.',
+            body: 'Web push where the platform supports it, and email or messaging fallbacks where it does not  chosen against where your users actually are.',
         },
         {
             title: 'Cloud infrastructure',
@@ -144,11 +144,11 @@ export default {
         },
         {
             q: 'Can a Progressive Web App be installed like a normal app?',
-            a: 'On Android, Windows and macOS, yes — it installs to the home screen or dock and launches without browser chrome. On iOS it can be added to the home screen and runs standalone, though Apple restricts some capabilities, notably around push notifications and background work. We scope against those limits explicitly rather than discovering them late.',
+            a: 'On Android, Windows and macOS, yes  it installs to the home screen or dock and launches without browser chrome. On iOS it can be added to the home screen and runs standalone, though Apple restricts some capabilities, notably around push notifications and background work. We scope against those limits explicitly rather than discovering them late.',
         },
         {
             q: 'Will it work offline?',
-            a: 'The application shell and read-only data, reliably. Offline writes with conflict resolution are a much larger piece of engineering, so we build them only where the workflow genuinely requires it — and we say which of the two you are buying.',
+            a: 'The application shell and read-only data, reliably. Offline writes with conflict resolution are a much larger piece of engineering, so we build them only where the workflow genuinely requires it  and we say which of the two you are buying.',
         },
         {
             q: 'Can you take over an existing application?',

@@ -7,8 +7,8 @@ import { useReducedMotion } from 'motion/react';
  *
  * ── Why this is not just <Link to="/"> ───────────────────────────────────
  * React Router treats a navigation to the path you are already on as a no-op.
- * On every other route the logo worked; on the homepage itself — the one place
- * a reader is most likely to have scrolled a long way down — clicking it did
+ * On every other route the logo worked; on the homepage itself  the one place
+ * a reader is most likely to have scrolled a long way down  clicking it did
  * nothing at all, which reads as a broken link rather than as a deliberate
  * decision. `ScrollToTop` in App.jsx cannot help, because it keys off
  * `pathname` and the pathname has not changed.
@@ -20,7 +20,7 @@ import { useReducedMotion } from 'motion/react';
  *
  * ── Why the scroll waits a frame ─────────────────────────────────────────
  * The mobile drawer sets `body { overflow: hidden }`, and React restores it
- * on its *next commit* — which is after this handler returns. Scrolling
+ * on its *next commit*  which is after this handler returns. Scrolling
  * inline would issue the scroll against a still-locked body and it would be
  * silently dropped, which is the same trap that once made every mobile nav
  * link do nothing. `onNavigate` closes the drawer and the scroll goes out on
@@ -33,7 +33,7 @@ import { useReducedMotion } from 'motion/react';
  * stylesheet, so it has to make the same decision itself.
  *
  * @param {object}   [options]
- * @param {Function} [options.onNavigate] Run on every logo click — used to
+ * @param {Function} [options.onNavigate] Run on every logo click  used to
  *   close the mobile drawer before the scroll goes out.
  */
 export function useHomeLink({ onNavigate } = {}) {

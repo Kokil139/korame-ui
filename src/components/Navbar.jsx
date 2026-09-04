@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 /**
  * Primary navigation.
  *
- * The visual language is unchanged from the single-page build — the K tile,
+ * The visual language is unchanged from the single-page build  the K tile,
  * the wordmark, the sliding active pill, the frosted drawer. What changed is
  * what the links are: real routes rather than in-page anchors, so every one
  * of them is a crawlable <a href> that a search engine can follow to a
@@ -116,12 +116,12 @@ export default function Navbar() {
         >
             <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
                 {/* ---------------------------------------------------------
-                    Logo — the original K tile and KORAME. wordmark, kept.
+                    Logo  the original K tile and KORAME. wordmark, kept.
                    --------------------------------------------------------- */}
                 <Link
                     {...homeLink}
                     className="group flex shrink-0 items-center gap-2.5 rounded-2xl glow-interactive"
-                    aria-label="Korame — home"
+                    aria-label="Korame  home"
                 >
                     <span className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-xl font-bold text-white shadow-[0_6px_20px_-6px_color-mix(in_oklch,var(--brand-500)_80%,transparent)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-105">
                         K
@@ -135,7 +135,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* ---------------------------------------------------------
-                    Desktop nav — the active pill is a shared layout element,
+                    Desktop nav  the active pill is a shared layout element,
                     so it slides between links instead of cross-fading.
                    --------------------------------------------------------- */}
                 <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
@@ -211,7 +211,7 @@ export default function Navbar() {
                                  * it.
                                  *
                                  * The second is why the panel below is opaque
-                                 * rather than frosted — see the note on it.
+                                 * rather than frosted  see the note on it.
                                  *
                                  * The wrapper is inert while closed; it is
                                  * empty then, but it is still a 34rem box under
@@ -239,7 +239,7 @@ export default function Navbar() {
                                             className="origin-top"
                                         >
                                             {/**
-                                             * Opaque, not frosted — and that is
+                                             * Opaque, not frosted  and that is
                                              * the actual cure for the flicker.
                                              *
                                              * Per the Filter Effects spec, an
@@ -249,7 +249,7 @@ export default function Navbar() {
                                              * panel faded in, the only thing
                                              * behind it for `backdrop-filter`
                                              * to sample was its own animating
-                                             * wrapper — empty. On the frame
+                                             * wrapper  empty. On the frame
                                              * opacity reached 1 the backdrop
                                              * root disappeared and the blur
                                              * snapped to sampling the real page

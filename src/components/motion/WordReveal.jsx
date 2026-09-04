@@ -16,7 +16,7 @@ const WORD_DURATION = 0.22;
  *    that can be handed to the compositor.
  * 2. Every offset goes through `clamp01`. Ranges built by padding a slice can
  *    land outside [0,1], and WAAPI rejects those as ScrollTimeline keyframe
- *    offsets with "Offsets must be null or in the range [0,1]" — which throws
+ *    offsets with "Offsets must be null or in the range [0,1]"  which throws
  *    and blanks the page.
  */
 function Word({ children, progress, index, count }) {

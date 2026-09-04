@@ -6,19 +6,19 @@
  * a clip would log a network error on every page load. The manifest lets the
  * component render <img> for stills and <video> only where a clip exists.
  *
- * Drop files into public/art/, run `npm run artwork` (or just build — this
+ * Drop files into public/art/, run `npm run artwork` (or just build  this
  * also runs in `prebuild`), and the manifest updates itself.
  *
  * Naming convention:
  *   public/art/<name>.webm   motion, preferred (smaller)
  *   public/art/<name>.mp4    motion, fallback for older Safari
- *   public/art/<name>.webp   still — poster frame, and what shows under
+ *   public/art/<name>.webp   still  poster frame, and what shows under
  *                            reduced motion. Always keep one.
  *   public/art/<name>@600.webp  narrow-viewport still (srcSet)
  *
  * ── ART_VERSION: why these URLs carry a content hash ─────────────────────
  * Everything under /art/ is served with `cache-control: public,
- * max-age=2592000` and the file names are stable — `studio.webp` is
+ * max-age=2592000` and the file names are stable  `studio.webp` is
  * `studio.webp` forever. Replacing a tile therefore changes the bytes behind
  * a URL that returning visitors already hold, and they keep seeing the old
  * artwork for up to thirty days.
@@ -30,11 +30,11 @@
  *
  * The Vite bundle never has this problem because its file names are
  * fingerprinted. These are not, so the fingerprint goes in the query string
- * instead — it is part of the HTTP cache key, so new bytes mean a new URL and
+ * instead  it is part of the HTTP cache key, so new bytes mean a new URL and
  * a guaranteed refetch, while an unchanged tile keeps its full thirty days.
  *
- * The hash covers every file belonging to a tile — still, @600 variant and
- * clips together — so one version busts all of that tile's URLs at once. That
+ * The hash covers every file belonging to a tile  still, @600 variant and
+ * clips together  so one version busts all of that tile's URLs at once. That
  * over-invalidates slightly when only the clip changes, which costs one
  * still refetch and is not worth a second hash to avoid.
  * ─────────────────────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ async function main() {
     try {
         files = await readdir(ART);
     } catch {
-        // No art directory yet — emit an empty manifest so the build works.
+        // No art directory yet  emit an empty manifest so the build works.
     }
 
     /** name -> ['webm', 'mp4'] */
@@ -101,7 +101,7 @@ async function main() {
     const names = Object.keys(motion).sort();
 
     const body = `/**
- * GENERATED — do not edit.
+ * GENERATED  do not edit.
  * Written by scripts/generate-art-manifest.mjs from the contents of
  * public/art/. Add or remove a file there and re-run \`npm run artwork\`.
  */
@@ -138,7 +138,7 @@ export const artUrl = (file, name) => {
     const tiles = Object.keys(version).length;
     console.log(
         names.length
-            ? `Art manifest: ${tiles} tile(s) versioned, ${names.length} animated — ${names.join(', ')}`
+            ? `Art manifest: ${tiles} tile(s) versioned, ${names.length} animated  ${names.join(', ')}`
             : `Art manifest: ${tiles} tile(s) versioned, none animated (all render as stills)`,
     );
 }

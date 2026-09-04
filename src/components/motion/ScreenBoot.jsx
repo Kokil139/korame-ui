@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 /**
  * Boot sequence for a device screen: the Korame page "loads in" the way a
- * real page does — skeleton first, then content settling into place.
+ * real page does  skeleton first, then content settling into place.
  *
  * Apple's device films sell hardware by letting software arrive on it, and
  * the specific thing that reads as "loading" rather than "fading" is the

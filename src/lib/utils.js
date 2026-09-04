@@ -10,7 +10,7 @@ export function cn(...inputs) {
  *
  * Scroll-linked `useTransform` input ranges are handed to WAAPI as
  * ScrollTimeline keyframe offsets, which reject anything outside [0,1] with
- * "Offsets must be null or in the range [0,1]" — and that throw blanks the
+ * "Offsets must be null or in the range [0,1]"  and that throw blanks the
  * page. Any range built by padding a slice (`start - fade`, `end + fade`)
  * must go through this.
  */

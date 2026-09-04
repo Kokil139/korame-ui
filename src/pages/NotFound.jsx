@@ -11,7 +11,7 @@ import { SERVICE_LIST, servicePath } from '@/content/service-list';
  * Marked noindex rather than left to chance. The other half of getting this
  * right lives in staticwebapp.config.json, where the navigation fallback
  * excludes asset paths so a missing file returns a real 404 status instead of
- * this page with a 200 — which is the soft-404 pattern that fills Search
+ * this page with a 200  which is the soft-404 pattern that fills Search
  * Console with URLs nobody ever created.
  */
 export default function NotFound() {

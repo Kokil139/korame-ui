@@ -57,7 +57,7 @@ export function ThemeProvider({ children }) {
      * Reading the document's class in the initialiser would be more direct,
      * but the pre-rendered HTML is always produced with the light palette, so
      * a dark-mode visitor would hydrate a tree that disagrees with the markup
-     * React is attaching to — and React resolves that by warning and keeping
+     * React is attaching to  and React resolves that by warning and keeping
      * whichever it likes. Adopting the real value in an effect instead means
      * the first client render matches the HTML exactly, and the correction
      * lands one commit later.
@@ -77,8 +77,8 @@ export function ThemeProvider({ children }) {
      *
      * Preferred path is the View Transitions API: the browser snapshots the
      * whole page before and after, then cross-fades the two images. That is a
-     * genuinely smooth swap — including gradients, shadows, images and canvas
-     * — which a CSS `transition` on colour properties can never be, because
+     * genuinely smooth swap  including gradients, shadows, images and canvas
+     *  which a CSS `transition` on colour properties can never be, because
      * it only interpolates the handful of properties you list and pops
      * everything else.
      *
@@ -112,7 +112,7 @@ export function ThemeProvider({ children }) {
             return;
         }
 
-        /* Scoped to the swap, then removed — leaving a transition on every
+        /* Scoped to the swap, then removed  leaving a transition on every
            element permanently makes scrolling feel sticky. */
         root.classList.add('theme-switching');
         commit();
@@ -125,7 +125,7 @@ export function ThemeProvider({ children }) {
             try {
                 localStorage.setItem(STORAGE_KEY, next);
             } catch {
-                /* Private mode or blocked storage — the choice just won't persist. */
+                /* Private mode or blocked storage  the choice just won't persist. */
             }
             apply(next);
         },

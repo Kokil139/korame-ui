@@ -16,8 +16,8 @@ import {
 /**
  * The homepage.
  *
- * Below-the-fold content is code-split so the Hero — the only section that
- * animates on mount — gets the main thread to itself while the rest of the
+ * Below-the-fold content is code-split so the Hero  the only section that
+ * animates on mount  gets the main thread to itself while the rest of the
  * document hydrates.
  *
  * The pre-render waits for this chunk (renderToPipeableStream + onAllReady),
@@ -29,7 +29,7 @@ const BelowTheFold = lazy(() => import('@/components/BelowTheFold'));
 
 const TITLE = 'Korame | Web Development, Full-Stack & Software Engineering';
 const DESCRIPTION =
-    'Korame is a software engineering studio building websites, web applications, full-stack systems, custom software and cloud-deployed products — designed, built and deployed by the same people.';
+    'Korame is a software engineering studio building websites, web applications, full-stack systems, custom software and cloud-deployed products  designed, built and deployed by the same people.';
 
 export default function Home() {
     const jsonLd = graph(

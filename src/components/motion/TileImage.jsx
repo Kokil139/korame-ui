@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
  * Artwork header for a card. Renders a looping clip when one exists for this
  * tile, otherwise the still.
  *
- * Drop files in `public/art/` — see scripts/generate-art-manifest.mjs for the
+ * Drop files in `public/art/`  see scripts/generate-art-manifest.mjs for the
  * naming convention. The manifest is generated from that directory, so no
  * code changes are needed to animate a tile.
  *
@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
  * Every URL goes through `artUrl`, which appends the tile's content hash.
  * /art/ is cached for thirty days on file names that never change, so a
  * replaced tile would otherwise stay invisible to returning visitors for a
- * month — which is exactly what happened when these became photographs.
+ * month  which is exactly what happened when these became photographs.
  *
  * Playback rules:
  * - Muted + playsInline, or iOS refuses to autoplay inline at all.
@@ -29,13 +29,13 @@ import { cn } from '@/lib/utils';
  * - The still is always the poster, so the tile is never blank while the
  *   clip buffers.
  * - Phones get the still, not the clip. The clips are muxed by
- *   scripts/lib/webm.mjs, which has no inter-frame prediction — every frame
+ *   scripts/lib/webm.mjs, which has no inter-frame prediction  every frame
  *   is a VP8 keyframe. That is affordable on a desktop and it is not on a
  *   phone: iOS has no hardware VP8 path at all, so each of these is a full
  *   intra-frame decode, twelve times a second, for however many tiles are on
  *   screen. There is also no MP4 alongside them, so iOS below 17.4 has been
- *   falling back to the poster regardless. The scroll parallax — the reason
- *   these tiles move on touch, where hover does nothing — is on the <img>
+ *   falling back to the poster regardless. The scroll parallax  the reason
+ *   these tiles move on touch, where hover does nothing  is on the <img>
  *   too, so nothing is lost but the loop.
  */
 export default function TileImage({

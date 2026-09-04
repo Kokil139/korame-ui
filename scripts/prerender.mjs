@@ -2,7 +2,7 @@
  * Pre-render every route to static HTML.
  *
  * ── Why ──────────────────────────────────────────────────────────────────
- * A client-rendered SPA ships one document — `<div id="root"></div>` — with
+ * A client-rendered SPA ships one document  `<div id="root"></div>`  with
  * one title for every URL. Google will execute the JavaScript eventually, but
  * "eventually" is a queue, and social card scrapers do not execute it at all,
  * so an Open Graph title injected at runtime is invisible to every one of them.
@@ -74,7 +74,7 @@ function headToHtml(head) {
      * <Seo>'s client path removes `script[type="application/ld+json"][data-seo]`
      * before writing the new route's graph. Without the attribute here, the
      * pre-rendered block is not recognised as ours, so hydration leaves it in
-     * place and appends a second one — every page would then ship two copies
+     * place and appends a second one  every page would then ship two copies
      * of the graph, with duplicate @id nodes.
      */
     if (head.jsonLd) {
@@ -95,7 +95,7 @@ function outputPathFor(route) {
 async function main() {
     const templatePath = path.join(dist, 'index.html');
     if (!existsSync(templatePath)) {
-        throw new Error('dist/index.html not found — run `vite build` first.');
+        throw new Error('dist/index.html not found  run `vite build` first.');
     }
 
     const template = await readFile(templatePath, 'utf8');
@@ -111,7 +111,7 @@ async function main() {
     }
 
     /* The SSR bundle re-exports ROUTES so the list is read from source rather
-       than duplicated here — a route added to the registry is pre-rendered and
+       than duplicated here  a route added to the registry is pre-rendered and
        sitemapped without touching this file. */
     const entry = pathToFileURL(path.join(ssrDir, 'entry-server.js')).href;
     const { render, ROUTES } = await import(entry);

@@ -24,7 +24,7 @@ import {
  * A block model rather than raw HTML strings, so headings stay in a
  * predictable order (every h2 here is a real h2 under the page's single h1),
  * lists stay semantic, and code samples are never accidentally interpreted as
- * markup. `text` allows a little inline HTML — <code>, <strong> — which is
+ * markup. `text` allows a little inline HTML  <code>, <strong>  which is
  * the only place authored markup is trusted.
  */
 function Block({ block }) {

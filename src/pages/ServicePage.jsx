@@ -100,7 +100,7 @@ export default function ServicePage({ slug: slugProp }) {
             </PageHero>
 
             {/* ---------------------------------------------------------
-                Definitional section — the "what is this" that a search
+                Definitional section  the "what is this" that a search
                 result for the bare term is actually looking for.
                --------------------------------------------------------- */}
             <Section title={service.whatItIs.heading}>
@@ -143,7 +143,7 @@ export default function ServicePage({ slug: slugProp }) {
                 <CardGrid items={service.provide} columns={3} />
             </Section>
 
-            {/* Artwork band — this service's own tile, lazy-loaded. */}
+            {/* Artwork band  this service's own tile, lazy-loaded. */}
             <section className="px-6 py-8">
                 <div className="mx-auto max-w-6xl">
                     <Reveal y={24}>
@@ -190,7 +190,7 @@ export default function ServicePage({ slug: slugProp }) {
             </Section>
 
             {/* ---------------------------------------------------------
-                The engineering pillars — security, performance, cloud,
+                The engineering pillars  security, performance, cloud,
                 testing, maintenance. Every service page answers these.
                --------------------------------------------------------- */}
             <Section
@@ -220,7 +220,7 @@ export default function ServicePage({ slug: slugProp }) {
             </Section>
 
             {/* ---------------------------------------------------------
-                Proof — real projects, cross-linked both ways.
+                Proof  real projects, cross-linked both ways.
                --------------------------------------------------------- */}
             {relatedProjects.length > 0 && (
                 <Section
@@ -269,7 +269,7 @@ export default function ServicePage({ slug: slugProp }) {
             )}
 
             {/* ---------------------------------------------------------
-                FAQ — rendered and emitted as FAQPage structured data from
+                FAQ  rendered and emitted as FAQPage structured data from
                 the same array.
                --------------------------------------------------------- */}
             {service.faqs?.length > 0 && (

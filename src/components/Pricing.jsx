@@ -177,7 +177,7 @@ export default function Pricing({ heading = true }) {
                                                 aria-hidden="true"
                                                 className={cn(
                                                     'absolute inset-y-8 left-0 w-[3px] origin-center rounded-full',
-                                                    'bg-[linear-gradient(180deg,var(--cyan-glow),var(--brand-400),var(--violet-glow))]',
+                                                    'bg-[linear-gradient(180deg,var(--brand-500),var(--brand-400),var(--coral-glow))]',
                                                     'transition-transform duration-500 ease-[var(--ease-out-expo)]',
                                                     isActive ? 'scale-y-100' : 'scale-y-0',
                                                 )}
@@ -237,7 +237,7 @@ export default function Pricing({ heading = true }) {
                                                     className={cn(
                                                         'w-full transition-colors duration-400',
                                                         isActive &&
-                                                            'border-transparent text-white bg-[linear-gradient(100deg,var(--brand-600),var(--brand-500)_45%,var(--violet-glow))]',
+                                                            'border-transparent text-white bg-[linear-gradient(100deg,var(--brand-600),var(--brand-500)_45%,var(--coral-glow))]',
                                                     )}
                                                 >
                                                     <Link to="/contact">{tier.cta}</Link>

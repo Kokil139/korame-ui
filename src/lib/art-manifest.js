@@ -4,6 +4,12 @@
  * public/art/. Add or remove a file there and re-run `npm run artwork`.
  */
 export const ART_MOTION = {
+    "hero-bloom": [
+        "webm"
+    ],
+    "hero-bloom-dark": [
+        "webm"
+    ],
     "service-commerce": [
         "webm"
     ],
@@ -29,6 +35,8 @@ export const ART_MOTION = {
  * See the header of scripts/generate-art-manifest.mjs.
  */
 export const ART_VERSION = {
+    "hero-bloom": "10185018",
+    "hero-bloom-dark": "0e259f2c",
     "project-kepaso": "6ec00c18",
     "project-nomadninja": "13b12911",
     "project-the-travellers-tribe": "50660e08",

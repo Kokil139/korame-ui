@@ -47,7 +47,7 @@ src/
   components/ui/         shadcn-idiom primitives (button, badge, card, input)
   lib/audit.js           audit sources (Observatory, PSI, timing probe)
   components/motion/     Reveal, TiltCard, Magnetic, CountUp, WordReveal,
-                         Aurora, ScrollProgress, CircuitDivider, TileImage,
+                         Aurora, CircuitDivider, TileImage,
                          CodeTypewriter, ScreenBoot, useScrollVelocityFactor
   components/*.jsx       the homepage sections
   components/page/       Breadcrumbs, PageHero, Section, FaqList, Blocks
@@ -295,6 +295,28 @@ prop and set it via inline `style`.
   MotionValues and measures the rect on `pointerenter`, never per frame.
 
 ## Theming
+
+**The brand spectrum is orange (oklch hue 58), and the logo is deliberately
+not.** The K tile and the wordmark's full stop are pinned to `--logo-a/-b/-c`
+and `--logo-dot` in `src/index.css`  the original indigo -> cyan gradient, kept
+at the owner's instruction when the palette moved off purple-pink. They do not
+read `--brand-*`, so changing the brand ramp will not move them; `favicon.svg`
+and `apple-touch-icon.png` carry the same indigo literals for the same reason.
+Point them back at `--brand-*` only if the mark itself is being restyled.
+
+The ramp was rotated hue-only: every step kept its original `L`, and chroma was
+refitted to the sRGB gamut at the new hue, so contrast is at parity with the
+purple it replaced (`brand-400` 3.58:1 vs white, was 3.64). Orange is a
+low-chroma hue at low lightness  a "vivid" 0.235 chroma that was fine at hue
+277 clips to mud at 58. Refit, don't transpose. `--violet-glow` became
+`--coral-glow` (hue 34) and `--warning` moved to hue 85-90 so an audit dial's
+amber is not mistaken for the brand.
+
+`--cyan-glow` survives as the one cool accent, but only standalone  on icon
+tones and the `cyan` badge. It was pulled out of every brand gradient, where
+teal -> orange -> coral read as a rainbow rather than a sweep; those now run
+`brand-500 -> brand-400 -> coral-glow`.
+
 
 **Every colour must come from a token in `src/index.css`.** A hardcoded
 `bg-white/5` or `oklch(0 0 0 / .4)` looks right in exactly one theme and

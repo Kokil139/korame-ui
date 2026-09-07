@@ -134,7 +134,7 @@ export function BootProgress({ base = 0, className }) {
             }}
             className={cn(
                 'absolute inset-x-0 top-0 z-30 h-[2px] origin-left',
-                'bg-[linear-gradient(90deg,var(--cyan-glow),var(--brand-400),var(--violet-glow))]',
+                'bg-[linear-gradient(90deg,var(--brand-500),var(--brand-400),var(--coral-glow))]',
                 className,
             )}
         />

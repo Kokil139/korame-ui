@@ -77,9 +77,9 @@ export default function CircuitDivider({ className, height = 'h-28 sm:h-36' }) {
             >
                 <defs>
                     <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="var(--cyan-glow)" />
+                        <stop offset="0%" stopColor="var(--brand-500)" />
                         <stop offset="50%" stopColor="var(--brand-400)" />
-                        <stop offset="100%" stopColor="var(--violet-glow)" />
+                        <stop offset="100%" stopColor="var(--coral-glow)" />
                     </linearGradient>
 
                     <filter id={glowId} x="-20%" y="-200%" width="140%" height="500%">

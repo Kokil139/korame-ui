@@ -26,7 +26,7 @@ const buttonVariants = cva(
                    grows on hover. The inner span carries a sheen sweep. */
                 primary: [
                     'text-white overflow-hidden',
-                    'bg-[linear-gradient(100deg,var(--brand-600),var(--brand-500)_45%,var(--violet-glow))]',
+                    'bg-[linear-gradient(100deg,var(--brand-600),var(--brand-500)_45%,var(--coral-glow))]',
                     'shadow-[inset_0_1px_0_0_oklch(1_0_0/0.25),0_8px_30px_-8px_color-mix(in_oklch,var(--brand-500)_70%,transparent)]',
                     'hover:shadow-[inset_0_1px_0_0_oklch(1_0_0/0.35),0_14px_44px_-10px_color-mix(in_oklch,var(--brand-500)_85%,transparent)]',
                     'active:scale-[0.98]',

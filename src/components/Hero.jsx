@@ -8,7 +8,6 @@ import {
     useReducedMotion,
 } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import Aurora from '@/components/motion/Aurora';
 import Magnetic from '@/components/motion/Magnetic';
 import CountUp from '@/components/motion/CountUp';
@@ -98,7 +97,14 @@ export default function Hero() {
         <section
             id="home"
             ref={ref}
-            className="relative flex min-h-[92vh] items-center justify-center overflow-hidden px-6 pb-24 pt-32 sm:pt-36"
+            /* The eyebrow badge used to be the first thing under the
+               header and the top padding was sized for it. The headline is
+               first now, and it sits inside the lightning ring, which reaches
+               40px (56px at sm) above the words  so the padding has to clear
+               the fixed 80px header by that much again. It only bites on short
+               viewports; wherever the content fits inside min-h,
+               `items-center` still governs. */
+            className="relative flex min-h-[92vh] items-center justify-center overflow-hidden px-6 pb-24 pt-36 sm:pt-44"
         >
             <Aurora grid intensity="medium" />
 
@@ -106,23 +112,6 @@ export default function Hero() {
                 style={depthStyle}
                 className="relative mx-auto max-w-5xl text-center"
             >
-                {/* ---------------------------------------------------------
-                    Eyebrow
-                   --------------------------------------------------------- */}
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ ...springSnap, delay: 0.05 }}
-                >
-                    <Badge variant="glass" className="mb-14 sm:mb-20">
-                        <span className="relative flex size-1.5">
-                            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-400 opacity-75" />
-                            <span className="relative inline-flex size-1.5 rounded-full bg-brand-400" />
-                        </span>
-                        Available for new projects
-                    </Badge>
-                </motion.div>
-
                 {/* ---------------------------------------------------------
                     Headline + the signature glowing lightning ring
                    --------------------------------------------------------- */}
@@ -132,10 +121,10 @@ export default function Hero() {
                     <motion.div
                         aria-hidden="true"
                         style={reduced ? undefined : { scale: ringScale }}
-                        /* -z-10 keeps the travelling arc behind the eyebrow
-                           and headline; without it the arc paints over the
-                           badge each time it comes round. It stays inside
-                           this section's stacking context, which Motion's
+                        /* -z-10 keeps the travelling arc behind the
+                           headline; without it the arc paints over the words
+                           each time it comes round. It stays inside this
+                           section's stacking context, which Motion's
                            transform on the parent already establishes. */
                         className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10 flex items-center justify-center sm:-inset-x-16 sm:-inset-y-14 lg:-inset-x-28"
                     >
@@ -149,9 +138,9 @@ export default function Hero() {
                         >
                             <defs>
                                 <linearGradient id="korame-arc" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="var(--cyan-glow)" />
+                                    <stop offset="0%" stopColor="var(--brand-500)" />
                                     <stop offset="50%" stopColor="var(--brand-400)" />
-                                    <stop offset="100%" stopColor="var(--violet-glow)" />
+                                    <stop offset="100%" stopColor="var(--coral-glow)" />
                                 </linearGradient>
                                 <filter id="korame-arc-glow" x="-50%" y="-50%" width="200%" height="200%">
                                     <feGaussianBlur stdDeviation="6" result="blur" />
@@ -250,8 +239,7 @@ export default function Hero() {
                     className="mx-auto mt-12 max-w-2xl text-pretty text-lg font-light leading-relaxed text-muted-foreground sm:mt-16 md:text-xl"
                 >
                     A software engineering studio building websites, web applications,
-                    full-stack systems and custom software  designed, built and deployed
-                    by the same people.
+                    full-stack systems and custom software  designed.
                 </motion.p>
 
                 {/* ---------------------------------------------------------

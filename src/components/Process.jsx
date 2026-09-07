@@ -193,7 +193,7 @@ export default function Process() {
                             >
                                 <motion.div
                                     style={{ scaleY: railScale }}
-                                    className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--cyan-glow),var(--brand-400),var(--violet-glow))] will-change-transform"
+                                    className="h-full w-full origin-top bg-[linear-gradient(180deg,var(--brand-500),var(--brand-400),var(--coral-glow))] will-change-transform"
                                 />
                             </div>
 

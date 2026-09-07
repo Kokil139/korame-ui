@@ -32,7 +32,7 @@ export default function Aurora({
         >
             {grid && <div className="absolute inset-0 grid-field" />}
 
-            {/* Indigo core bloom */}
+            {/* Orange core bloom */}
             <div
                 className={cn(
                     'absolute left-1/2 top-[-10%] h-[520px] w-[720px] -translate-x-1/2 rounded-full animate-drift',
@@ -45,7 +45,7 @@ export default function Aurora({
                 }}
             />
 
-            {/* Cyan counterweight, offset in phase */}
+            {/* Warm counterweight, offset in phase */}
             <div
                 className={cn(
                     'absolute right-[-8%] top-[35%] h-[420px] w-[420px] rounded-full animate-drift',
@@ -54,12 +54,12 @@ export default function Aurora({
                 )}
                 style={{
                     background:
-                        'radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%)',
+                        'radial-gradient(circle, var(--brand-300) 0%, transparent 70%)',
                     animationDelay: '-7s',
                 }}
             />
 
-            {/* Violet low bloom */}
+            {/* Coral low bloom */}
             <div
                 className={cn(
                     'absolute bottom-[-12%] left-[-6%] h-[400px] w-[520px] rounded-full animate-drift',
@@ -68,7 +68,7 @@ export default function Aurora({
                 )}
                 style={{
                     background:
-                        'radial-gradient(circle, var(--violet-glow) 0%, transparent 70%)',
+                        'radial-gradient(circle, var(--coral-glow) 0%, transparent 70%)',
                     animationDelay: '-14s',
                 }}
             />

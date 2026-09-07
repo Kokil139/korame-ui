@@ -3,7 +3,6 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@/lib/theme';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ScrollProgress from '@/components/motion/ScrollProgress';
 
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
@@ -94,7 +93,6 @@ export default function App() {
 
                 <ScrollToTop />
                 <Navbar />
-                <ScrollProgress />
 
                 <main id="main">
                     <Suspense fallback={null}>

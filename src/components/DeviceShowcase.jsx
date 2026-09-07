@@ -218,7 +218,7 @@ export default function DeviceShowcase() {
                                         </p>
                                     </BootItem>
 
-                                    <BootItem step={0.6} skeleton className="flex h-12 items-center rounded-lg border border-brand-500/30 bg-gradient-to-r from-brand-600/30 to-violet-glow/25 p-2">
+                                    <BootItem step={0.6} skeleton className="flex h-12 items-center rounded-lg border border-brand-500/30 bg-gradient-to-r from-brand-600/30 to-coral-glow/25 p-2">
                                         <Sparkles className="size-4 text-brand-300" />
                                     </BootItem>
 

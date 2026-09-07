@@ -36,7 +36,7 @@ const FEATURED = [
     {
         slug: 'cloud-solutions',
         icon: Cloud,
-        tone: 'text-violet-glow',
+        tone: 'text-coral-glow',
     },
 ];
 

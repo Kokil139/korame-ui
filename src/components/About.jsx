@@ -26,8 +26,8 @@ const PILLARS = [
     },
     {
         icon: Search,
-        tone: 'text-violet-glow bg-violet-glow/12',
-        accent: 'var(--violet-glow)',
+        tone: 'text-coral-glow bg-coral-glow/12',
+        accent: 'var(--coral-glow)',
         stat: 'JSON-LD',
         title: 'SEO by default',
         copy: 'Semantic markup, structured data, crawlable routes.',
@@ -44,7 +44,7 @@ const PILLARS = [
 
 /* Rendered as real text, not an image, so it stays crawlable and selectable. */
 const SPEC_LINES = [
-    { indent: 0, tokens: [['const korameEngine = {', 'text-violet-glow']] },
+    { indent: 0, tokens: [['const korameEngine = {', 'text-coral-glow']] },
     { indent: 1, tokens: [['framework: ', 'text-muted-foreground'], ["'React + Vite'", 'text-amber-300'], [',', 'text-muted-foreground']] },
     { indent: 1, tokens: [['styling: ', 'text-muted-foreground'], ["'Tailwind CSS v4'", 'text-amber-300'], [',', 'text-muted-foreground']] },
     { indent: 1, tokens: [['motion: ', 'text-muted-foreground'], ["'Motion + scroll-linked'", 'text-amber-300'], [',', 'text-muted-foreground']] },
@@ -53,7 +53,7 @@ const SPEC_LINES = [
        accessibility chips on /web-design  one claim, stated once per
        surface, so the site never quotes itself two different versions. */
     { indent: 1, tokens: [['a11y: ', 'text-muted-foreground'], ["'WCAG 2.2 AA'", 'text-amber-300']] },
-    { indent: 0, tokens: [['};', 'text-violet-glow']] },
+    { indent: 0, tokens: [['};', 'text-coral-glow']] },
 ];
 
 export default function About() {

@@ -59,18 +59,17 @@ export default function Footer() {
                             className="group inline-flex items-center gap-2.5 rounded-2xl glow-interactive"
                             aria-label="Korame  home"
                         >
-                            <span className="grid size-9 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--brand-600),var(--brand-500)_50%,var(--cyan-glow))] font-heading text-lg font-bold text-white transition-transform duration-500 group-hover:scale-105">
+                            <span className="grid size-9 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--logo-a),var(--logo-b)_50%,var(--logo-c))] font-heading text-lg font-bold text-white transition-transform duration-500 group-hover:scale-105">
                                 K
                             </span>
                             <span className="font-heading text-xl font-extrabold tracking-wide text-foreground">
-                                KORAME<span className="text-brand-400">.</span>
+                                KORAME<span className="text-[var(--logo-dot)]">.</span>
                             </span>
                         </Link>
 
                         <p className="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-muted-foreground">
                             A software engineering studio building websites, web applications,
-                            full-stack systems and custom software  designed, built and
-                            deployed by the same people.
+                            full-stack systems and custom software  designed.
                         </p>
 
                         <ul className="mt-6 flex items-center gap-3">

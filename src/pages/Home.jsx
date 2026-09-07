@@ -29,7 +29,7 @@ const BelowTheFold = lazy(() => import('@/components/BelowTheFold'));
 
 const TITLE = 'Korame | Web Development, Full-Stack & Software Engineering';
 const DESCRIPTION =
-    'Korame is a software engineering studio building websites, web applications, full-stack systems, custom software and cloud-deployed products  designed, built and deployed by the same people.';
+    'Korame is a software engineering studio building websites, web applications, full-stack systems, custom software and cloud-deployed products.';
 
 export default function Home() {
     const jsonLd = graph(

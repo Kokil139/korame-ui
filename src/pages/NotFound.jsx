@@ -25,7 +25,7 @@ export default function NotFound() {
             />
 
             <section className="relative flex min-h-[80vh] items-center overflow-hidden px-6 pt-32">
-                <Aurora intensity="soft" grid />
+                <Aurora grid />
 
                 <div className="relative mx-auto max-w-3xl text-center">
                     <Reveal>

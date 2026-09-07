@@ -289,8 +289,11 @@ prop and set it via inline `style`.
   advertises sub-second loads. Section artwork is generated CSS/SVG.
 - Fonts are self-hosted and subset by `@fontsource`, not a render-blocking
   Google Fonts `<link>`.
-- Ambient background motion (`Aurora`) is CSS animating `transform` only, so
-  each bloom stays on its own compositor layer.
+- `Aurora` is texture only  a dot grid, film grain and a vignette. The three
+  drifting colour blooms it used to carry were removed, and with them
+  `korame-drift`, the `animate-drift` utility and `--aurora-alpha`. A large
+  blurred brand-coloured disc reads as atmosphere on black and as a stain on
+  white; the same discs behind the device rig in `DeviceShowcase` went too.
 - Pointer-driven motion (`TiltCard`, `Magnetic`) stores position in
   MotionValues and measures the rect on `pointerenter`, never per frame.
 
@@ -323,9 +326,8 @@ teal -> orange -> coral read as a rainbow rather than a sweep; those now run
 silently breaks the other; the first light-mode pass had 52 of them to unpick.
 Use `bg-elevate` / `bg-elevate-strong` / `bg-field` / `border-border` /
 `text-ghost` and the `--shadow-tint*` variables rather than raw white/black
-alphas. Light and dark also differ in `--aurora-alpha`, `--grain-alpha` and
-`--grain-blend`, because ambient blooms that read as atmosphere on black turn
-to mud on white.
+alphas. Light and dark also differ in `--grain-alpha` and `--grain-blend`,
+because a grain that reads as texture on black turns to mud on white.
 
 The theme class is applied by a **blocking inline script in `index.html`**,
 not by React. Deciding it in a component would paint the default palette

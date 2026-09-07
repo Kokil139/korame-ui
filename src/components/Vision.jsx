@@ -12,7 +12,7 @@ export default function Vision() {
             id="vision"
             className="relative overflow-hidden border-y border-border bg-surface-0 px-6 py-32 sm:py-40"
         >
-            <Aurora intensity="soft" />
+            <Aurora />
 
             <div className="relative mx-auto max-w-5xl text-center">
                 <Reveal>

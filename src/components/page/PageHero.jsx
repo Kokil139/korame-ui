@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 export default function PageHero({ kicker, title, lede, trail, children, className }) {
     return (
         <section className={cn('relative overflow-hidden px-6 pb-16 pt-32 sm:pt-40', className)}>
-            <Aurora intensity="soft" grid />
+            <Aurora grid />
 
             <div className="relative mx-auto max-w-4xl">
                 {trail && <Breadcrumbs trail={trail} />}

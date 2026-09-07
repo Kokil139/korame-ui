@@ -44,12 +44,6 @@ export default function DeviceShowcase() {
             aria-labelledby="devices-heading"
             className="relative overflow-hidden border-y border-border bg-surface-0 px-6 py-24 sm:py-32"
         >
-            {/* Ambient blooms */}
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                <div className="absolute left-1/2 top-1/2 size-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/10 blur-[130px]" />
-                <div className="absolute right-[8%] top-1/3 size-[320px] rounded-full bg-cyan-glow/10 blur-[110px]" />
-            </div>
-
             <div className="relative mx-auto max-w-7xl">
                 <div className="mx-auto max-w-3xl text-center">
                     <Reveal>

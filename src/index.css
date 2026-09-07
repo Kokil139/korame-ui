@@ -158,6 +158,14 @@
     --glass-border: oklch(0.19 0.021 265 / 0.1);
     --glass-highlight: oklch(1 0 0 / 0.95);
 
+    /* Liquid-glass pane. Far more translucent than `--glass-bg`, because the
+       point is to see the page through it; the diagonal sheen and the rim are
+       what make it read as a pane rather than a washed-out box. */
+    --pane-bg: oklch(1 0 0 / 0.44);
+    --pane-sheen: oklch(1 0 0 / 0.78);
+    --pane-sheen-soft: oklch(1 0 0 / 0.3);
+    --pane-underline: oklch(1 0 0 / 0.4);
+
     /* Neutral alphas  ink-based in light, light-based in dark. */
     --elevate-1: oklch(0.19 0.021 265 / 0.04);
     --elevate-2: oklch(0.19 0.021 265 / 0.075);
@@ -169,8 +177,6 @@
     --shadow-tint: oklch(0.35 0.05 265 / 0.09);
     --shadow-tint-strong: oklch(0.3 0.06 265 / 0.14);
 
-    /* Ambient blooms must stay faint on white or they turn to mud. */
-    --aurora-alpha: 0.28;
     --grain-alpha: 0.02;
     --grain-blend: multiply;
     --glare-ink: oklch(1 0 0 / 0.85);
@@ -229,6 +235,14 @@
     --glass-border: oklch(1 0 0 / 0.1);
     --glass-highlight: oklch(1 0 0 / 0.16);
 
+    /* Same pane on black. The alphas are an order of magnitude lower  white
+       over near-black reaches "milky" very fast, and the reference look is a
+       pane you see through, not a grey card. */
+    --pane-bg: oklch(1 0 0 / 0.06);
+    --pane-sheen: oklch(1 0 0 / 0.15);
+    --pane-sheen-soft: oklch(1 0 0 / 0.05);
+    --pane-underline: oklch(1 0 0 / 0.06);
+
     --elevate-1: oklch(1 0 0 / 0.05);
     --elevate-2: oklch(1 0 0 / 0.09);
     --field-bg: oklch(0 0 0 / 0.32);
@@ -238,7 +252,6 @@
     --shadow-tint: oklch(0 0 0 / 0.4);
     --shadow-tint-strong: oklch(0 0 0 / 0.6);
 
-    --aurora-alpha: 0.62;
     --grain-alpha: 0.035;
     --grain-blend: overlay;
     --glare-ink: oklch(1 0 0 / 0.5);
@@ -380,6 +393,33 @@
             0 1px 2px var(--shadow-tint),
             0 18px 50px -12px color-mix(in oklch, var(--brand-500) 32%, transparent);
     }
+}
+
+@utility glass-pane {
+    position: relative;
+
+    /* `background-color` and `background-image` are set separately so the
+       sheen survives a background-colour override from a utility class. */
+    background-color: var(--pane-bg);
+    background-image: linear-gradient(
+        135deg,
+        var(--pane-sheen) 0%,
+        transparent 34%,
+        transparent 64%,
+        var(--pane-sheen-soft) 100%
+    );
+
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--glass-border);
+
+    /* Top rim catches the light, bottom rim returns a little of it, and the
+       pane floats on a wide soft shadow rather than a tight drop. */
+    box-shadow:
+        inset 0 1px 0 0 var(--glass-highlight),
+        inset 0 -1px 0 0 var(--pane-underline),
+        0 2px 6px -2px var(--shadow-tint),
+        0 28px 64px -28px var(--shadow-tint-strong);
 }
 
 @utility text-gradient-brand {
@@ -541,12 +581,6 @@
     50%      { transform: translate3d(0, -14px, 0) rotate(0.9deg); }
 }
 
-@keyframes korame-drift {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    33%      { transform: translate3d(3%, -4%, 0) scale(1.06); }
-    66%      { transform: translate3d(-3%, 3%, 0) scale(0.97); }
-}
-
 @keyframes korame-orbit {
     to { stroke-dashoffset: -1000; }
 }
@@ -598,10 +632,6 @@
     animation: korame-float 6s ease-in-out infinite;
 }
 
-@utility animate-drift {
-    animation: korame-drift 22s ease-in-out infinite alternate;
-}
-
 @utility animate-orbit {
     animation: korame-orbit 3.2s linear infinite;
 }
@@ -645,6 +675,14 @@
         -webkit-backdrop-filter: none;
     }
 
+    /* The pane keeps its sheen  a gradient is free  and swaps only the
+       backdrop sampling for an opaque ground. */
+    .glass-pane {
+        background-color: var(--glass-bg-flat);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
     /* The same switch for the places that use Tailwind's backdrop utilities
        directly: the fixed header, the mobile drawer, the service tile icons.
        The header's is the costliest on the page  it is on screen for every
@@ -679,13 +717,5 @@
        Safari has no GPU path for. Keep the motion, drop the glow. */
     .arc-glow {
         filter: none;
-    }
-
-    /* The blooms are radial gradients that already fade to transparent; the
-       blur only softens an edge that is soft. Half the radius is the same
-       picture for a quarter of the sampling area, and these layers are large
-       (up to 720x520 before device pixel ratio). */
-    .animate-drift {
-        filter: blur(55px);
     }
 }

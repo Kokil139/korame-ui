@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import {
     motion,
+    stagger,
     useScroll,
     useTransform,
     useReducedMotion,
@@ -48,6 +49,23 @@ const LINE_ONE = ['We', 'build', 'web', 'solutions', 'that'];
 const wordVariants = {
     hidden: { opacity: 0, y: 34, rotateX: -55 },
     visible: { opacity: 1, y: 0, rotateX: 0, transition: springSnap },
+};
+
+/* Stats panel.
+
+   `statsPanel` deliberately holds no animatable value  only the stagger that
+   drives its children. The panel is a `backdrop-filter` surface, and animating
+   its opacity would make it a backdrop root with nothing behind it to sample
+   (see the comment at the markup). `stagger()` in `delayChildren` is the
+   current API; `staggerChildren` is the deprecated form. */
+const statsPanel = {
+    hidden: {},
+    visible: { transition: { delayChildren: stagger(0.08, { startDelay: 0.75 }) } },
+};
+
+const statItem = {
+    hidden: { opacity: 0, y: 14 },
+    visible: { opacity: 1, y: 0, transition: springSnap },
 };
 
 export default function Hero() {
@@ -106,7 +124,7 @@ export default function Hero() {
                `items-center` still governs. */
             className="relative flex min-h-[92vh] items-center justify-center overflow-hidden px-6 pb-24 pt-36 sm:pt-44"
         >
-            <Aurora grid intensity="medium" />
+            <Aurora grid />
 
             <motion.div
                 style={depthStyle}
@@ -281,16 +299,37 @@ export default function Hero() {
                 </motion.div>
 
                 {/* ---------------------------------------------------------
-                    Stats
+                    Stats  a frosted panel, segmented by hairlines, in place
+                    of the rule that used to divide them.
+
+                    The panel must never animate its own opacity. Per the
+                    Filter Effects spec an element with `opacity < 1` becomes a
+                    *backdrop root*, so a fading frosted surface has nothing
+                    behind it to sample and snaps to the real page the frame it
+                    reaches 1. `statsPanel` therefore carries orchestration and
+                    nothing else; every animated value lives on the children.
+
+                    Known limit: the shared depth wrapper above *does* fade on
+                    scroll, so while the hero is scrolling out this panel's
+                    blur is inert  it samples an empty backdrop root. Verified
+                    invisible in both themes, because what sits behind it there
+                    is a near-uniform field, and the hero's secondary button
+                    (variant="glass") has always had the same constraint. If a
+                    textured backdrop ever moves behind this panel, hoist it
+                    out of the faded layer rather than trying to fix the blur.
                    --------------------------------------------------------- */}
                 <motion.dl
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.75 }}
-                    className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-8 border-t border-border pt-10 sm:mt-20 md:grid-cols-4"
+                    variants={statsPanel}
+                    initial={reduced ? false : 'hidden'}
+                    animate="visible"
+                    className="glass-pane mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-y-8 rounded-4xl px-2 py-9 sm:mt-20 sm:px-4 sm:py-10 md:grid-cols-4"
                 >
                     {STATS.map((stat) => (
-                        <div key={stat.label} className="group">
+                        <motion.div
+                            key={stat.label}
+                            variants={statItem}
+                            className="group px-4 md:border-l md:border-hairline md:first:border-l-0"
+                        >
                             <dt className="sr-only">{stat.label}</dt>
                             <dd>
                                 <CountUp
@@ -304,7 +343,7 @@ export default function Hero() {
                                     {stat.label}
                                 </span>
                             </dd>
-                        </div>
+                        </motion.div>
                     ))}
                 </motion.dl>
             </motion.div>

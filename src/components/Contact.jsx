@@ -98,7 +98,7 @@ export default function Contact({ hideHeader = false, defaultMessage = '' }) {
             id="contact"
             className="relative overflow-hidden border-t border-border bg-surface-0 px-6 py-28 sm:py-36"
         >
-            <Aurora intensity="soft" />
+            <Aurora />
 
             <div className="relative mx-auto max-w-6xl">
                 {!hideHeader && (

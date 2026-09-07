@@ -47,7 +47,7 @@ export default function Services() {
 
     return (
         <section id="services" className="relative overflow-hidden px-6 py-28 sm:py-36">
-            <Aurora intensity="soft" grid />
+            <Aurora grid />
 
             <div className="relative mx-auto max-w-7xl">
                 <div className="text-center">

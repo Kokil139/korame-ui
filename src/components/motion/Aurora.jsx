@@ -1,27 +1,18 @@
 import { cn } from '@/lib/utils';
 
 /**
- * Ambient background field: slow-drifting colour blooms over an optional
- * grid, finished with film grain.
+ * Ambient background texture: an optional dot grid, film grain, and a
+ * vignette that settles the whole field into the page background.
  *
- * Pure CSS on purpose. These are large, heavily-blurred surfaces  driving
- * them from JS would mean compositing multi-megapixel layers every frame for
- * motion nobody consciously registers. `korame-drift` animates only
- * `transform`, so each bloom stays on its own compositor layer.
+ * This used to carry three large drifting colour blooms as well. They were
+ * removed  on a light canvas a heavily blurred brand-coloured disc does not
+ * read as atmosphere, it reads as a stain on the page. What is left is the
+ * texture, which is what was actually doing the work.
  *
- * `aria-hidden` throughout: this is atmosphere, not content.
+ * Pure CSS on purpose, and `aria-hidden` throughout: this is atmosphere, not
+ * content.
  */
-export default function Aurora({
-    className,
-    grid = false,
-    intensity = 'medium',
-}) {
-    const bloom = {
-        soft: ['opacity-40', 'blur-[130px]'],
-        medium: ['opacity-60', 'blur-[110px]'],
-        strong: ['opacity-80', 'blur-[100px]'],
-    }[intensity];
-
+export default function Aurora({ className, grid = false }) {
     return (
         <div
             aria-hidden="true"
@@ -32,48 +23,7 @@ export default function Aurora({
         >
             {grid && <div className="absolute inset-0 grid-field" />}
 
-            {/* Orange core bloom */}
-            <div
-                className={cn(
-                    'absolute left-1/2 top-[-10%] h-[520px] w-[720px] -translate-x-1/2 rounded-full animate-drift',
-                    bloom[0],
-                    bloom[1],
-                )}
-                style={{
-                    background:
-                        'radial-gradient(circle, var(--brand-500) 0%, transparent 68%)',
-                }}
-            />
-
-            {/* Warm counterweight, offset in phase */}
-            <div
-                className={cn(
-                    'absolute right-[-8%] top-[35%] h-[420px] w-[420px] rounded-full animate-drift',
-                    bloom[0],
-                    bloom[1],
-                )}
-                style={{
-                    background:
-                        'radial-gradient(circle, var(--brand-300) 0%, transparent 70%)',
-                    animationDelay: '-7s',
-                }}
-            />
-
-            {/* Coral low bloom */}
-            <div
-                className={cn(
-                    'absolute bottom-[-12%] left-[-6%] h-[400px] w-[520px] rounded-full animate-drift',
-                    bloom[0],
-                    bloom[1],
-                )}
-                style={{
-                    background:
-                        'radial-gradient(circle, var(--coral-glow) 0%, transparent 70%)',
-                    animationDelay: '-14s',
-                }}
-            />
-
-            {/* Vignette so the blooms never touch the section edge */}
+            {/* Vignette, so the grid never runs hard into the section edge */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_50%,transparent_35%,var(--background)_100%)]" />
         </div>
     );
